@@ -1,0 +1,14 @@
+/Java8/
+/JavaCore/
+/JDBC/
+/Logging/
+/Maven/
+/Testing/.metadata/
+/Testing/.recommenders/
+/Testing/Testing/.settings/
+/Testing/Testing/.classpath
+/Testing/Testing/.project
+
+/Testing/Testing/bin/target/
+/Testing/Testing/bin/.settings/
+/Testing/Testing/target/
