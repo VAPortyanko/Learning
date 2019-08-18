@@ -1,19 +1,18 @@
+### Maven ###
+**/target/**/*.*
+
+### Eclipse ###
+.project
+.metadata/
+.classpath
+.recommenders/
+bin/
+*.tmp
+.settings/
+
+### Temp ignoring ###
 /Java8/
 /JavaCore/
 /JDBC/
 /Logging/
 /Maven/
-/Testing/.metadata/
-/Testing/.recommenders/
-/Testing/Junit5/.settings/
-/Testing/Junit5/.classpath
-/Testing/Junit5/.project
-/Testing/Junit5/bin/target/
-/Testing/Junit5/bin/.settings/
-/Testing/Junit5/target/
-/Testing/Mockito/.settings/
-/Testing/Mockito/.classpath
-/Testing/Mockito/.project
-/Testing/Mockito/bin/target/
-/Testing/Mockito/bin/.settings/
-/Testing/Mockito/target/
