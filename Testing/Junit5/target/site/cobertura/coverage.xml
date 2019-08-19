@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
 
-<coverage line-rate="0.7647058823529411" branch-rate="1.0" lines-covered="13" lines-valid="17" branches-covered="2" branches-valid="2" complexity="1.2222222222222223" version="2.1.1" timestamp="1566096638604">
+<coverage line-rate="0.7647058823529411" branch-rate="1.0" lines-covered="13" lines-valid="17" branches-covered="2" branches-valid="2" complexity="1.2222222222222223" version="2.1.1" timestamp="1566174334672">
 	<sources>
 		<source>D:/Projects/Learning/Testing/Junit5/src/main/java</source>
 		<source>D:/Projects/Learning/Testing/Junit5/target/generated-sources/annotations</source>
@@ -14,48 +14,48 @@
 					<methods>
 						<method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="5" hits="19" branch="false"/>
+								<line number="3" hits="23" branch="false"/>
 							</lines>
 						</method>
 						<method name="add" signature="(II)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="8" hits="5" branch="false"/>
+								<line number="6" hits="6" branch="false"/>
 							</lines>
 						</method>
 						<method name="divide" signature="(II)D" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="20" hits="2" branch="true" condition-coverage="100% (2/2)">
+								<line number="18" hits="2" branch="true" condition-coverage="100% (2/2)">
 									<conditions>
 										<condition number="0" type="jump" coverage="100%"/>
 									</conditions>
 								</line>
+								<line number="19" hits="1" branch="false"/>
 								<line number="21" hits="1" branch="false"/>
-								<line number="23" hits="1" branch="false"/>
 							</lines>
 						</method>
 						<method name="multiply" signature="(II)I" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="16" hits="3" branch="false"/>
+								<line number="14" hits="3" branch="false"/>
 							</lines>
 						</method>
 						<method name="subtract" signature="(II)Ljava/lang/Object;" line-rate="1.0" branch-rate="1.0" complexity="0">
 							<lines>
-								<line number="12" hits="1" branch="false"/>
+								<line number="10" hits="1" branch="false"/>
 							</lines>
 						</method>
 					</methods>
 					<lines>
-						<line number="5" hits="19" branch="false"/>
-						<line number="8" hits="5" branch="false"/>
-						<line number="12" hits="1" branch="false"/>
-						<line number="16" hits="3" branch="false"/>
-						<line number="20" hits="2" branch="true" condition-coverage="100% (2/2)">
+						<line number="3" hits="23" branch="false"/>
+						<line number="6" hits="6" branch="false"/>
+						<line number="10" hits="1" branch="false"/>
+						<line number="14" hits="3" branch="false"/>
+						<line number="18" hits="2" branch="true" condition-coverage="100% (2/2)">
 							<conditions>
 								<condition number="0" type="jump" coverage="100%"/>
 							</conditions>
 						</line>
+						<line number="19" hits="1" branch="false"/>
 						<line number="21" hits="1" branch="false"/>
-						<line number="23" hits="1" branch="false"/>
 					</lines>
 				</class>
 				<class name="by.pva.testing.classesForTesting.Person" filename="by/pva/testing/classesForTesting/Person.java" line-rate="0.6" branch-rate="1.0" complexity="1.0">
