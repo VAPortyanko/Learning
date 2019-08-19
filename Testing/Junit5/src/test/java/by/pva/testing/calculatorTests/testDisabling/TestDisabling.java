@@ -1,4 +1,4 @@
-package by.pva.testing.calculatorTests;
+package by.pva.testing.calculatorTests.testDisabling;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

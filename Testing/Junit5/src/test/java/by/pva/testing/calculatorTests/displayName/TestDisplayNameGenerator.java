@@ -1,4 +1,4 @@
-package by.pva.testing.calculatorTests;
+package by.pva.testing.calculatorTests.displayName;
 
 import java.lang.reflect.Method;
 

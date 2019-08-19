@@ -1,4 +1,4 @@
-package by.pva.testing.calculatorTests;
+package by.pva.testing.calculatorTests.displayName;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
