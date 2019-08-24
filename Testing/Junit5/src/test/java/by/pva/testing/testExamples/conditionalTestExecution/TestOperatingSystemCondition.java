@@ -8,7 +8,6 @@ import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.junit.jupiter.api.condition.OS;
 
 import by.pva.testing.classesForTesting.Calculator;
-import by.pva.testing.customAnnotations.composedAnnotation.TestOnWindows;
 
 public class TestOperatingSystemCondition {
 	
@@ -26,7 +25,7 @@ public class TestOperatingSystemCondition {
 		// ...
 	}
 
-	@TestOnWindows
+	@OnWindows
 	void testOnWindows() {
 		assertEquals(2, calculator.add(1, 1));
 	}

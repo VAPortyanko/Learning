@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import by.pva.testing.classesForTesting.Calculator;
-import by.pva.testing.customAnnotations.composedAnnotation.FastTest;
-import by.pva.testing.customAnnotations.metaAnnotation.Fast;
+import by.pva.testing.testExamples.MetaAndComposedAnnotaitons.Fast;
+import by.pva.testing.testExamples.MetaAndComposedAnnotaitons.FastTest;
 
 class TestWithMetaAndComposedAnnotations {
 
