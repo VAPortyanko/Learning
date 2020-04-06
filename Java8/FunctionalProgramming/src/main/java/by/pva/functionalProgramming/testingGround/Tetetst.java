@@ -33,7 +33,6 @@ public class Tetetst {
 	}
 }
 
-
 interface Performance {
 	public String getName();
 
