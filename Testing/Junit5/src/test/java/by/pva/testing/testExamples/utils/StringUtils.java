@@ -1,4 +1,4 @@
-package by.pva.testing.testExamples.testInterfacesAndDefaultMethods.example_01.utils;
+package by.pva.testing.testExamples.utils;
 
 public class StringUtils {
 

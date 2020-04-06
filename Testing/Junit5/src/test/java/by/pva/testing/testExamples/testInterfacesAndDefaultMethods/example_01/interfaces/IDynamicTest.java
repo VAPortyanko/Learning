@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 
-import by.pva.testing.testExamples.testInterfacesAndDefaultMethods.example_01.utils.StringUtils;
+import by.pva.testing.testExamples.utils.StringUtils;
 
 public interface IDynamicTest {
 

@@ -18,7 +18,7 @@ public class Calculator {
 		if (j == 0) 
 			throw new ArithmeticException("/ by zero");
 		
-		return i/(double)j;   // If j = 0 the result is "Infinity". 
-		                      // (If we omit the typecasting then an ArithmeticException will be thrown).
+		return i/(double) j;
+		                      
 	}
 }
