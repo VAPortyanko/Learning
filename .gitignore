@@ -11,7 +11,5 @@ bin/
 .settings/
 
 ### Temp ignoring ###
-/JavaCore/
-/JDBC/
 /Logging/
 /Maven/

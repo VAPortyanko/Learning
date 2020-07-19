@@ -1,0 +1,5 @@
+Java NIO Channels are similar to streams with a few differences:
+You can both read and write to a Channels. Streams are typically one-way (read or write).
+Channels can be read and written asynchronously.
+Channels always read to, or write from, a Buffer.
+As mentioned above, you read data from a channel into a buffer, and write data from a buffer into a channel. Here is an illustration of that: 
