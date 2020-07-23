@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>by.pva</groupId>
+	<artifactId>JDBC</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JDBC Learning</name>
+
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mysql-connector-java>8.0.20</mysql-connector-java>
+	</properties>
+
+	<dependencies>
+
+		<!--driver for connection to MYSql database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-connector-java}</version>
+		</dependency>
+
+	</dependencies>
+
+</project>
