@@ -10,7 +10,7 @@
 
 		
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost:3306/hiber_oracle?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hibernate_jboss_intro?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk</property>
 		<property name="connection.username">root</property>
 		<property name="connection.password">password</property>
 		<property name="connection.pool_size">1</property>

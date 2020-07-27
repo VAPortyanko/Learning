@@ -25,6 +25,7 @@ public class TestXML {
 		try {
 			sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 		} catch (Exception e) {
+			System.out.println(e);
 			// The registry would be destroyed by the SessionFactory, but we had trouble
 			// building the SessionFactory
 			// so destroy it manually.

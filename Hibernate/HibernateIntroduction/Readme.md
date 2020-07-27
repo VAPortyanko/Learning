@@ -1,1 +1,0 @@
-https://docs.jboss.org/hibernate/orm/5.4/quickstart/html_single/
