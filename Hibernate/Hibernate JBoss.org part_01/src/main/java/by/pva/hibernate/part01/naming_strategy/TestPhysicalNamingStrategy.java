@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.namingstrategy;
+package by.pva.hibernate.part01.naming_strategy;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,9 +7,9 @@ import javax.persistence.Persistence;
 public class TestPhysicalNamingStrategy {
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = null;
 		try {
-			entityManagerFactory = Persistence
+
+			EntityManagerFactory entityManagerFactory = Persistence
 					.createEntityManagerFactory("by.pva.hibernate.part01.namingstrategy.physical_naming_strategy");
 
 			Customer customer = new Customer();
@@ -25,9 +25,11 @@ public class TestPhysicalNamingStrategy {
 			entityManager.close();
 
 			entityManagerFactory.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		System.out.println("End!");
 	}
 }

@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.test;
+package by.pva.hibernate.part01.Wtest;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,11 +9,20 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.boot.MetadataBuilder;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.BasicType;
+
+import by.pva.hibernate.part01.types.value_types.basic_types.custom_types.BitSetType;
+
+
 @SuppressWarnings("unused")
 public class TestJPA {
 	public static void main(String[] args) throws MalformedURLException {
 
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("by.pva.hibernate.part01.test");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("by.pva.hibernate.part01.basic");
 
 		Contact.Name name = new Contact.Name();
 		name.setFirst("Vasia");

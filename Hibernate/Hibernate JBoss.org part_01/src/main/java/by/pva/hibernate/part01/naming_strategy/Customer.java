@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.namingstrategy;
+package by.pva.hibernate.part01.naming_strategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

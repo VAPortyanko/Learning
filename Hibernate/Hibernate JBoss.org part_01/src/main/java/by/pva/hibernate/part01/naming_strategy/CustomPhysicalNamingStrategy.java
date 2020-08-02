@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.namingstrategy;
+package by.pva.hibernate.part01.naming_strategy;
 
 import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
