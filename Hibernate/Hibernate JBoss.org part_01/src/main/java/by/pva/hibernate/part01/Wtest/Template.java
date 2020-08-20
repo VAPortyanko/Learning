@@ -3,6 +3,7 @@ package by.pva.hibernate.part01.Wtest;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class Template {
 
@@ -22,5 +23,11 @@ public class Template {
 		entityManager.close();
 		entityManagerFactory.close();
 
+		Query query = entityManager.createQuery("delete from SystemUsers2");
+		Query query2 = entityManager.createQuery("delete from Subsystems");
+		query.executeUpdate();
+		query2.executeUpdate();
+		
 	}
 }
+// Examples - https://github.com/hibernate/hibernate-orm/blob/ceaeb81e3362ff187004ea3479b2afeeba5aa8a6/documentation/src/test/java/org/hibernate/userguide/mapping/identifier/IdClassGeneratedValueTest.java#L77
