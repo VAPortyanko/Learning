@@ -1,5 +1,6 @@
-package by.pva.hibernate.part01.types.entity_types;
+package by.pva.hibernate.part01.types.entity_types.identifiers.generated_identifiers;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,56 +8,55 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Persistence;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 
-public class TestTableAnnotation {
+public class TestSequenceIdentifierType {
+
 	public static void main(String[] args) {
+		
 		EntityManagerFactory entityManagerFactory = Persistence
 				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Book book = new Book();
-		book.setTitle("Title");
-		book.setAuthor("Author");
+		Product5 product5 = new Product5();
+		product5.setName("Name");
 
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		entityManager.persist(book);
+		entityManager.persist(product5);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		entityManagerFactory.close();
+
 	}
 }
 
-@Entity(name = "Book") // The name provided for using in JPQL queries.
-@Table(
-//	catalog = "public",
-//	schema = "store",
-	name = "books4"     // The table name.
-)
-class Book {
+@Entity(name = "Products5")
+class Product5 {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,
+	                generator = "sequence-generator")
+	@SequenceGenerator(name = "sequence-generator",
+	                   sequenceName = "product5_sequence",
+	                   allocationSize = 1)
 	private Long id;
-	private String title;
-	private String author;
+	@Column(name = "product_name")
+	private String name;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}
