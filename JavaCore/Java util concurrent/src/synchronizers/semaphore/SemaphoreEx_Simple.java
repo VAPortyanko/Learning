@@ -4,18 +4,22 @@ import java.util.concurrent.Semaphore;
 
 public class SemaphoreEx_Simple {
 	public static void main(String[] args) {
+
 		Semaphore sem = new Semaphore(2);
-		Thread t1 = new Thread(new Task(sem)), t2 = new Thread(new Task(sem)), t3 = new Thread(new Task(sem));
-		
+		Thread t1 = new Thread(new Task(sem));
+		Thread t2 = new Thread(new Task(sem));
+		Thread t3 = new Thread(new Task(sem));
+
 		t1.start();
 		t2.start();
 		t3.start();
 	}
 }
 
-class Task implements Runnable{
-	Semaphore sem;
+class Task implements Runnable {
 	
+	Semaphore sem;
+
 	public Task(Semaphore sem) {
 		this.sem = sem;
 	}

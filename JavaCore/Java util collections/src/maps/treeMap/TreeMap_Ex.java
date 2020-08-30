@@ -5,10 +5,11 @@ import java.util.TreeMap;
 
 public abstract class TreeMap_Ex {
 	public static void main(String[] args) {
-		// created an object of type TreeMap.
+		
+		// create an object of type TreeMap.
 		TreeMap<String, String> myTreeMap = new TreeMap<String, String>();
 		
-		// putted four pair in the TreeMap object.
+		// put four pair in the TreeMap object.
 		myTreeMap.put("2", "Vasia");
 		myTreeMap.put("1", "Petia");
 		myTreeMap.put("4", "Grisha");
@@ -20,8 +21,7 @@ public abstract class TreeMap_Ex {
 		for(Map.Entry<String, String> e: myTreeMap.entrySet()){
 			System.out.println("Key: " + e.getKey() + " value: " + e.getValue());
 		}
-		
-		// Возвращает Entry, чей ключ больше или равен ключу(параметру).
+
 		System.out.println(myTreeMap.tailMap("2"));
 		System.out.println(myTreeMap.headMap("3"));
 	}

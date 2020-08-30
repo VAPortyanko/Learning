@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 public class HashSet_sortOrder {
 	public static void main(String[] args) {
+		
 		HashSet<Object> set = new HashSet<Object>();
 		
 		set.add(new someClass("First  added element", 2));

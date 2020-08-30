@@ -3,6 +3,7 @@ package keywords_super;
 public class SuperInConstructor {
 	
 	public static void main(String[] args){
+		
 		SuperInConstructor classMain = new SuperInConstructor();
 		A a0 = classMain.new A();
 		A a3 = classMain.new A(2, true, "Hello!");

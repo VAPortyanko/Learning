@@ -30,16 +30,16 @@ public class ExchangerEx_Delivery {
         @Override
         public void run() {
             try {
-                System.out.printf("In the track ¹%d was loaded: %s è %s.\n", number, parcels[0], parcels[1]);
-                System.out.printf("Track ¹%d left point %s to point %s.\n", number, dep, dest);
+                System.out.printf("In the track #%d was loaded: %s ï¿½ %s.\n", number, parcels[0], parcels[1]);
+                System.out.printf("Track #%d left point %s to point %s.\n", number, dep, dest);
                 Thread.sleep(1000 + (long) Math.random() * 5000);
-                System.out.printf("Truck N%d arrived at point E.\n", number);
+                System.out.printf("Truck #%d arrived at point E.\n", number);
                 parcels[1] = EXCHANGER.exchange(parcels[1]); // When exchange () is called, the thread blocks and waits
                 // while another thread calls exchange (), after that there will be an exchange of packages.
-                System.out.printf("The parcel for point %s was moved to truck ¹%d.\n", dest, number);
+                System.out.printf("The parcel for point %s was moved to truck #%d.\n", dest, number);
                 
                 Thread.sleep(1000 + (long) Math.random() * 5000);
-                System.out.printf("Truck N%d arrived at %s and delivered: %s è %s.\n", number, dest, parcels[0], parcels[1]);
+                System.out.printf("Truck #%d arrived at %s and delivered: %s ï¿½ %s.\n", number, dest, parcels[0], parcels[1]);
             } catch (InterruptedException e) {
             }
         }

@@ -2,6 +2,7 @@ package extendsThreadExample;
 
 public class ExtendsThreadExample {
 	public static void main(String[] args) {
+		
 		new NewThred();
 		
 		try{
@@ -16,6 +17,7 @@ public class ExtendsThreadExample {
 	}
 	
 	static class NewThred extends Thread{
+		
 		public NewThred() {
 			super("Demo-thread");
 			System.out.println("Child thread:" + this);
@@ -34,5 +36,4 @@ public class ExtendsThreadExample {
 			System.out.println("Child thread is finished.");
 		}
 	}
-	
 }

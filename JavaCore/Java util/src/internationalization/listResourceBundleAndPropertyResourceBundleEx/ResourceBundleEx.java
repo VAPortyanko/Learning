@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 public class ResourceBundleEx {
    public static void main(String[] args) {
+	   
 	   Locale locale = new Locale("de", "DE"); //no bundle for German -> default
 	   ResourceBundle bundle = ResourceBundle.getBundle("internationalization.listResourceBundleAndPropertyResourceBundleEx.MyClassBundle", locale);
 	   

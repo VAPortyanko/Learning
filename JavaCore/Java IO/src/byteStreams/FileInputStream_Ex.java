@@ -7,9 +7,10 @@ import java.io.IOException;
 
 public class FileInputStream_Ex {
 	public static void main(String[] args) {
+		
 		File f = new File("Files/FileInputStream/FileForRead.txt");
-
 		FileInputStream fileStream = null;
+		
 		// create the stream.
 		try {
 			fileStream = new FileInputStream(f);

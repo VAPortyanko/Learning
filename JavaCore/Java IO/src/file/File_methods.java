@@ -113,7 +113,6 @@ public class File_methods {
 //                                           FileNameFiler                                             //
 // *************************************************************************************************** //		
 		System.out.println("\nOnly *.txt files: ");
-		// лист с фильтром только для текстовых фалйов.
 		String[] list3 = f4.list(new FilenameFilter() {
 			
 			@Override

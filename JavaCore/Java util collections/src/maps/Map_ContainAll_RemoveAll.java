@@ -8,14 +8,11 @@ import java.util.TreeSet;
 
 public class Map_ContainAll_RemoveAll {
 	public static void main(String[] args) {
+
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("Admin",     "Vasia");
-		map.put("Admin",     "Petia");
 		map.put("Admin",     "Danila");
 		map.put("Manager",   "Sergey");
-		map.put("Manager",   "Dmitrtij");
 		map.put("Developer", "Aleksandr");
-		map.put("Developer", "Grisha");
 		
 		Set<String> requiredRoles = new TreeSet<String>();
 		Set<String> permitedRoles = new TreeSet<String>();

@@ -6,9 +6,11 @@ import java.io.InputStreamReader;
 
 public class ConsoleRead {
 	public static void main(String[] args) throws IOException {
-		String str;
+		
 		System.out.println("Print text. Press \"!stop\" to exit.");
-		while(true){
+
+		String str;
+		while (true) {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			char firstChar = (char) br.read(); // Read first symbol.
 			str = br.readLine(); // Read the rest.

@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 
 public class PriorityQueue_Ex{
     public static void main(String[] args){
+    	
         Comparator<String> comparator = new StringLengthComparator();
         PriorityQueue<String> queue = new PriorityQueue<String>(10, comparator);
         

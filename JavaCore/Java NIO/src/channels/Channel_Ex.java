@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 public class Channel_Ex {
 	public static void main(String[] args) throws IOException {
 		
-		RandomAccessFile aFile = new RandomAccessFile("Files/Channels/nio-data.txt", "rw");
+		RandomAccessFile aFile = new RandomAccessFile("Files/Channels/nio-data.txt", "r");
 	    FileChannel inChannel = aFile.getChannel();
 
 	    ByteBuffer buf = ByteBuffer.allocate(48);
@@ -22,8 +22,8 @@ public class Channel_Ex {
 	      while(buf.hasRemaining()){
 	          System.out.print((char) buf.get());
 	      }
-	      System.out.println();
-	      System.out.println();
+	      
+	      System.out.println("\n");
 
 	      buf.clear();
 	      bytesRead = inChannel.read(buf);

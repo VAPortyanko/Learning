@@ -1,4 +1,4 @@
-// Конструктор семафора в качестве аргумента получает начальное количество доступных разрешений. Даже если оно равно изначально 0, то его можно увеличить используюя release метод.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 0, пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ release пїЅпїЅпїЅпїЅпїЅ.
 package synchronizers.semaphore;
 
 import java.util.concurrent.Semaphore;
@@ -6,8 +6,10 @@ import java.util.concurrent.Semaphore;
 public class ZeroPermitsSemaphore {
 
 	public static void main(String[] args) {
+
 		Semaphore sem = new Semaphore(0);
 		new Thread(new Task2(sem)).start();
+		
 	}
 
 }
@@ -23,14 +25,14 @@ class Task2 implements Runnable{
 	@Override
 	public void run() {
 		try {
-			System.out.println(sem.availablePermits());
+			System.out.println("Available permits: " + sem.availablePermits());
 			sem.release();
-			System.out.println(sem.availablePermits());			
+			System.out.println("Available permits: " + sem.availablePermits());			
 			sem.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println(sem.availablePermits());
+		System.out.println("Available permits: " + sem.availablePermits());
 	}
 	
 }

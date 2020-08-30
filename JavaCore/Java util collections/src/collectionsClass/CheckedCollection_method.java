@@ -15,7 +15,7 @@ public class CheckedCollection_method {
         Collection c2 = c;
         c2.add(1);
         System.out.println(c2);
-// ************************************************************************        
+       
         Collection<String> c3 = new ArrayList<>();
         c3 = Collections.checkedCollection(c3, String.class);
         Collections.addAll(c3, "apple", "banana");

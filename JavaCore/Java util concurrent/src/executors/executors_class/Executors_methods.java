@@ -10,8 +10,7 @@ public class Executors_methods {
 		ExecutorService exec1 = Executors.newCachedThreadPool();
 		ExecutorService exec2 = Executors.newFixedThreadPool(5);
 		ExecutorService exec3 = Executors.newSingleThreadExecutor();
-		ExecutorService exec4 = Executors.newWorkStealingPool();
-		
+		ExecutorService exec4 = Executors.newWorkStealingPool();		
 		ScheduledExecutorService scExec1 = Executors.newScheduledThreadPool(5);
 		ScheduledExecutorService scExec2 = Executors.newSingleThreadScheduledExecutor();
 	}

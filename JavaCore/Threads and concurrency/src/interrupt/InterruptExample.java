@@ -39,6 +39,7 @@ public class InterruptExample {
 	    Thread th = new R();
 	    th.start();
 	    Thread.sleep(2000);
+	    
 	    synchronized(th){
 	    	th.interrupt();
 	    }

@@ -11,7 +11,7 @@ public class StringFromCodePoint {
 		System.out.println();
 		
 		// Chinese symbol.
-		System.out.println("Chinese symbol: " + newString(37329));
+		System.out.println("Chinese symbol: " + newString(37328));
 		
 		char c = 37329;
 		System.out.println(c);

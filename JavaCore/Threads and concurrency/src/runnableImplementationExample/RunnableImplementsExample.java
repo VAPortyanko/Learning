@@ -3,6 +3,7 @@ package runnableImplementationExample;
 class RunnableImplementsExample{
 	
 	public static void main(String[] args) {
+		
 		new RunnableImplementsThread();
 		
 		try {

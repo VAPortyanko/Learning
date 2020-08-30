@@ -10,7 +10,7 @@ public class SynchronizedClassLevel {
 	
 	public class DemoClass2{
 	    public void demoMethod(){
-	        synchronized (DemoClass.class)        {
+	        synchronized (DemoClass2.class)        {
 	            //other thread safe code
 	        }
 	    }

@@ -18,6 +18,7 @@ public class BinarySearch_method {
 	      Collections.sort(arlst);
 	      int index = Collections.binarySearch(arlst, "C");     
 
+	      System.out.println(arlst);
 	      System.out.println("'C' is available at index: " + index);
 	   }    
 	}

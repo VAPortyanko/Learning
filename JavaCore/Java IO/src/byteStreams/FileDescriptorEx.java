@@ -15,7 +15,7 @@ public class FileDescriptorEx {
 		File file = new File("Files/FileInputStream/FileDescriptorEx.txt");
 		
 		FileOutputStream out1 = null, out2 = null, out3 = null;
-		
+		 
 		try {
 			 out1 = new FileOutputStream(file);
 			

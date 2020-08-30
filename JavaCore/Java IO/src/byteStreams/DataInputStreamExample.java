@@ -9,6 +9,7 @@ import java.io.IOException;
 public class DataInputStreamExample {
 
     public static void main(String[] args) throws IOException {
+    	
         DataOutputStream dataOutputStream = new DataOutputStream(new FileOutputStream("Files/data.bin"));
 
         dataOutputStream.writeInt(123);

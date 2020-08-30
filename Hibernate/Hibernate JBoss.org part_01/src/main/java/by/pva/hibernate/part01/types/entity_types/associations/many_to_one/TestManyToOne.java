@@ -41,8 +41,7 @@ public class TestManyToOne {
 	}
 }
 
-@Entity
-@Table(name = "Persons6")
+@Entity(name = "persons6")
 class Person {
 
 	@Id
