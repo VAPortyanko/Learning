@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class AtomicBooleanExample{
 
 	public static void main(String[] args){
+		
 		final AtomicBoolean atomicBoolean = new AtomicBoolean(false);
 
 		new Thread("T1"){

@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SyncronizedXXXmethodsUsConcyrrentCollections {
+	
 	public static void main(String[] args) {
+		
 		Map<String, String>syncMap = Collections.synchronizedMap(new HashMap<String, String>());
 		syncMap.put(null, null);   // May allow null  keys and null values based on the original collection class being passed inside it.
 		System.out.println(syncMap);

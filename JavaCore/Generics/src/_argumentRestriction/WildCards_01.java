@@ -24,6 +24,7 @@ public class WildCards_01<T extends TwoD> {
 	}
 	
 	public static void main(String[] args) {
+		
 		TwoD twoD[] = {new TwoD(2, 3), new TwoD(1, 1), new TwoD(4, 7)};
 		ThreeD threeD[] = {new ThreeD(2, 3, 4), new ThreeD(1, 1, 6), new ThreeD(4, 5, 6)};
 		FourD fourD[] = {new FourD(2, 3, 8 ,6), new FourD(1, 1, 1, 1), new FourD(4, 7, 1, 5)};

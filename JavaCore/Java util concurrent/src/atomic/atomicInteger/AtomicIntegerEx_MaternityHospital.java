@@ -70,6 +70,7 @@ class NewMan extends Thread{
 }
 
 class idsFromAtomic{
+	
 	public static int countMan = 0;      
 	public static int countWoman = 0;    
 	

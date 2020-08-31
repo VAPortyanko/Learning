@@ -9,7 +9,9 @@ import java.util.concurrent.Future;
 
 public class MyExecutorService {
 	public static void main(String[] args) throws Exception{
+		
 		ExecutorService executor = Executors.newFixedThreadPool(2);
+		
 		System.out.println("submit worker 1");
 		Future<String> future1 = executor.submit(new Worker("worker1"));
 		System.out.println("submit worker 2");
@@ -19,7 +21,7 @@ public class MyExecutorService {
 		System.out.println("Result from worker 2: " + future2.get());
 		System.out.println("-------------------------------------------------------");
 		
-		System.out.println("submit workers using invokeAll()"); // Постановка в очередь сразу нескольких потоков. Метод invokeAll гарантирует завершение всех потоков по выходу из него.
+		System.out.println("submit workers using invokeAll()"); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅ invokeAll пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ.
 		List<Future<String>> futures = executor.invokeAll(Arrays.asList(new Worker("worker1"), new Worker("worker2")));
 		System.out.println("Exited involkeAll()");
 		

@@ -4,6 +4,7 @@ public class ParametrizedInterface {
 	
 	// public static class FooService<T> implements Service<T> {
 	public static class FooService implements Service<String> {	
+		
 	    private final String input1;
 	    private final int input2;
 

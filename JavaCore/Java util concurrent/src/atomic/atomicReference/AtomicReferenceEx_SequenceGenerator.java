@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.math.BigInteger;
 
 public class AtomicReferenceEx_SequenceGenerator {
+	
 	public static void main(String[] args) {
+		
 		SequenceGenerator sg = new SequenceGenerator();
 		List<Sequence> sequences = new ArrayList<Sequence>();
 		for (int i = 0; i < 10; i++) {
@@ -36,10 +38,12 @@ public class AtomicReferenceEx_SequenceGenerator {
 }
 
 class SequenceGenerator {
+	
 	private BigInteger MULTIPLIER;
 	private AtomicReference<BigInteger> element;
 
 	public SequenceGenerator() {
+		
 //		if (MULTIPLIER == null)
 		MULTIPLIER = BigInteger.valueOf(2);
 		element = new AtomicReference<BigInteger>(BigInteger.ONE);
@@ -57,6 +61,7 @@ class SequenceGenerator {
 }
 
 class Sequence implements Runnable {
+	
 	Thread thread;
 	int id;
 	int count;

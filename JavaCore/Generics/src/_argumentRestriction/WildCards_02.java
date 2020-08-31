@@ -27,6 +27,7 @@ public class WildCards_02 <T extends Number>{
 	
 	
 	public static void main(String[] args) {
+		
 		Integer[] mas1 = {1, 5, 7, 3}; 		
 		Double[] mas2 = {1.2, 4.5, 6.7};
 		

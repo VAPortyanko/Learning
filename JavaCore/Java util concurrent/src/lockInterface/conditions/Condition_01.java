@@ -5,6 +5,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 class LockCondition {
+	
 	   final Lock lock = new ReentrantLock();
 	   final Condition notFull  = lock.newCondition(); 
 	   final Condition notEmpty = lock.newCondition(); 
