@@ -1,0 +1,1 @@
+Try-with-resources in Java 7 is a new exception handling mechanism that makes it easier to correctly close resources that are used within a try-catch block. 
