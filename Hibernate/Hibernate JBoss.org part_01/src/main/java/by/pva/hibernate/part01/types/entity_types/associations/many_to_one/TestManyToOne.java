@@ -17,23 +17,23 @@ public class TestManyToOne {
 
 	public static void main(String[] args) {
 
-			EntityManagerFactory entityManagerFactory = Persistence
-					.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-	
+		EntityManagerFactory entityManagerFactory = Persistence
+				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
-		
-		Person person = new Person();
+
+		Person9 person = new Person9();
 		person.setName("Person");
-		entityManager.persist( person );
-		
-		Phone phone = new Phone( "123-456-7890" );
-		phone.setPerson( person );
-		entityManager.persist( phone );
-		
+		entityManager.persist(person);
+
+		Phone2 phone = new Phone2("123-456-7890");
+		phone.setPerson(person);
+		entityManager.persist(phone);
+
 		entityManager.flush();
-		//phone.setPerson( null );
-		
+		phone.setPerson( null );
+
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		entityManagerFactory.close();
@@ -41,8 +41,9 @@ public class TestManyToOne {
 	}
 }
 
-@Entity(name = "persons6")
-class Person {
+@Entity
+@Table(name = "Persons9")
+class Person9 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,7 +70,7 @@ class Person {
 
 @Entity
 @Table(name = "Phones2")
-class Phone {
+class Phone2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,12 +78,11 @@ class Phone {
 	@Column(name = "`number`")
 	private String number;
 
-	@ManyToOne
-	@JoinColumn(name = "person_id", 
-	            foreignKey = @ForeignKey(name = "PERSON_ID_FK"))
-	private Person person;
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "PERSON_ID_FK"))
+	private Person9 person;
 
-	public Phone(String number) {
+	public Phone2(String number) {
 		this.number = number;
 	}
 
@@ -102,11 +102,11 @@ class Phone {
 		this.number = number;
 	}
 
-	public Person getPerson() {
+	public Person9 getPerson() {
 		return person;
 	}
 
-	public void setPerson(Person person) {
+	public void setPerson(Person9 person) {
 		this.person = person;
 	}
 
@@ -129,6 +129,3 @@ class Phone {
 // ALTER TABLE Phone
 // ADD CONSTRAINT PERSON_ID_FK
 // FOREIGN KEY (person_id) REFERENCES Person
-
-
-

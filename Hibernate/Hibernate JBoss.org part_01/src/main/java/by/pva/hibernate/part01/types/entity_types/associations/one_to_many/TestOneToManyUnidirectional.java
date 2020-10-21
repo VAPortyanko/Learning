@@ -26,13 +26,21 @@ public class TestOneToManyUnidirectional {
 
 		Person7 person = new Person7();
 		Phone3 phone1 = new Phone3("123-456-7890");
-		Phone3 phone2 = new Phone3("321-654-0987");
+		Phone3 phone2 = new Phone3("421-654-4980");
+		Phone3 phone3 = new Phone3("922-155-7981");
+		Phone3 phone4 = new Phone3("123-956-2982");
 		person.getPhones().add(phone1);
 		person.getPhones().add(phone2);
+		person.getPhones().add(phone3);
+		person.getPhones().add(phone4);
 
 		entityManager.persist(person);
 		entityManager.flush();
 
+		// The unidirectional associations are not very efficient when it comes to removing child entities. 
+		// In the example above, upon flushing the persistence context, Hibernate deletes all database rows
+		// from the link table (e.g. Person_Phone) that are associated with the parent Person entity and 
+		// reinserts the ones that are still found in the @OneToMany collection.
 		person.getPhones().remove(phone1);
 
 		entityManager.getTransaction().commit();

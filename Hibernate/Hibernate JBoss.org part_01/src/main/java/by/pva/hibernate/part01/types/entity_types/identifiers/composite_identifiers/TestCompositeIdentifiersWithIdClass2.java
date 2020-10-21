@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.SequenceGenerator;
 
 public class TestCompositeIdentifiersWithIdClass2 {
 
@@ -43,7 +45,8 @@ class SystemUser4 {
 	@Id
 	private String username;
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_seq")
+	@SequenceGenerator(name="users_seq", sequenceName="SystemUser4Sequence", allocationSize=10)
 	private Integer registrationId;
 
 	private String name;

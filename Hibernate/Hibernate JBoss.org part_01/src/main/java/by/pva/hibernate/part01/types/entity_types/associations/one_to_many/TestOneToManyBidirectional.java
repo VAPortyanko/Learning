@@ -31,7 +31,7 @@ public class TestOneToManyBidirectional {
 
 		Person8 person = new Person8();
 		Phone4 phone1 = new Phone4("123-456-7890");
-		Phone4 phone2 = new Phone4("321-654-0987");
+		Phone4 phone2 = new Phone4("321-654-0984");
 
 		person.addPhone(phone1);
 		person.addPhone(phone2);

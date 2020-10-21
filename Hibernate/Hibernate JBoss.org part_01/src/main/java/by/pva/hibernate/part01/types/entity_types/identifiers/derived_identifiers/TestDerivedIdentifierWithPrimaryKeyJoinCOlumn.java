@@ -10,7 +10,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestDerivedIdentifierWithPrimaryKeyJoinCOlumn {
+public class TestDerivedIdentifierWithPrimaryKeyJoinColumn {
 
 	public static void main(String[] args) {
 		EntityManagerFactory entityManagerFactory = Persistence

@@ -15,8 +15,8 @@ public class TestDerivedIdentifierWithMapsId {
 		EntityManagerFactory entityManagerFactory = Persistence
 				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Person person = new Person("ABC-123");
-		person.setId(1L);
+		Person person = new Person("ABC-1234");
+		person.setId(5L);
 
 		PersonDetails personDetails = new PersonDetails();
 		personDetails.setNickName("John Doe");
