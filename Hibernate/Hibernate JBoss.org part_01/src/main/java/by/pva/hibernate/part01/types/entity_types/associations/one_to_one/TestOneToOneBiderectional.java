@@ -74,7 +74,10 @@ class Phone6_2 {
 	private Long id;
 	@Column(name = "`number`")
 	private String number;
-	@OneToOne(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "phone",
+			  cascade = CascadeType.ALL,
+			  orphanRemoval = true,
+			  fetch = FetchType.LAZY)
 	private PhoneDetails3_2 details;
 
 	public Long getId() {
