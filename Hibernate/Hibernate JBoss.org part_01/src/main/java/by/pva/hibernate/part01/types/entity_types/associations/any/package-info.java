@@ -4,7 +4,7 @@
             @MetaValue(value = "I", targetEntity = IntegerProperty.class)
         }
     )
-package by.pva.hibernate.part01.types.entity_types.associations.anydAssociationMapping;
+package by.pva.hibernate.part01.types.entity_types.associations.any;
 
 import org.hibernate.annotations.AnyMetaDef;
 import org.hibernate.annotations.MetaValue;

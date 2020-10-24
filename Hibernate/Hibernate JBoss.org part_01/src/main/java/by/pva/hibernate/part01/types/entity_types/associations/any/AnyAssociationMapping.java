@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.entity_types.associations.anydAssociationMapping;
+package by.pva.hibernate.part01.types.entity_types.associations.any;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -153,7 +153,7 @@ class PropertyHolder {
 	private Long id;
 	@Any(metaDef = "PropertyMetaDef",
 		 metaColumn = @Column(name = "property_type"))
-//	@AnyMetaDef( name= "PropertyMetaDef", metaType = "string", idType = "long",
+//	@AnyMetaDef(name= "PropertyMetaDef", metaType = "string", idType = "long",
 //    metaValues = {
 //            @MetaValue(value = "S", targetEntity = StringProperty.class),
 //            @MetaValue(value = "I", targetEntity = IntegerProperty.class)
