@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.entity_types.associations.any;
+package by.pva.hibernate.part01.types.entity_types.associations.many_to_one.any;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.*;
 
-public class AnyAssociationMapping {
+public class TestManyToOneAny {
 
 	public static void main(String[] args) {
 		
