@@ -1,5 +1,8 @@
-package by.pva.hibernate.part01.types.entity_types.associations.many_to_one.JoinFormula;
+package by.pva.hibernate.part01.types.entity_types.associations.many_to_one.JoinColumnOrFormula;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -8,10 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.JoinFormula;
 
-public class TestManyToOne_JoinFormula {
+public class TestManyToOneJoinColumnOrFormula {
+
 	public static void main(String[] args) {
 
 		EntityManagerFactory entityManagerFactory = Persistence
@@ -20,46 +26,45 @@ public class TestManyToOne_JoinFormula {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		Query query1 = entityManager.createQuery("delete from User");
-		Query query2 = entityManager.createQuery("delete from Country3");
+		Query query1 = entityManager.createQuery("delete from User2");
+		Query query2 = entityManager.createQuery("delete from Country4");
 		query1.executeUpdate();
 		query2.executeUpdate();
 		
-//		Country US = new Country();
-//		US.setId(1);
-//		US.setName("United States");
+		Country US = new Country();
+		US.setId(1);
+		US.setDefault(true);
+		US.setPrimaryLanguage("English");
+		US.setName("United States");
 
 		Country Romania = new Country();
 		Romania.setId(40);
+		Romania.setDefault(true);
 		Romania.setName("Romania");
+		Romania.setPrimaryLanguage("Romanian");
 
-//		entityManager.persist(US);
+		entityManager.persist(US);
 		entityManager.persist(Romania);
-
-//		User user1 = new User();
-//		user1.setId(1L);
-//		user1.setFirstName("John");
-//		user1.setLastName("Doe");
-//		user1.setPhoneNumber("+1-234-5678");
 		
-//		entityManager.persist(user1);
+		User user1 = new User();
+		user1.setId(1L);
+		user1.setFirstName("John");
+		user1.setLastName("Doe");
+		user1.setLanguage("English");
+		entityManager.persist(user1);
 
 		User user2 = new User();
 		user2.setId(2L);
 		user2.setFirstName("Vlad");
 		user2.setLastName("Mihalcea");
-		user2.setPhoneNumber("+40-123-4567");
-		
+		user2.setLanguage("Romanian");
 		entityManager.persist(user2);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 
-		//User john = entityManager.find(User.class, 1L);
-		//System.out.println(john.getCountry());
+		entityManager.flush();
+		entityManager.clear();
+		
+		User john = entityManager.find(User.class, 1L);
+		System.out.println(john.getCountry().getName());
 
 		User vlad = entityManager.find(User.class, 2L);
 		System.out.println(vlad.getCountry().getName());
@@ -71,19 +76,19 @@ public class TestManyToOne_JoinFormula {
 	}
 }
 
-@Entity(name = "User")
-@Table(name = "users")
+@Entity(name = "User2")
+@Table(name = "users2")
 class User {
 
 	@Id
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String phoneNumber;
+	private String language;
 
 	@ManyToOne
-	//@JoinFormula("REGEXP_REPLACE(phoneNumber, '\\+(\\d+)-.*', '\\1')::int") // ToDo: adapt this for MySql.
-	@JoinFormula("40")
+	@JoinColumnOrFormula(column = @JoinColumn(name = "language", referencedColumnName = "primaryLanguage", insertable = false, updatable = false))
+	@JoinColumnOrFormula(formula = @JoinFormula(value = "true", referencedColumnName = "is_default"))
 	private Country country;
 
 	public Long getId() {
@@ -110,12 +115,12 @@ class User {
 		this.lastName = lastName;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getLanguage() {
+		return language;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	public Country getCountry() {
@@ -128,13 +133,18 @@ class User {
 
 }
 
-@Entity(name = "Country3")
-@Table(name = "countries3")
-class Country {
+@Entity(name = "Country4")
+@Table(name = "countries4")
+class Country implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Integer id;
 	private String name;
+	private String primaryLanguage;
+	@Column(name = "is_default")
+	private boolean _default;
 
 	public Integer getId() {
 		return id;
@@ -152,18 +162,36 @@ class Country {
 		this.name = name;
 	}
 
+	public String getPrimaryLanguage() {
+		return primaryLanguage;
+	}
+
+	public void setPrimaryLanguage(String primaryLanguage) {
+		this.primaryLanguage = primaryLanguage;
+	}
+
+	public boolean isDefault() {
+		return _default;
+	}
+
+	public void setDefault(boolean _default) {
+		this._default = _default;
+	}
+
 }
 
 // CREATE TABLE countries (
-//     id int4 NOT NULL,
+//     id INTEGER NOT NULL,
+//     is_default boolean,
 //     name VARCHAR(255),
+//     primaryLanguage VARCHAR(255),
 //     PRIMARY KEY ( id )
 // )
 //
 // CREATE TABLE users (
-//     id int8 NOT NULL,
+//     id BIGINT NOT NULL,
 //     firstName VARCHAR(255),
+//     language VARCHAR(255),
 //     lastName VARCHAR(255),
-//     phoneNumber VARCHAR(255),
 //     PRIMARY KEY ( id )
 // )
