@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.collection_types;
+package by.pva.hibernate.part01.types.value_types.collection_types.collectionsOfValueTypes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,16 +7,13 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-public class TestHibernateUsesItsOwnCollectionImplementations {
+public class TestCollectionOfValueTypes {
 	public static void main(String[] args) {
 
 		EntityManagerFactory entityManagerFactory = Persistence
@@ -25,47 +22,47 @@ public class TestHibernateUsesItsOwnCollectionImplementations {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		Query query1 = entityManager.createQuery("delete from Person13");
-		query1.executeUpdate();
-		
 		Person person = new Person();
-		person.setId(1L);
 		List<String> phones = new ArrayList<>();
 		phones.add("+375(29)345-34-34");
 		phones.add("+375(29)344-32-32");
-		phones.add("+375(29)343-31-31");
-		phones.add("+375(29)342-30-30");
+
 		person.setPhones(phones);
-		
+
 		entityManager.persist(person);
+		entityManager.flush();
+
+		person.getPhones().clear();
+		person.getPhones().add("123-456-7890");
+		person.getPhones().add("456-000-1234");
+		person.getPhones().add("320-750-7891");
+		person.getPhones().add("653-102-9231");
 		
 		entityManager.flush();
-		entityManager.clear();
 		
-		/* Next two line will be cause of the throwing
-		 * java.lang.ClassCastException: org.hibernate.collection.internal.PersistentBag cannot be cast to java.util.ArrayList
-		 * 
-		 * Hibernate uses its own collection implementations!
-		 */
-		// Person person2 = entityManager.find( Person.class, 1L );
-		// ArrayList<String> phones2 = (ArrayList<String>) person2.getPhones(); 
-		
+		person.getPhones().remove(0); // Delete all records with the current person id and re-insert remaining ones.
+		                              // One of the way to avoid this is using the @OrderColumn annotation.
+		                              // 
+		                              // The @OrderColumn column works best when removing from the tail of the collection, 
+		                              // as it only requires a single delete statement. Removing from the head or 
+		                              // the middle of the collection requires deleting the extra elements and updating
+		                              // the remaining ones to preserve element order.
+
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		entityManagerFactory.close();
-		
+
 	}
 }
 
-@Entity(name = "Person13")
-@Table(name = "persons13")
+@Entity(name = "Person14")
+@Table(name = "persons14")
 class Person {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ElementCollection
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn
 	private List<String> phones = new ArrayList<>();
 
 	public Long getId() {
