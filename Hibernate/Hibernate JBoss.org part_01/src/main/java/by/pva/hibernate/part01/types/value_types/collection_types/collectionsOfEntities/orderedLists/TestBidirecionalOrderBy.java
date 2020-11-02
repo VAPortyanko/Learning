@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.collection_types.collectionsOfEntities.OrderedLists;
+package by.pva.hibernate.part01.types.value_types.collection_types.collectionsOfEntities.orderedLists;
 
 import java.util.ArrayList;
 import java.util.List;
