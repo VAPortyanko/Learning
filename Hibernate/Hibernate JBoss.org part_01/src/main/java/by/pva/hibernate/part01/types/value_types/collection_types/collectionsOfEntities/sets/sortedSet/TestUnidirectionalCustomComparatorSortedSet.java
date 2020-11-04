@@ -133,3 +133,4 @@ class Phone19 implements Comparable<Phone19> {
 	}
 }
 
+//The @SortNatural and @SortComparator work the same for bidirectional sorted sets too.
