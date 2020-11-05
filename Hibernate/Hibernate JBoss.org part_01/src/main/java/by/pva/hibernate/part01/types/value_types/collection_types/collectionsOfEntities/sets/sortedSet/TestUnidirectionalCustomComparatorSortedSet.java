@@ -132,5 +132,3 @@ class Phone19 implements Comparable<Phone19> {
 		return Objects.hash( number );
 	}
 }
-
-//The @SortNatural and @SortComparator work the same for bidirectional sorted sets too.
