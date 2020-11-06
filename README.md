@@ -1,2 +1,2 @@
 # Learning
-Learning Java
+Learning Java.
