@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.collection_types.collectionsOfEntities.maps;
+package by.pva.hibernate.part01.types.value_types.collection_types.collectionsOfEntities.maps.valueTypeMaps;
 
 import java.util.Date;
 import java.util.HashMap;
