@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+// About map keys - https://www.baeldung.com/hibernate-persisting-maps
+
 public class TestValueTypeMap {
 	public static void main(String[] args) {
 
