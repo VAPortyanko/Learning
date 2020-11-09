@@ -44,7 +44,6 @@ public class TestHibernateUsesItsOwnCollectionImplementations {
 		
 		/* Next two line will be cause of the throwing
 		 * java.lang.ClassCastException: org.hibernate.collection.internal.PersistentBag cannot be cast to java.util.ArrayList
-		 * 
 		 * Hibernate uses its own collection implementations!
 		 */
 		// Person person2 = entityManager.find( Person.class, 1L );

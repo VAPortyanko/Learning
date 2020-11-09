@@ -48,7 +48,7 @@ class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	// ToDo - Example doesn't work with the line below - why?
+	// ToDo - Example doesn't work with the line below - why? (The new type must be registered?)
 	// @Type(type = "comma_delimited_strings")
 	@Type(type = "by.pva.hibernate.part01.types.value_types.collection_types.collectionAsBasicValueType.CommaDelimitedStringsType")
 
