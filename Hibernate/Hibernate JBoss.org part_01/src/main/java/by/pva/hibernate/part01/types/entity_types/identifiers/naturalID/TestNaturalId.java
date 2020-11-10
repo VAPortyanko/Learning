@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 // The additional select statement to get the primary key for the provided natural ID comes as a surprise
 // in the beginning. But this should not be a performance issue, if you consider, that you normally add
@@ -44,7 +45,13 @@ public class TestNaturalId {
 				.byNaturalId(Book.class)
 				.using("isbn", "978-9730228236")
 				.load(); // or getReference()
-		
+
+//		or
+//		Book book2 = entityManager
+//			.unwrap(Session.class)
+//			.bySimpleNaturalId(Book.class)
+//			.load("978-9730228236");
+
 		System.out.println(book2);
 		
 		entityManager.getTransaction().commit();
@@ -56,13 +63,14 @@ public class TestNaturalId {
 
 @Entity(name = "Book7")
 @Table(name = "Books7")
+//@NaturalIdCache
 class Book {
 
 	@Id
 	private Long id;
 	private String title;
 	private String author;
-	@NaturalId
+	@NaturalId(mutable = false) // mutable = false is the default value.
 	private String isbn;
 
 	public Long getId() {

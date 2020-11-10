@@ -50,6 +50,19 @@ public class TestNaturalIdUsingSingleEmbeddedAttribute {
 					                "978-9730228236"))
 			.load();
 
+//      or		
+//		Book8 book2 = entityManager
+//			.unwrap(Session.class)
+//			.bySimpleNaturalId(Book2.class)
+//			.load(
+//				new Isbn(
+//					"973022823X",
+//					"978-9730228236"
+//				)
+//			);
+
+
+		
 		System.out.println(book2);
 
 		entityManager.getTransaction().commit();
