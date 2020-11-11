@@ -10,7 +10,6 @@ import javax.persistence.Table;
 
 import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 // The additional select statement to get the primary key for the provided natural ID comes as a surprise
 // in the beginning. But this should not be a performance issue, if you consider, that you normally add
