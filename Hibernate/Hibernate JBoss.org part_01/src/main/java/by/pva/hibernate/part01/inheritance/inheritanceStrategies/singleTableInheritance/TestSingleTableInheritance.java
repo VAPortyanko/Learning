@@ -1,6 +1,7 @@
-package by.pva.hibernate.part01.inheritance.inheritanceStrategies;
+package by.pva.hibernate.part01.inheritance.inheritanceStrategies.singleTableInheritance;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -38,6 +39,16 @@ public class TestSingleTableInheritance {
 		entityManager.persist(debitAccount);
 		entityManager.persist(creditAccount);
 
+		entityManager.flush();
+		entityManager.clear();
+		
+		@SuppressWarnings("unchecked")
+		List<Account2> accounts = entityManager
+				.createQuery("select a from Account2 a")
+				.getResultList();
+		accounts.stream()
+		        .forEach(System.out::println);
+
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		entityManagerFactory.close();
@@ -53,10 +64,10 @@ class Account2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String owner;
-	private BigDecimal balance;
-	private BigDecimal interestRate;
+	protected Long id;
+	protected String owner;
+	protected BigDecimal balance;
+	protected BigDecimal interestRate;
 
 	public String getOwner() {
 		return owner;
@@ -101,6 +112,12 @@ class DebitAccount2 extends Account2 {
 		this.overdraftFee = overdraftFee;
 	}
 
+	@Override
+	public String toString() {
+		return "DebitAccount2 [overdraftFee=" + overdraftFee + ", id=" + id + ", owner=" + owner + ", balance="
+				+ balance + ", interestRate=" + interestRate + "]";
+	}
+
 }
 
 @Entity(name = "CreditAccount2")
@@ -114,6 +131,12 @@ class CreditAccount2 extends Account2 {
 
 	public void setCreditLimit(BigDecimal creditLimit) {
 		this.creditLimit = creditLimit;
+	}
+
+	@Override
+	public String toString() {
+		return "CreditAccount2 [creditLimit=" + creditLimit + ", id=" + id + ", owner=" + owner + ", balance=" + balance
+				+ ", interestRate=" + interestRate + "]";
 	}
 
 }

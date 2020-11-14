@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.inheritance.inheritanceStrategies;
+package by.pva.hibernate.part01.inheritance.inheritanceStrategies.mappedSuperClass;
 
 import java.math.BigDecimal;
 
