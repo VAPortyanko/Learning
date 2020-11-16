@@ -43,6 +43,10 @@ public class TestMappedSuperClass {
 	}
 }
 
+// Because the @MappedSuperclass inheritance model is not mirrored at the database level,
+// it’s not possible to use polymorphic queries referencing the @MappedSuperclass
+// when fetching persistent objects by their base class.
+
 @MappedSuperclass
 class Account {
 

@@ -57,6 +57,10 @@ public class TestSingleTableInheritance {
 
 }
 
+// When omitting an explicit inheritance strategy (e.g. @Inheritance),
+// JPA will choose the SINGLE_TABLE strategy by default.
+//
+//
 @Entity(name = "Account2")
 @Table(name = "Accounts2")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -99,6 +103,7 @@ class Account2 {
 
 }
 
+// Version and id properties are assumed to be inherited from the root class.
 @Entity(name = "DebitAccount2")
 class DebitAccount2 extends Account2 {
 
