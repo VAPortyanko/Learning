@@ -22,7 +22,6 @@ import org.hibernate.Session;
 // any discriminator value will be mapped to an Account base class entity. The DebitAccount and CreditAccount entities
 // use explicit discriminator values. The OtherAccount entity is used as a generic account type because it maps any database
 // row whose discriminator column is not explicitly assigned to any other entity in the current inheritance tree.
-
 public class TestDiscriminatorValue {
 	public static void main(String[] args) {
 
