@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.inheritance.inheritanceStrategies.joinTable;
+package by.pva.hibernate.part01.inheritance.inheritanceStrategies.tablePerClass;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,14 +6,15 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.Table;
 
-public class TestJoinTable {
+public class TestTablePerClassInheritanceStrategy {
+
 	public static void main(String[] args) {
 
 		EntityManagerFactory entityManagerFactory = Persistence
@@ -22,18 +23,36 @@ public class TestJoinTable {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
+		Query query1 = entityManager.createQuery("delete from Account6");
+		Query query2 = entityManager.createQuery("delete from DebitAccount6");
+		Query query3 = entityManager.createQuery("delete from CreditAccount6");
+		query1.executeUpdate();
+		query2.executeUpdate();
+		query3.executeUpdate();
+		
+		Account account = new Account();
+		account.setId(1L);
+		account.setOwner("John Doe");
+		account.setBalance(BigDecimal.valueOf(100));
+		account.setInterestRate(BigDecimal.valueOf(1.5d));
+		
+		// A requirement for all child objects of the same parent entity is that they have unique IDs among them.
+		// https://stackoverflow.com/questions/47455957/how-can-i-combine-table-per-class-and-generationtype-identity
 		DebitAccount debitAccount = new DebitAccount();
+		debitAccount.setId(2L);
 		debitAccount.setOwner("John Doe");
 		debitAccount.setBalance(BigDecimal.valueOf(100));
 		debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
 		debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
 
 		CreditAccount creditAccount = new CreditAccount();
+		creditAccount.setId(3L);
 		creditAccount.setOwner("John Doe");
 		creditAccount.setBalance(BigDecimal.valueOf(1000));
 		creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
 		creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
 
+		entityManager.persist(account);
 		entityManager.persist(debitAccount);
 		entityManager.persist(creditAccount);
 
@@ -42,11 +61,11 @@ public class TestJoinTable {
 		
 		@SuppressWarnings("unchecked")
 		List<Account> accounts = entityManager
-				.createQuery("select a from Account4 a")
+				.createQuery("select a from Account6 a")
 				.getResultList();
-		accounts.stream()
-		        .forEach(System.out::println);
+		accounts.stream().forEach(System.out::println);
 
+		
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		entityManagerFactory.close();
@@ -54,12 +73,12 @@ public class TestJoinTable {
 	}
 }
 
-@Entity(name = "Account4")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Entity(name = "Account6")
+@Table(name = "Accounts6")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 class Account {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	String owner;
 	BigDecimal balance;
@@ -86,10 +105,19 @@ class Account {
 	public Long getId() {
 		return id;
 	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", owner=" + owner + ", balance=" + balance + ", interestRate=" + interestRate
+				+ "]";
+	}
 
 }
 
-@Entity(name = "DebitAccount4")
+@Entity(name = "DebitAccount6")
+@Table(name = "DebitAccounts6")
 class DebitAccount extends Account {
 
 	private BigDecimal overdraftFee;
@@ -97,20 +125,19 @@ class DebitAccount extends Account {
 	public BigDecimal getOverdraftFee() {
 		return overdraftFee;
 	}
-
 	public void setOverdraftFee(BigDecimal overdraftFee) {
 		this.overdraftFee = overdraftFee;
 	}
-
 	@Override
 	public String toString() {
 		return "DebitAccount [overdraftFee=" + overdraftFee + ", id=" + id + ", owner=" + owner + ", balance=" + balance
 				+ ", interestRate=" + interestRate + "]";
 	}
-	
+
 }
 
-@Entity(name = "CreditAccount4")
+@Entity(name = "CreditAccount6")
+@Table(name = "CreditAccounts6")
 class CreditAccount extends Account {
 
 	private BigDecimal creditLimit;
@@ -140,22 +167,57 @@ class CreditAccount extends Account {
 //)
 //
 //CREATE TABLE CreditAccount (
-//    creditLimit NUMERIC(19, 2) ,
 //    id BIGINT NOT NULL ,
+//    balance NUMERIC(19, 2) ,
+//    interestRate NUMERIC(19, 2) ,
+//    owner VARCHAR(255) ,
+//    creditLimit NUMERIC(19, 2) ,
 //    PRIMARY KEY ( id )
 //)
 //
 //CREATE TABLE DebitAccount (
-//    overdraftFee NUMERIC(19, 2) ,
 //    id BIGINT NOT NULL ,
+//    balance NUMERIC(19, 2) ,
+//    interestRate NUMERIC(19, 2) ,
+//    owner VARCHAR(255) ,
+//    overdraftFee NUMERIC(19, 2) ,
 //    PRIMARY KEY ( id )
 //)
-//
-//ALTER TABLE CreditAccount
-//ADD CONSTRAINT FKihw8h3j1k0w31cnyu7jcl7n7n
-//FOREIGN KEY (id) REFERENCES Account
-//
-//ALTER TABLE DebitAccount
-//ADD CONSTRAINT FKia914478noepymc468kiaivqm
-//FOREIGN KEY (id) REFERENCES Account
 
+// Select a from Account6 a:
+
+//SELECT tablepercl0_.id AS id1_0_ ,
+//       tablepercl0_.balance AS balance2_0_ ,
+//       tablepercl0_.interestRate AS interest3_0_ ,
+//       tablepercl0_.owner AS owner4_0_ ,
+//       tablepercl0_.overdraftFee AS overdraf1_2_ ,
+//       tablepercl0_.creditLimit AS creditLi1_1_ ,
+//       tablepercl0_.clazz_ AS clazz_
+//FROM (
+//    SELECT    id ,
+//             balance ,
+//             interestRate ,
+//             owner ,
+//             CAST(NULL AS INT) AS overdraftFee ,
+//             CAST(NULL AS INT) AS creditLimit ,
+//             0 AS clazz_
+//    FROM     Account
+//    UNION ALL
+//    SELECT   id ,
+//             balance ,
+//             interestRate ,
+//             owner ,
+//             overdraftFee ,
+//             CAST(NULL AS INT) AS creditLimit ,
+//             1 AS clazz_
+//    FROM     DebitAccount
+//    UNION ALL
+//    SELECT   id ,
+//             balance ,
+//             interestRate ,
+//             owner ,
+//             CAST(NULL AS INT) AS overdraftFee ,
+//             creditLimit ,
+//             2 AS clazz_
+//    FROM     CreditAccount
+//) tablepercl0_
