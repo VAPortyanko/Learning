@@ -24,11 +24,7 @@ public class TestTablePerClassInheritanceStrategy {
 		entityManager.getTransaction().begin();
 
 		Query query1 = entityManager.createQuery("delete from Account6");
-		Query query2 = entityManager.createQuery("delete from DebitAccount6");
-		Query query3 = entityManager.createQuery("delete from CreditAccount6");
-		query1.executeUpdate();
-		query2.executeUpdate();
-		query3.executeUpdate();
+		query1.executeUpdate(); // Also delete records from two other tables.
 		
 		Account account = new Account();
 		account.setId(1L);
@@ -221,3 +217,5 @@ class CreditAccount extends Account {
 //             2 AS clazz_
 //    FROM     CreditAccount
 //) tablepercl0_
+
+// Additional read - https://in.relation.to/2005/07/20/multitable-bulk-operations/
