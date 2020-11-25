@@ -51,9 +51,9 @@ public class TestWhereJoinTableMapping {
 
 		Query query1 = entityManager.createNativeQuery(
 				"INSERT INTO Book11_Reader " +
-				"	(book_id, reader_id) " +
+				"	(book_id, reader_id, created_on) " +
 				"VALUES " +
-				"	(1, 1) "
+				"	(1, 1, '2021-01-01') "
 		);
 		query1.executeUpdate();
 		
@@ -61,14 +61,15 @@ public class TestWhereJoinTableMapping {
 				"INSERT INTO Book11_Reader" +
 				"	(book_id, reader_id, created_on)" +
 				"VALUES " +
-				"	(1, 2,  '2020-01-01')"
+				"	(1, 2,  '2019-01-01')"
 		);
 		query2.executeUpdate();
 		
 		entityManager.flush();
+		entityManager.clear();
 
 		Book book2 = entityManager.find(Book.class, 1L);
-		System.out.println(book2);
+		System.out.println(book2.getCurrentWeekReaders().size());
 		
 		entityManager.getTransaction().commit();
 		entityManager.close();
@@ -88,7 +89,7 @@ class Book {
 
 	@ManyToMany
 	@JoinTable(name = "Book11_Reader", joinColumns = @JoinColumn(name = "book_id"), inverseJoinColumns = @JoinColumn(name = "reader_id"))
-	@WhereJoinTable(clause = "created_on < '2010-01-01'")
+	@WhereJoinTable(clause = "created_on > '2020-01-01'")
 	private List<Reader> currentWeekReaders = new ArrayList<>();
 
 	public Long getId() {
