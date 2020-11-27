@@ -66,7 +66,7 @@ public class TestWhereJoinTableMapping {
 		query2.executeUpdate();
 		
 		entityManager.flush();
-		entityManager.clear();
+		//entityManager.clear();
 
 		Book book2 = entityManager.find(Book.class, 1L);
 		System.out.println(book2.getCurrentWeekReaders().size());
