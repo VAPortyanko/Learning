@@ -6,13 +6,11 @@ import java.sql.Connection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import org.hibernate.Session;
 import org.hibernate.annotations.OptimisticLock;
 
 public class TestExcludingTrackingForPropertyWithOptimistikLocking {
@@ -21,30 +19,44 @@ public class TestExcludingTrackingForPropertyWithOptimistikLocking {
 
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 			
-			Query query = entityManager.createQuery("delete from Phone23");
-			query.executeUpdate();
+			Phone23 phone = entityManager.find( Phone23.class, 1L );
+			phone.setNumber( "+123-456-3339" );
+			//entityManager.flush();
+
+			doInHibernateWithDefaultPersistanceUnit(entityManager2 -> {
+				Phone23 _phone = entityManager2.find( Phone23.class, 1L );
+				_phone.incrementCallCount();
+				System.out.println("Bob changes the Phone call count");
+			});
 			
-			Phone23 phone = new Phone23();
-			phone.setId(1L);
-			phone.setNumber("+375(29)00-00-007");
-			phone.setCallCount(100);
-			
-			entityManager.persist(phone);
-			
-			entityManager.flush();
-			entityManager.clear();
-			
-			Phone23 phone2 = entityManager.find(Phone23.class, 1L);
-			phone2.setNumber("+7(44)01-01-001");
-			
-			entityManager.merge(phone2);
-			
-			entityManager.flush();
-			entityManager.clear();
-			
-			Phone23 phone3 = entityManager.find(Phone23.class, 1L);
-			phone3.setCallCount(1000);
-			entityManager.merge(phone3); // The version value will not be updated
+			int isolationLevel = entityManager.unwrap(Session.class)
+					.doReturningWork(Connection::getTransactionIsolation);
+			System.out.println(isolationLevel);
+//		
+//			Query query = entityManager.createQuery("delete from Phone23");
+//			query.executeUpdate();
+//			
+//			Phone23 phone = new Phone23();
+//			phone.setId(1L);
+//			phone.setNumber("+375(29)00-00-007");
+//			phone.setCallCount(100);
+//			
+//			entityManager.persist(phone);
+//			
+//			entityManager.flush();
+//			entityManager.clear();
+//			
+//			Phone23 phone2 = entityManager.find(Phone23.class, 1L);
+//			phone2.setNumber("+7(44)01-01-001");
+//			
+//			entityManager.merge(phone2);
+//			
+//			entityManager.flush();
+//			entityManager.clear();
+//			
+//			Phone23 phone3 = entityManager.find(Phone23.class, 1L);
+//			phone3.setCallCount(1000);
+//			entityManager.merge(phone3); // The version value will not be updated
 			
 		});
 		
