@@ -26,13 +26,13 @@ public class TestOptimisticLockingTimestampGeneratedByDB {
 			
 			entityManager.persist(person);
 
-			// it will lead to (MySQL db) ...
+			// it will lead to ...
 			// Hibernate: select now()
 			// Hibernate: insert into Persons37 (firstName, lastName, version) values (?, ?, ?)
+			// (MySql)
 		});
 
 	}
-
 }
 
 @Entity(name = "Person37")

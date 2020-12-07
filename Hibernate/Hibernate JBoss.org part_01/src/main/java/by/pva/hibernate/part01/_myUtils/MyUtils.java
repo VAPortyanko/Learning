@@ -10,8 +10,7 @@ public class MyUtils {
 
 	public static void doInHibernateWithDefaultPersistanceUnit(Consumer<EntityManager> code) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 
@@ -22,5 +21,4 @@ public class MyUtils {
 		entityManagerFactory.close();
 		
 	}
-	
 }
