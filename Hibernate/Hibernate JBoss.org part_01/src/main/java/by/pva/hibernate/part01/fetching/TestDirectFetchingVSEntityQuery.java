@@ -49,12 +49,40 @@ public class TestDirectFetchingVSEntityQuery {
 			entityManager.flush();
 			entityManager.clear();
 			
-			log.info("EntityManager.createQuery() method produces the additional sql select (Eager fetching is used\");");
+			log.info("EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. No join fetch specify");
 			
-			// EntityManager.createQuery() method produces the additional sql select (Eager fetching is used");
+			// EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. No join fetch specify");
 			Employee employee3 = entityManager.createQuery(
 					"select e " +
 					"from Employee2 e " +
+					"where e.id = :id", Employee.class)
+			.setParameter( "id", 1L )
+			.getSingleResult();
+			
+			entityManager.flush();
+			entityManager.clear();
+			
+			log.info("EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. Join fetch is used.");
+			
+			// EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. Join fetch is used.");
+			Employee employee4 = entityManager.createQuery(
+					"select e " +
+					"from Employee2 e " +
+					"left join fetch e.department " +
+					"where e.id = :id", Employee.class)
+			.setParameter( "id", 1L )
+			.getSingleResult();
+			
+			entityManager.flush();
+			entityManager.clear();
+			
+			log.info("EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. Just join is used.");
+			
+			// EntityManager.createQuery() method produces the additional sql select (Eager fetching is used. Just join is used.");
+			Employee employee5 = entityManager.createQuery(
+					"select e " +
+					"from Employee2 e " +
+					"left join e.department " +
 					"where e.id = :id", Employee.class)
 			.setParameter( "id", 1L )
 			.getSingleResult();
