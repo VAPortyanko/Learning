@@ -1,8 +1,9 @@
-package by.pva.hibernate.part01.fetching.aplyingfetchstrategy;
+package by.pva.hibernate.part01.fetching.static_fetching;
 
 import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,15 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Query;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Root;
 
 import org.hibernate.annotations.NaturalId;
 import org.jboss.logging.Logger;
 
-public class TestDynamicFethcingViaQueries {
+public class TestNoFetching {
 
 	private final static Logger log = Logger.getLogger("org.hibernate.SQL");
 	
@@ -29,18 +26,18 @@ public class TestDynamicFethcingViaQueries {
 	public static void main(String[] args) {
 		
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
-			
-			Query query1 = entityManager.createQuery("Delete from Employee4");
-			Query query2 = entityManager.createQuery("Delete from Project2");
-			Query query3 = entityManager.createQuery("Delete from Department3");
+		
+			Query query1 = entityManager.createQuery("Delete from Employee3");
+			Query query2 = entityManager.createQuery("Delete from Project");
+			Query query3 = entityManager.createQuery("Delete from Department2");
 			
 			query1.executeUpdate();
 			query2.executeUpdate();
 			query3.executeUpdate();
 			
-			Employee4 employee = new Employee4();
-			Department3 department = new Department3();
-			Project2 project = new Project2();
+			Employee employee = new Employee();
+			Department department = new Department();
+			Project project = new Project();
 			
 			employee.setId(1L);
 			employee.setAccessLevel(1);
@@ -62,73 +59,63 @@ public class TestDynamicFethcingViaQueries {
 			entityManager.flush();
 			entityManager.clear();
 			
-			log.info("\n\nIn this example we have an Employee and their Projects"
-					+ "\nloaded in a single query shown both as an HQL query and"
-					+ "\na JPA Criteria query. In both cases, this resolves to "
-					+ "\nexactly one database query to get all that information.\n");
-
-			Employee4 employee2 = entityManager.createQuery(
+			log.info("The application gets the Employee data. However, because all associations from Employee "
+					+ "are declared as LAZY (JPA defines the default for collections as LAZY) no other data is fetched.");
+			Employee employee2 = entityManager.createQuery(
 				"select e " +
-				"from Employee4 e " +
-				"left join fetch e.projects " +
+				"from Employee3 e " +
 				"where " +
 				"	e.username = :username and " +
 				"	e.password = :password",
-				Employee4.class)
+				Employee.class)
+			.setParameter( "username", "user")
+			.setParameter( "password", "password")
+			.getSingleResult();
+
+			log.info("If the login process does not need access to the Employee information specifically, "
+					+ "another fetching optimization here would be to limit the width of the query results");
+			Integer accessLevel = entityManager.createQuery(
+				"select e.accessLevel " +
+				"from Employee3 e " +
+				"where " +
+				"	e.username = :username and " +
+				"	e.password = :password",
+				Integer.class)
 			.setParameter( "username", "user")
 			.setParameter( "password", "password")
 			.getSingleResult();
 			
-			entityManager.flush();
-			entityManager.clear();
-			
-			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-			CriteriaQuery<Employee4> query = builder.createQuery(Employee4.class);
-			Root<Employee4> root = query.from(Employee4.class);
-			root.fetch("projects", JoinType.LEFT);
-			query.select(root).where(
-				builder.and(
-					builder.equal(root.get("username"), "user"),
-					builder.equal(root.get("password"), "password")
-				)
-			);
-			Employee4 employee3 = entityManager.createQuery(query).getSingleResult();
-
-
-
-
-		});
-
+		}, Collections.singletonMap("hibernate.format_sql", "true"));
+		
 	}
-
 }
 
-@Entity(name = "Department3")
-@Table(name = "Departments3")
-class Department3 {
+@Entity(name = "Department2")
+@Table(name = "Departments2")
+class Department {
 
 	@Id
 	private Long id;
 	@OneToMany(mappedBy = "department")
-	private List<Employee4> employees = new ArrayList<>();
+	private List<Employee> employees = new ArrayList<>();
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Employee4> getEmployees() {
+	public List<Employee> getEmployees() {
 		return employees;
 	}
-	public void setEmployees(List<Employee4> employees) {
+	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
 
 }
 
-@Entity(name = "Employee4")
-@Table(name = "Employees4")
-class Employee4 {
+@Entity(name = "Employee3")
+@Table(name = "Employees3")
+class Employee {
 
 	@Id
 	private Long id;
@@ -137,9 +124,9 @@ class Employee4 {
 	private String password;
 	private int accessLevel;
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Department3 department;
+	private Department department;
 	@ManyToMany(mappedBy = "employees")
-	private List<Project2> projects = new ArrayList<>();
+	private List<Project> projects = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -165,41 +152,40 @@ class Employee4 {
 	public void setAccessLevel(int accessLevel) {
 		this.accessLevel = accessLevel;
 	}
-	public Department3 getDepartment() {
+	public Department getDepartment() {
 		return department;
 	}
-	public void setDepartment(Department3 department) {
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	public List<Project2> getProjects() {
+	public List<Project> getProjects() {
 		return projects;
 	}
-	public void setProjects(List<Project2> projects) {
+	public void setProjects(List<Project> projects) {
 		this.projects = projects;
 	}
 
 }
 
-@Entity(name = "Project2")
-@Table(name = "Projects2")
-class Project2 {
+@Entity(name = "Project")
+@Table(name = "Projects")
+class Project {
 
 	@Id
 	private Long id;
 	@ManyToMany
-	private List<Employee4> employees = new ArrayList<>();
+	private List<Employee> employees = new ArrayList<>();
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<Employee4> getEmployees() {
+	public List<Employee> getEmployees() {
 		return employees;
 	}
-	public void setEmployees(List<Employee4> employees) {
+	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
 
 }
-
