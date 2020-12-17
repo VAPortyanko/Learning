@@ -23,7 +23,7 @@ public class TestBatchFetching {
 
 	public static void main(String[] args) {
 
-		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		Map<String, String> properties = Collections.singletonMap("hibernate.jdbc.batch_size", "5");
 		
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 
@@ -54,16 +54,14 @@ public class TestBatchFetching {
 			entityManager.clear();
 
 			List<Department> departments = entityManager.createQuery(
-					"select d " +
+					"select distinct d " +
 					"from Department6 d " +
 					"inner join d.employees e " +
 					"where e.name like 'employee%'", Department.class)
 				    .getResultList();
 			System.out.println(departments.size());
-			for (Department dep : departments ) {
-				System.out.printf("\nDepartment %d has {} employees", dep.getId(), dep.getEmployees().size());
-			}
-			
+			System.out.println(departments.get(0));
+						
 		}, properties);	
 
 	}
@@ -91,7 +89,13 @@ class Department {
 	public void setEmployees(List<Employee> employees) {
 		this.employees = employees;
 	}
+	@Override
+	public String toString() {
+		return "Department [id=" + id + ", employees=" + employees + "]";
+	}
 
+	
+	
 }
 
 @Entity(name = "Employee8")
@@ -123,5 +127,11 @@ class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
+	}
 
+	
+	
 }
