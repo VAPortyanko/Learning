@@ -24,7 +24,7 @@ public class TestHiobernateSpecificFetchAnnotataion {
 	
 	public static void main(String[] args) {
 	
-		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "false");
 		
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 			
@@ -33,43 +33,56 @@ public class TestHiobernateSpecificFetchAnnotataion {
 			Query query2 = entityManager.createQuery("delete from Department7");
 			query2.executeUpdate();
 			
-			Department department = new Department();
-			department.setId(1L);
+			Department department1 = new Department();
+			department1.setId(1L);
+			Department department2 = new Department();
+			department2.setId(2L);
+			Department department3 = new Department();
+			department3.setId(3L);
 			
 			Employee employee1 = new Employee();
 			Employee employee2 = new Employee();
 			Employee employee3 = new Employee();
 			Employee employee4 = new Employee();
 			Employee employee5 = new Employee();
+			Employee employee6 = new Employee();
 			employee1.setId(1L);
-			employee1.setDepartment(department);
+			employee1.setDepartment(department1);
 			employee1.setUsername("Employee1");
 			employee2.setId(2L);
-			employee2.setDepartment(department);
+			employee2.setDepartment(department1);
 			employee2.setUsername("Employee2");
 			employee3.setId(3L);
-			employee3.setDepartment(department);
+			employee3.setDepartment(department2);
 			employee3.setUsername("Employee3");
 			employee4.setId(4L);
-			employee4.setDepartment(department);
+			employee4.setDepartment(department2);
 			employee4.setUsername("Employee4");
 			employee5.setId(5L);
-			employee5.setDepartment(department);
+			employee5.setDepartment(department3);
 			employee5.setUsername("Employee5");
-			department.getEmployees().add(employee1);
-			department.getEmployees().add(employee2);
-			department.getEmployees().add(employee3);
-			department.getEmployees().add(employee4);
-			department.getEmployees().add(employee5);
+			employee6.setId(6L);
+			employee6.setDepartment(department3);
+			employee6.setUsername("Employee6");
+			department1.getEmployees().add(employee1);
+			department1.getEmployees().add(employee2);
+			department2.getEmployees().add(employee3);
+			department2.getEmployees().add(employee4);
+			department3.getEmployees().add(employee5);
+			department3.getEmployees().add(employee6);
 						
-			entityManager.persist(department);
+			entityManager.persist(department1);
+			entityManager.persist(department2);
+			entityManager.persist(department3);
 			
 			entityManager.flush();
 			entityManager.clear();
 			
 			List<Department> departments = entityManager.createQuery("select d from Department7 d", Department.class ).getResultList();
-			System.out.println(departments.size());
-			departments.get(0).getEmployees().stream().forEach(System.out::println);
+			System.out.println("Total departments = " + departments.size());
+			for(Department dep:departments) {
+				dep.getEmployees().forEach(System.out::println);
+			}
 
 			
 		}, properties);
@@ -84,7 +97,7 @@ class Department {
 	@Id
 	private Long id;
 	@OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	@Fetch(FetchMode.SELECT)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Employee> employees = new ArrayList<>();
 
 	public Long getId() {
