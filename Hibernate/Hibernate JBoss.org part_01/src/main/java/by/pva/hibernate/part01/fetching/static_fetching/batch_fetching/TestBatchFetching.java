@@ -23,7 +23,7 @@ public class TestBatchFetching {
 
 	public static void main(String[] args) {
 
-		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		Map<String, String> properties = Collections.singletonMap("hibernate.jdbc.batch_size", "5");
 		
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 
@@ -123,5 +123,11 @@ class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
+	}
 
+	
+	
 }
