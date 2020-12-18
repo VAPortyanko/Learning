@@ -18,12 +18,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.NaturalId;
+import org.jboss.logging.Logger;
 
 public class TestBatchFetching {
 
+	private final static Logger log = Logger.getLogger("org.hibernate.SQL");
+	
 	public static void main(String[] args) {
 
-		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		Map<String, String> properties = null;
 		
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 
@@ -34,10 +37,16 @@ public class TestBatchFetching {
 			
 			Department department = new Department();
 			department.setId(1l);
+			Department department2 = new Department();
+			department2.setId(2l);
+			Department department3 = new Department();
+			department3.setId(3l);
+			Department department4 = new Department();
+			department4.setId(4l);
 			
 			Employee employee;
 			List<Employee> employees = new ArrayList<>();
-			for (long i=1; i<26; i++) {
+			for (long i=1; i<11; i++) {
 				employee = new Employee();
 				employee.setId(i);
 				employee.setDepartment(department);
@@ -46,9 +55,45 @@ public class TestBatchFetching {
 				employees.add(employee);
 			}
 			
+			List<Employee> employees2 = new ArrayList<>();
+			for (long i=11; i<21; i++) {
+				employee = new Employee();
+				employee.setId(i);
+				employee.setDepartment(department2);
+				employee.setName("employee" + i);
+				
+				employees2.add(employee);
+			}
+			
+			List<Employee> employees3 = new ArrayList<>();
+			for (long i=21; i<31; i++) {
+				employee = new Employee();
+				employee.setId(i);
+				employee.setDepartment(department3);
+				employee.setName("employee" + i);
+				
+				employees3.add(employee);
+			}
+			
+			List<Employee> employees4 = new ArrayList<>();
+			for (long i=31; i<41; i++) {
+				employee = new Employee();
+				employee.setId(i);
+				employee.setDepartment(department4);
+				employee.setName("employee" + i);
+				
+				employees4.add(employee);
+			}
+			
 			department.setEmployees(employees);
+			department2.setEmployees(employees2);
+			department3.setEmployees(employees3);
+			department4.setEmployees(employees4);
 		
 			entityManager.persist(department);
+			entityManager.persist(department2);
+			entityManager.persist(department3);
+			entityManager.persist(department4);
 			
 			entityManager.flush();
 			entityManager.clear();
@@ -59,9 +104,9 @@ public class TestBatchFetching {
 					"inner join d.employees e " +
 					"where e.name like 'employee%'", Department.class)
 				    .getResultList();
-			System.out.println(departments.size());
+			log.info("Total departments: " + departments.size());
 			for (Department dep : departments ) {
-				System.out.printf("\nDepartment %d has {%d} employees", dep.getId(), dep.getEmployees().size());
+				log.info("\nDepartment " + dep.getId() + " has {" + dep.getEmployees().size() + "} employees");
 			}
 			
 		}, properties);	
@@ -76,7 +121,7 @@ class Department {
 	@Id
 	private Long id;
 	@OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST)
-	@BatchSize(size = 5)
+	@BatchSize(size = 2)
 	private List<Employee> employees = new ArrayList<>();
 	
 	public Long getId() {
@@ -122,6 +167,10 @@ class Employee {
 	}
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + "]";
 	}
 
 }
