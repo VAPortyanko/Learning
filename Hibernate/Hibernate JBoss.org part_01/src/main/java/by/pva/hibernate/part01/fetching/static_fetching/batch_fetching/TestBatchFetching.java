@@ -54,14 +54,14 @@ public class TestBatchFetching {
 			entityManager.clear();
 
 			List<Department> departments = entityManager.createQuery(
-					"select d " +
+					"select distinct d " +
 					"from Department6 d " +
 					"inner join d.employees e " +
 					"where e.name like 'employee%'", Department.class)
 				    .getResultList();
 			System.out.println(departments.size());
 			for (Department dep : departments ) {
-				System.out.printf("\nDepartment %d has {} employees", dep.getId(), dep.getEmployees().size());
+				System.out.printf("\nDepartment %d has {%d} employees", dep.getId(), dep.getEmployees().size());
 			}
 			
 		}, properties);	
