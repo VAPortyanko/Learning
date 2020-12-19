@@ -55,18 +55,15 @@ public class TestLazzyCollectionAnnotation {
 			entityManager.flush();
 			entityManager.clear();
 
-			Department department2 = entityManager.find(Department.class, 1L); // When 3 next line will be executed - we will get 3 addition selects.  
-			System.out.println(department2.getEmployees().get(0)); 
-			System.out.println(department2.getEmployees().get(1));
-			System.out.println(department2.getEmployees().get(2));
+			department = entityManager.find(Department.class, 1L);   
 			
-// ToDo: (Understand why?) If we uncomment the block of code below and comment the block above, then we get pretty strange console output. (There are no addition selects in log).
-//			
-//			int employeeCount = department.getEmployees().size();
-//			System.out.println("Total employees:" + employeeCount);
-//			for(int i = 0; i < employeeCount; i++ ) {
-//				System.out.printf( "Fetched employee: %s\n", department.getEmployees().get(i).getUsername());
-//			}
+			// Here we get an addition select for fetching collection size (without fetching the collection itself).
+			int employeeCount = department.getEmployees().size();
+			System.out.println("Total employees:" + employeeCount);
+			// We will get 3 addition selects here.
+			for(int i = 0; i < employeeCount; i++ ) { 
+				System.out.printf( "Fetched employee: %s\n", department.getEmployees().get(i).getUsername());
+			}
 
 		});
 
