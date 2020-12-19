@@ -3,7 +3,6 @@ package by.pva.hibernate.part01.fetching.static_fetching.batch_fetching;
 import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -108,6 +107,8 @@ public class TestBatchFetching {
 			for (Department dep : departments ) {
 				log.info("\nDepartment " + dep.getId() + " has {" + dep.getEmployees().size() + "} employees");
 			}
+			
+			// Note: When batch size = 1, then "select ... where ... id in ()" replace with "select ... where ... id = " in addition selects. 
 			
 		}, properties);	
 
