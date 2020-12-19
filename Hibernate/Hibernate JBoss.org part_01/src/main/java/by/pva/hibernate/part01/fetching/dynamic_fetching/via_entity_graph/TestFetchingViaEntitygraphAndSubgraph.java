@@ -21,12 +21,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-// Example doesn't work properly
-// Todo: fix it!
-// https://docs.jboss.org/hibernate/orm/5.4/userguide/html_single/Hibernate_User_Guide.html#fetching-strategies-dynamic-fetching-entity-subgraph
-// another example - https://www.baeldung.com/jpa-entity-graph
-
-
 public class TestFetchingViaEntitygraphAndSubgraph {
 
 	public static void main(String[] args) {
@@ -69,7 +63,7 @@ public class TestFetchingViaEntitygraphAndSubgraph {
 			entityManager.clear();
 			
 			@SuppressWarnings("unused")
-			Project project2 = entityManager.find(Project.class, 1L, Collections.singletonMap(
+			Project4 project2 = entityManager.find(Project4.class, 1L, Collections.singletonMap(
 						"javax.persistence.fetchgraph",
 						entityManager.getEntityGraph( "project.employees" )
 					)
