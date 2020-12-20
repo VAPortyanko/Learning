@@ -61,6 +61,8 @@ System.out.println("sdaf");
 }
 
 // https://stackoverflow.com/questions/37697028/hibernate-ehcache-second-level-cache-miss-in-simple-example
+// But, before returning the entity, it is stored in first level cache also so that next invocation to load method for entity will return the entity from first level cache itself, and there will not be need to go to second level cache again.
+// https://www.java67.com/2017/10/difference-between-first-level-and-second-level-cache-in-Hibernate.html
 
 //@Cacheable
 //@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // change!
