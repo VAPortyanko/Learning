@@ -22,10 +22,8 @@ public class TestEntityCache {
 		
 		Map<String, String> properties = new HashMap<>();
 		properties.put("hibernate.cache.use_second_level_cache", "true");
-		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.jcache.JCacheRegionFactory");
-		properties.put("hibernate.javax.cache.provider", "org.ehcache.jsr107.EhcacheCachingProvider");
-		
-		
+		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+				
 		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
 
 			Query query1 = entityManager.createQuery("Delete from Phone25");
@@ -40,19 +38,32 @@ public class TestEntityCache {
 			entityManager.clear();
 			
 			Phone phone1 = entityManager.find(Phone.class, 1L);
+			System.out.println(phone1);
 			entityManager.flush();
 			entityManager.clear();
 			Phone phone2 = entityManager.find(Phone.class, 1L);
+			System.out.println(phone2);
 			entityManager.flush();
 			entityManager.clear();
 			Phone phone3 = entityManager.find(Phone.class, 1L);
+			System.out.println(phone3);
+			System.out.println("end session");
 			
+		}, properties);
+		
+		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+System.out.println("sdaf");
+//compare references!
+			Phone phone1 = entityManager.find(Phone.class, 1L);
+			System.out.println(phone1);
 		}, properties);
 	}
 }
 
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+// https://stackoverflow.com/questions/37697028/hibernate-ehcache-second-level-cache-miss-in-simple-example
+
+//@Cacheable
+//@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE) // change!
 @Entity(name = "Phone25")
 @Table(name = "Phones25")
 class Phone {
