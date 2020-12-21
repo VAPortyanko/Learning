@@ -7,41 +7,36 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestOneToManyBidirectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOneToManyBidirectional extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person8 person = new Person8();
+			Phone4 phone1 = new Phone4("123-456-7890");
+			Phone4 phone2 = new Phone4("321-654-0984");
 
-		Person8 person = new Person8();
-		Phone4 phone1 = new Phone4("123-456-7890");
-		Phone4 phone2 = new Phone4("321-654-0984");
+			person.addPhone(phone1);
+			person.addPhone(phone2);
+			entityManager.persist(person);
+			entityManager.flush();
 
-		person.addPhone(phone1);
-		person.addPhone(phone2);
-		entityManager.persist(person);
-		entityManager.flush();
+			person.removePhone(phone1);
 
-		person.removePhone(phone1);
+		});
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}
@@ -55,9 +50,7 @@ class Person8 {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToMany(mappedBy = "person",
-			   cascade = CascadeType.ALL,
-			   orphanRemoval = true)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Phone4> phones = new ArrayList<>();
 
 	public Long getId() {

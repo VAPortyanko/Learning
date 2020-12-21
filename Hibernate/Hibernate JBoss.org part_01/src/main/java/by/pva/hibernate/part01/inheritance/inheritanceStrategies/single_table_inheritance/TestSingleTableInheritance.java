@@ -4,53 +4,45 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestSingleTableInheritance {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestSingleTableInheritance extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			DebitAccount2 debitAccount = new DebitAccount2();
+			debitAccount.setOwner("John Doe");
+			debitAccount.setBalance(BigDecimal.valueOf(100));
+			debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
+			debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
 
-		DebitAccount2 debitAccount = new DebitAccount2();
-		debitAccount.setOwner("John Doe");
-		debitAccount.setBalance(BigDecimal.valueOf(100));
-		debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
-		debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
+			CreditAccount2 creditAccount = new CreditAccount2();
+			creditAccount.setOwner("John Doe");
+			creditAccount.setBalance(BigDecimal.valueOf(1000));
+			creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
+			creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
 
-		CreditAccount2 creditAccount = new CreditAccount2();
-		creditAccount.setOwner("John Doe");
-		creditAccount.setBalance(BigDecimal.valueOf(1000));
-		creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
-		creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
+			entityManager.persist(debitAccount);
+			entityManager.persist(creditAccount);
 
-		entityManager.persist(debitAccount);
-		entityManager.persist(creditAccount);
+			entityManager.flush();
+			entityManager.clear();
 
-		entityManager.flush();
-		entityManager.clear();
-		
-		@SuppressWarnings("unchecked")
-		List<Account2> accounts = entityManager
-				.createQuery("select a from Account2 a")
-				.getResultList();
-		accounts.stream()
-		        .forEach(System.out::println);
+			@SuppressWarnings("unchecked")
+			List<Account2> accounts = entityManager.createQuery("select a from Account2 a").getResultList();
+			accounts.stream().forEach(System.out::println);
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+
 		entityManagerFactory.close();
 
 	}

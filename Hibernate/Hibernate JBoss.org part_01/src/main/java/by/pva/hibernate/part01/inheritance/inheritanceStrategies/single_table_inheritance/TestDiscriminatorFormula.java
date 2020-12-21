@@ -5,27 +5,22 @@ import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DiscriminatorFormula;
 
-public class TestDiscriminatorFormula {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestDiscriminatorFormula extends BaseTest{
 
 	public static void main(String[] args) {
 	
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		doInJPA(entityManager ->{
 
 		DebitAccount3 debitAccount = new DebitAccount3();
 		debitAccount.setOwner("John Doe");
@@ -54,12 +49,11 @@ public class TestDiscriminatorFormula {
 		accounts.stream()
 		        .forEach(System.out::println);
 				
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+		
 		entityManagerFactory.close();
 		
 	}
-
 }
 
 

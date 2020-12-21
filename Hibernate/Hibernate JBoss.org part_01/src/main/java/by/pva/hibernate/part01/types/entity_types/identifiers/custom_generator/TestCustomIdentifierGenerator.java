@@ -3,30 +3,27 @@ package by.pva.hibernate.part01.types.entity_types.identifiers.custom_generator;
 // https://www.baeldung.com/hibernate-identifiers
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-public class TestCustomIdentifierGenerator {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCustomIdentifierGenerator extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Product product = new Product();
-		product.setName("Name");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(product);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Product product = new Product();
+			product.setName("Name");
+
+			entityManager.persist(product);
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -37,9 +34,7 @@ class Product {
 
 	@Id
 	@GeneratedValue(generator = "prod-generator")
-	@GenericGenerator(name = "prod-generator",
-	                  parameters = @Parameter(name = "prefix", value = "prod"), 
-	                  strategy = "by.pva.hibernate.part01.types.entity_types.identifiers.custom_generator.MyGenerator")
+	@GenericGenerator(name = "prod-generator", parameters = @Parameter(name = "prefix", value = "prod"), strategy = "by.pva.hibernate.part01.types.entity_types.identifiers.custom_generator.MyGenerator")
 	private String prodId;
 	private String name;
 
@@ -60,4 +55,3 @@ class Product {
 	}
 
 }
-

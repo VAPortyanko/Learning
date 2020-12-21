@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.locking.optimistic;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -14,11 +12,13 @@ import javax.persistence.Version;
 import org.hibernate.annotations.Source;
 import org.hibernate.annotations.SourceType;
 
-public class TestOptimisticLockingTimestampGeneratedByDB {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOptimisticLockingTimestampGeneratedByDB extends BaseTest{
 
 	public static void main(String[] args) {
 		 
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 			
 			Person37 person = new Person37();
 			person.setFirstName("Vasia");
@@ -32,6 +32,8 @@ public class TestOptimisticLockingTimestampGeneratedByDB {
 			// (MySql)
 		});
 
+		entityManagerFactory.close();
+		
 	}
 }
 

@@ -4,41 +4,38 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class TestCompositeIdentifierWithAssotiations {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCompositeIdentifierWithAssotiations extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Author author = new Author();
-		author.setName("Author");
-		Publisher publisher = new Publisher();
-		publisher.setName("Publisher");
+		doInJPA(entityManager -> {
+
+			Author author = new Author();
+			author.setName("Author");
+			Publisher publisher = new Publisher();
+			publisher.setName("Publisher");
+
+			Book book = new Book(author, publisher, "title");
+
+			Query query = entityManager.createQuery("delete from Books6");
+			query.executeUpdate();
+			query = entityManager.createQuery("delete from Publishers");
+			query.executeUpdate();
+			query = entityManager.createQuery("delete from Authors");
+			query.executeUpdate();
+
+			entityManager.persist(author);
+			entityManager.persist(publisher);
+			entityManager.persist(book);
+		});
 		
-		Book book = new Book(author, publisher, "title");
-
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createQuery("delete from Books6");
-		query.executeUpdate();
-		query = entityManager.createQuery("delete from Publishers");
-		query.executeUpdate();
-		query = entityManager.createQuery("delete from Authors");
-		query.executeUpdate();
-				
-		entityManager.persist(author);
-		entityManager.persist(publisher);
-		entityManager.persist(book);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}

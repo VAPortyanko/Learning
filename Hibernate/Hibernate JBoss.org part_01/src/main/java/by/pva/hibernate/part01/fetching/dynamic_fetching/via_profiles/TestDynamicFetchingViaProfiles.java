@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.fetching.dynamic_fetching.via_profiles;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,13 +16,16 @@ import org.hibernate.Session;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 
-public class TestDynamicFetchingViaProfiles {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestDynamicFetchingViaProfiles extends BaseTest{
 	
 	public static void main(String[] args) {
 		
-	Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		rebuildEntityManagerFactory(properties);
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query1 = entityManager.createQuery("Delete from Employee7");
 			Query query2 = entityManager.createQuery("Delete from Project5");
@@ -57,10 +58,10 @@ public class TestDynamicFetchingViaProfiles {
 
 			System.out.println(employee2.getProjects().get(0).getProjectName());
 			
-		}, properties);
+		});
 		
+		entityManagerFactory.close();
 	}
-	
 }
 
 @Entity(name = "Employee7")

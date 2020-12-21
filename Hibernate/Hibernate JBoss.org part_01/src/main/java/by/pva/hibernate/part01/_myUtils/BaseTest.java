@@ -8,13 +8,20 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class MyUtils {
-
-	@SuppressWarnings("rawtypes")
-	public static void doInHibernateWithDefaultPersistanceUnit(Consumer<EntityManager> code, Map properties) {
-
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration", properties);
+public class BaseTest {
+	
+	protected final static String DEFAULT_PERSISTENCE_UNIT = "by.pva.hibernate.part01.basicWithTableAutoGeneration"; 
+	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT);
+	
+	protected static void rebuildEntityManagerFactory(Map<String, String> properties) {
+		rebuildEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT, properties);
+	}
+	
+	protected static void rebuildEntityManagerFactory(String persistenceUnit, Map<String, String> properties) {
+		entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit, properties);
+	}
+	
+	protected static void doInJPA(Consumer<EntityManager> code) {
 
 		EntityManager entityManager = null;
 		EntityTransaction txn = null;
@@ -35,11 +42,7 @@ public class MyUtils {
 			if (entityManager != null) {
 				entityManager.close();
 			}
-			entityManagerFactory.close();
 		}
 	}
 
-	public static void doInHibernateWithDefaultPersistanceUnit(Consumer<EntityManager> code) {
-		doInHibernateWithDefaultPersistanceUnit(code, null);
-	}
 }

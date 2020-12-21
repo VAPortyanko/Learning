@@ -8,72 +8,66 @@ import java.util.stream.Collectors;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.hibernate.Session;
+
+import by.pva.hibernate.part01._myUtils.BaseTest;
 
 // The Account class has a @DiscriminatorValue( "null" ) mapping, meaning that any account row which does not contain
 // any discriminator value will be mapped to an Account base class entity. The DebitAccount and CreditAccount entities
 // use explicit discriminator values. The OtherAccount entity is used as a generic account type because it maps any database
 // row whose discriminator column is not explicitly assigned to any other entity in the current inheritance tree.
-public class TestDiscriminatorValue {
+public class TestDiscriminatorValue extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		Query query = entityManager.createQuery("delete from Account5");
-		query.executeUpdate();
-		
-		DebitAccount debitAccount = new DebitAccount();
-		debitAccount.setId(1L);
-		debitAccount.setOwner("John Doe");
-		debitAccount.setBalance(BigDecimal.valueOf(100));
-		debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
-		debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
+			Query query = entityManager.createQuery("delete from Account5");
+			query.executeUpdate();
 
-		CreditAccount creditAccount = new CreditAccount();
-		creditAccount.setId(2L);
-		creditAccount.setOwner("John Doe");
-		creditAccount.setBalance(BigDecimal.valueOf(1000));
-		creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
-		creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
+			DebitAccount debitAccount = new DebitAccount();
+			debitAccount.setId(1L);
+			debitAccount.setOwner("John Doe");
+			debitAccount.setBalance(BigDecimal.valueOf(100));
+			debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
+			debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
 
-		Account5 account = new Account5();
-		account.setId(3L);
-		account.setOwner("John Doe");
-		account.setBalance(BigDecimal.valueOf(1000));
-		account.setInterestRate(BigDecimal.valueOf(1.9d));
+			CreditAccount creditAccount = new CreditAccount();
+			creditAccount.setId(2L);
+			creditAccount.setOwner("John Doe");
+			creditAccount.setBalance(BigDecimal.valueOf(1000));
+			creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
+			creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
 
-		entityManager.persist(debitAccount);
-		entityManager.persist(creditAccount);
-		entityManager.persist(account);
+			Account5 account = new Account5();
+			account.setId(3L);
+			account.setOwner("John Doe");
+			account.setBalance(BigDecimal.valueOf(1000));
+			account.setInterestRate(BigDecimal.valueOf(1.9d));
 
-		entityManager.unwrap(Session.class).doWork(connection -> {
-			try (Statement statement = connection.createStatement()) {
-				statement.executeUpdate("insert into Account5 (DTYPE, active, balance, interestRate, owner, id) "
-						+ "values ('Other', true, 25, 0.5, 'Vlad', 4)");
-			}
+			entityManager.persist(debitAccount);
+			entityManager.persist(creditAccount);
+			entityManager.persist(account);
+
+			entityManager.unwrap(Session.class).doWork(connection -> {
+				try (Statement statement = connection.createStatement()) {
+					statement.executeUpdate("insert into Account5 (DTYPE, active, balance, interestRate, owner, id) "
+							+ "values ('Other', true, 25, 0.5, 'Vlad', 4)");
+				}
+			});
+
+			Map<Long, Account5> accounts = entityManager.createQuery("select a from Account5 a", Account5.class)
+					.getResultList().stream().collect(Collectors.toMap(Account5::getId, Function.identity()));
+
+			accounts.entrySet().stream().map(x -> x.getKey() + ":" + x.getValue()).forEach(System.out::println);
+
 		});
 
-		Map<Long, Account5> accounts = entityManager.createQuery("select a from Account5 a", Account5.class)
-				                                   .getResultList()
-				                                   .stream()
-				                                   .collect(Collectors.toMap(Account5::getId, Function.identity()));
-		
-		accounts.entrySet().stream().map(x -> x.getKey() + ":" + x.getValue()).forEach(System.out::println);
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}
@@ -81,7 +75,8 @@ public class TestDiscriminatorValue {
 
 @Entity(name = "Account5")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorValue("null") // Uncheck the NotNull property of the DType column in the database. Todo: how to do this with table auto generation?
+@DiscriminatorValue("null") // Uncheck the NotNull property of the DType column in the database. Todo: how
+							// to do this with table auto generation?
 class Account5 {
 
 	@Id

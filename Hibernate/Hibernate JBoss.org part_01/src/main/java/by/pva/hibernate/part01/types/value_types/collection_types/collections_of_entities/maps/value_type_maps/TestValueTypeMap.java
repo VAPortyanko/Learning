@@ -9,36 +9,32 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
 // About map keys - https://www.baeldung.com/hibernate-persisting-maps
 
-public class TestValueTypeMap {
+public class TestValueTypeMap extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person person = new Person();
 
-		Person person = new Person();
+			person.getPhoneRegister().put(new Phone(PhoneType.LAND_LINE, "028-234-9876"), new Date());
+			person.getPhoneRegister().put(new Phone(PhoneType.MOBILE, "072-122-9876"), new Date());
 
-		person.getPhoneRegister().put(new Phone(PhoneType.LAND_LINE, "028-234-9876"), new Date());
-		person.getPhoneRegister().put(new Phone(PhoneType.MOBILE, "072-122-9876"), new Date());
+			entityManager.persist(person);
 
-		entityManager.persist(person);
+		});
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 	}
 }

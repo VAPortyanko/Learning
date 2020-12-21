@@ -4,28 +4,24 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.annotations.CreationTimestamp;
 
-public class TestCreationTimestampAnnotation {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCreationTimestampAnnotation extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Event event = new Event();
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(event);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		doInJPA(entityManager -> {
+
+			Event event = new Event();
+
+			entityManager.persist(event);
+		});
+
 		entityManagerFactory.close();
 	}
 }

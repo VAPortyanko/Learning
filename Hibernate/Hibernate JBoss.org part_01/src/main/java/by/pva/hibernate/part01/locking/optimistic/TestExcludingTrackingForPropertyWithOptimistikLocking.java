@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.locking.optimistic;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,11 +9,13 @@ import javax.persistence.Version;
 
 import org.hibernate.annotations.OptimisticLock;
 
-public class TestExcludingTrackingForPropertyWithOptimistikLocking {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestExcludingTrackingForPropertyWithOptimistikLocking extends BaseTest{
 
 	public static void main(String[] args) {
 
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 			
 			Query query = entityManager.createQuery("delete from Phone23");
 			query.executeUpdate();
@@ -44,6 +44,7 @@ public class TestExcludingTrackingForPropertyWithOptimistikLocking {
 			
 		});
 		
+		entityManagerFactory.close();
 	}
 }
 

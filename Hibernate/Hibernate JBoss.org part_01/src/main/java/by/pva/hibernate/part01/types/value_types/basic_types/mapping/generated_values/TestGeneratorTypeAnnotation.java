@@ -1,47 +1,38 @@
 package by.pva.hibernate.part01.types.value_types.basic_types.mapping.generated_values;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.Session;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GeneratorType;
 import org.hibernate.tuple.ValueGenerator;
 
-public class TestGeneratorTypeAnnotation {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestGeneratorTypeAnnotation extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		CurrentUser.INSTANCE.logIn("Alice");
+			CurrentUser.INSTANCE.logIn("Alice");
 
-		Person4 person4 = new Person4();
-		person4.setFirstName("John");
-		person4.setLastName("Doe");
+			Person4 person4 = new Person4();
+			person4.setFirstName("John");
+			person4.setLastName("Doe");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(person4);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.persist(person4);
 
-		CurrentUser.INSTANCE.logOut();
+			CurrentUser.INSTANCE.logOut();
 
-		CurrentUser.INSTANCE.logIn("Bob");
+			CurrentUser.INSTANCE.logIn("Bob");
 
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		person4 = entityManager.find(Person4.class, 1L);
-		person4.setFirstName("Mr. John");
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			person4 = entityManager.find(Person4.class, 1L);
+			person4.setFirstName("Mr. John");
+		});
+
 		entityManagerFactory.close();
 
 		CurrentUser.INSTANCE.logOut();

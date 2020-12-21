@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,30 +14,28 @@ import javax.persistence.JoinTable;
 import javax.persistence.MapKey;
 import javax.persistence.MapKeyTemporal;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
+
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
 import javax.persistence.JoinColumn;
 
-public class TestUniderectionalMap {
+public class TestUniderectionalMap extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person30 person = new Person30();
 
-		Person30 person = new Person30();
+			person.getPhoneRegister().put(new Date(), new Phone20(PhoneType.LAND_LINE, "028-234-9876"));
+			person.getPhoneRegister().put(new Date(), new Phone20(PhoneType.MOBILE, "072-122-9876"));
 
-		person.getPhoneRegister().put(new Date(), new Phone20(PhoneType.LAND_LINE, "028-234-9876"));
-		person.getPhoneRegister().put(new Date(), new Phone20(PhoneType.MOBILE, "072-122-9876"));
+			entityManager.persist(person);
 
-		entityManager.persist(person);
+		});
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}
@@ -53,12 +49,8 @@ class Person30 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(cascade = CascadeType.ALL,
-			   orphanRemoval = true)
-	@JoinTable(
-		name = "phone_register2",
-		joinColumns = @JoinColumn(name = "phone_id"),
-		inverseJoinColumns = @JoinColumn(name = "person_id"))
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinTable(name = "phone_register2", joinColumns = @JoinColumn(name = "phone_id"), inverseJoinColumns = @JoinColumn(name = "person_id"))
 	@MapKey(name = "since")
 	@MapKeyTemporal(TemporalType.TIMESTAMP)
 	private Map<Date, Phone20> phoneRegister = new HashMap<>();
@@ -66,14 +58,17 @@ class Person30 {
 	public Map<Date, Phone20> getPhoneRegister() {
 		return phoneRegister;
 	}
+
 	public void setPhoneRegister(Map<Date, Phone20> phoneRegister) {
 		this.phoneRegister = phoneRegister;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void addPhone(Phone20 phone) {
-		phoneRegister.put( phone.getSince(), phone );
+		phoneRegister.put(phone.getSince(), phone);
 	}
 }
 
@@ -149,4 +144,3 @@ class Phone20 {
 // ALTER TABLE phone_register
 // ADD CONSTRAINT FK6npoomh1rp660o1b55py9ndw4
 // FOREIGN KEY (phone_id) REFERENCES Person
-

@@ -8,54 +8,48 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestManyToManyBiderectionalWithLinkEntity {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToManyBiderectionalWithLinkEntity extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
+			
+			Person11 person1 = new Person11("ABC-124");
+			Person11 person2 = new Person11("DEF-457");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Address3 address1 = new Address3("12th Avenue", "12A", "4005A");
+			Address3 address2 = new Address3("18th Avenue", "18B", "4007B");
+			Address3 address3 = new Address3("19th Avenue", "19B", "4008B");
 
-		Person11 person1 = new Person11("ABC-123");
-		Person11 person2 = new Person11("DEF-456");
+			entityManager.persist(person1);
+			entityManager.persist(person2);
 
-		Address3 address1 = new Address3("12th Avenue", "12A", "4005A");
-		Address3 address2 = new Address3("18th Avenue", "18B", "4007B");
-		Address3 address3 = new Address3("19th Avenue", "19B", "4008B");
+			entityManager.persist(address1);
+			entityManager.persist(address2);
+			entityManager.persist(address3);
 
-		entityManager.persist(person1);
-		entityManager.persist(person2);
+			person1.addAddress(address1);
+			person1.addAddress(address2);
+			person1.addAddress(address3);
 
-		entityManager.persist(address1);
-		entityManager.persist(address2);
-		entityManager.persist(address3);
+			person2.addAddress(address1);
 
-		person1.addAddress(address1);
-		person1.addAddress(address2);
-		person1.addAddress(address3);
+			entityManager.flush();
 
-		person2.addAddress(address1);
+			person1.removeAddress(address1);
 
-		entityManager.flush();
-
-		person1.removeAddress(address1);
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
 
 		entityManagerFactory.close();
 	}
@@ -72,11 +66,9 @@ class Person11 implements Serializable {
 	private Long id;
 	@NaturalId
 	private String registrationNumber;
-	@OneToMany(mappedBy = "person",
-			   cascade = CascadeType.ALL,
-			   orphanRemoval = true)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Person11Address3> addresses = new ArrayList<>();
-	
+
 	public Person11(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
 	}

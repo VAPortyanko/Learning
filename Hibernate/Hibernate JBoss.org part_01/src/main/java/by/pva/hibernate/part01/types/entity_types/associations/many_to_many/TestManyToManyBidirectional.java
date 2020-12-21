@@ -7,54 +7,53 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestManyToManyBidirectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToManyBidirectional extends BaseTest {
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person10 person1 = new Person10("ABC-12431");
+			Person10 person2 = new Person10("DEF-45611");
 
-		Person10 person1 = new Person10("ABC-12430");
-		Person10 person2 = new Person10("DEF-45610");
+			Address2 address1 = new Address2("12th Avenue", "12A", "4005A");
+			Address2 address2 = new Address2("18th Avenue", "18B", "4007B");
+			Address2 address3 = new Address2("19th Avenue", "19B", "4009B");
 
-		Address2 address1 = new Address2("12th Avenue", "12A", "4005A");
-		Address2 address2 = new Address2("18th Avenue", "18B", "4007B");
-		Address2 address3 = new Address2("19th Avenue", "19B", "4009B");
+			person1.addAddress(address1);
+			person1.addAddress(address2);
+			person1.addAddress(address3);
 
-		person1.addAddress(address1);
-		person1.addAddress(address2);
-		person1.addAddress(address3);
+			person2.addAddress(address1);
 
-		person2.addAddress(address1);
+			entityManager.persist(person1);
+			entityManager.persist(person2);
 
-		entityManager.persist(person1);
-		entityManager.persist(person2);
+			// If a bidirectional @OneToMany association performs better when removing or
+			// changing
+			// the order of child elements, the @ManyToMany relationship cannot benefit from
+			// such
+			// an optimization because the foreign key side is not in control. To overcome
+			// this limitation,
+			// the link table must be directly exposed and the @ManyToMany association split
+			// into two
+			// bidirectional @OneToMany relationships.
+			// see
+			// by.pva.hibernate.part01.types.entity_types.associations.many_to_many.TestManyToManyBiderectionalWithLinkEntity;
+			entityManager.flush();
 
-		// If a bidirectional @OneToMany association performs better when removing or changing
-		// the order of child elements, the @ManyToMany relationship cannot benefit from such
-		// an optimization because the foreign key side is not in control. To overcome this limitation,
-		// the link table must be directly exposed and the @ManyToMany association split into two 
-		// bidirectional @OneToMany relationships.	
-		// see by.pva.hibernate.part01.types.entity_types.associations.many_to_many.TestManyToManyBiderectionalWithLinkEntity;
-		entityManager.flush();
+			person1.removeAddress(address1); // !!! Reinserting records in PersonAdress table after deleting one.
 
-		person1.removeAddress(address1); //!!! Reinserting records in PersonAdress table after deleting one.
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
 
 		entityManagerFactory.close();
 	}
@@ -141,8 +140,6 @@ class Address2 {
 	private String postalCode;
 	@ManyToMany(mappedBy = "addresses")
 	private List<Person10> owners = new ArrayList<>();
-
-
 
 	public Address2(String street, String number, String postalCode) {
 		this.street = street;

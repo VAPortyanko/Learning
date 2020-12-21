@@ -3,41 +3,36 @@ package by.pva.hibernate.part01.inheritance.inheritanceStrategies.mapped_super_c
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestMappedSuperClass {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestMappedSuperClass extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			DebitAccount account1 = new DebitAccount();
+			account1.setOwner("Owner");
+			account1.setBalance(BigDecimal.valueOf(1_000));
+			account1.setInterestRate(BigDecimal.valueOf(2));
+			account1.setOverdraftFee(BigDecimal.valueOf(10));
+			entityManager.persist(account1);
 
-		DebitAccount account1 = new DebitAccount();
-		account1.setOwner("Owner");
-		account1.setBalance(BigDecimal.valueOf(1_000));
-		account1.setInterestRate(BigDecimal.valueOf(2));
-		account1.setOverdraftFee(BigDecimal.valueOf(10));
-		entityManager.persist(account1);
+			CreditAccount account2 = new CreditAccount();
+			account2.setOwner("Owner");
+			account2.setBalance(BigDecimal.valueOf(1_000));
+			account2.setInterestRate(BigDecimal.valueOf(2));
+			account2.setCreditLimit(BigDecimal.valueOf(10));
+			entityManager.persist(account2);
 
-		CreditAccount account2 = new CreditAccount();
-		account2.setOwner("Owner");
-		account2.setBalance(BigDecimal.valueOf(1_000));
-		account2.setInterestRate(BigDecimal.valueOf(2));
-		account2.setCreditLimit(BigDecimal.valueOf(10));
-		entityManager.persist(account2);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+
 		entityManagerFactory.close();
 
 	}

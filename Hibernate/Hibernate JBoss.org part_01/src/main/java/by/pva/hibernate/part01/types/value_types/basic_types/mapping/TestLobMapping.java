@@ -6,20 +6,19 @@ import java.sql.Clob;
 import java.sql.SQLException;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Persistence;
-
 import org.hibernate.engine.jdbc.ClobProxy;
 
-public class TestLobMapping {
-	public static void main(String[] args) throws IOException, SQLException {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestLobMapping extends BaseTest{
+	
+	public static void main(String[] args){
+		
+		doInJPA(entityManager -> {
 
 		String warranty = "My product warranty";
 
@@ -28,14 +27,8 @@ public class TestLobMapping {
 		product3.setWarranty(ClobProxy.generateProxy(warranty));
 		product3.setWarranty2(warranty);
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 		entityManager.persist(product3);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		
 		Product3 storedProduct3 = entityManager.find(Product3.class, 1);
 		try (Reader reader = storedProduct3.getWarranty().getCharacterStream()) {
 			int code;
@@ -43,10 +36,11 @@ public class TestLobMapping {
 			while ((code = reader.read()) > 0) {
 				System.out.print((char) code);
 			}
+		} catch (IOException | SQLException e) {
+			e.printStackTrace();
 		}
 		System.out.println("\nWarranty2: " + storedProduct3.getWarranty2());
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
 
 		entityManagerFactory.close();
 	}

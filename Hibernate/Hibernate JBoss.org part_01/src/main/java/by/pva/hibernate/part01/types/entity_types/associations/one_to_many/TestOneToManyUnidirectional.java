@@ -6,45 +6,43 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 
-public class TestOneToManyUnidirectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOneToManyUnidirectional extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person7 person = new Person7();
+			Phone3 phone1 = new Phone3("123-456-7890");
+			Phone3 phone2 = new Phone3("421-654-4980");
+			Phone3 phone3 = new Phone3("922-155-7981");
+			Phone3 phone4 = new Phone3("123-956-2982");
+			person.getPhones().add(phone1);
+			person.getPhones().add(phone2);
+			person.getPhones().add(phone3);
+			person.getPhones().add(phone4);
 
-		Person7 person = new Person7();
-		Phone3 phone1 = new Phone3("123-456-7890");
-		Phone3 phone2 = new Phone3("421-654-4980");
-		Phone3 phone3 = new Phone3("922-155-7981");
-		Phone3 phone4 = new Phone3("123-956-2982");
-		person.getPhones().add(phone1);
-		person.getPhones().add(phone2);
-		person.getPhones().add(phone3);
-		person.getPhones().add(phone4);
+			entityManager.persist(person);
+			entityManager.flush();
 
-		entityManager.persist(person);
-		entityManager.flush();
+			// The unidirectional associations are not very efficient when it comes to
+			// removing child entities.
+			// In the example above, upon flushing the persistence context, Hibernate
+			// deletes all database rows
+			// from the link table (e.g. Person_Phone) that are associated with the parent
+			// Person entity and
+			// reinserts the ones that are still found in the @OneToMany collection.
+			person.getPhones().remove(phone1);
 
-		// The unidirectional associations are not very efficient when it comes to removing child entities. 
-		// In the example above, upon flushing the persistence context, Hibernate deletes all database rows
-		// from the link table (e.g. Person_Phone) that are associated with the parent Person entity and 
-		// reinserts the ones that are still found in the @OneToMany collection.
-		person.getPhones().remove(phone1);
+		});
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}

@@ -9,35 +9,32 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyClass;
 import javax.persistence.MapKeyColumn;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
+
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
 import javax.persistence.JoinColumn;
 
-public class TestValueTypeMapWithInterfaceAsKey {
+public class TestValueTypeMapWithInterfaceAsKey extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		doInJPA(entityManager -> {
 
-		Person29 person = new Person29();
+			Person29 person = new Person29();
 
-		person.getCallRegister().put(new MobilePhone("01", "234", "567"), 101);
-		person.getCallRegister().put(new MobilePhone("01", "234", "789"), 102);
-				
-		entityManager.persist(person);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			person.getCallRegister().put(new MobilePhone("01", "234", "567"), 101);
+			person.getCallRegister().put(new MobilePhone("01", "234", "789"), 102);
+
+			entityManager.persist(person);
+
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -99,8 +96,6 @@ class MobilePhone implements PhoneNumber {
 	}
 }
 
-
-
 @Entity(name = "Person29")
 @Table(name = "Persons29")
 class Person29 {
@@ -110,10 +105,7 @@ class Person29 {
 	private Long id;
 
 	@ElementCollection
-	@CollectionTable(
-		name = "call_register2",
-		joinColumns = @JoinColumn(name = "person_id")
-	)
+	@CollectionTable(name = "call_register2", joinColumns = @JoinColumn(name = "person_id"))
 	@MapKeyColumn(name = "call_timestamp_epoch")
 	@MapKeyClass(MobilePhone.class)
 	@Column(name = "call_register")
@@ -122,9 +114,11 @@ class Person29 {
 	public Map<PhoneNumber, Integer> getCallRegister() {
 		return callRegister;
 	}
+
 	public void setCallRegister(Map<PhoneNumber, Integer> callRegister) {
 		this.callRegister = callRegister;
 	}
+
 	public Long getId() {
 		return id;
 	}

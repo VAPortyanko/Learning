@@ -2,42 +2,37 @@ package by.pva.hibernate.part01.types.value_types.basic_types.mapping.generated_
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
-public class TestGeneratedValue {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestGeneratedValue extends BaseTest {
+
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-	Person3 person3 = new Person3();
-	person3.setFirstName("F");
-	person3.setMiddleName1("M1");
-	person3.setMiddleName2("M2");
-	//person3.setMiddleName3("M3");
-	person3.setMiddleName4("M4");
-	person3.setMiddleName5("M5");
-	person3.setLastName("L");
+		doInJPA(entityManager -> {
 
-	EntityManager entityManager = entityManagerFactory.createEntityManager();
-	entityManager.getTransaction().begin();
-	entityManager.persist(person3);
-	entityManager.flush();
-	System.out.println("Full name: " + person3.getFullName());
-	entityManager.getTransaction().commit();
-	entityManager.close();
-	entityManagerFactory.close();
+			Person3 person3 = new Person3();
+			person3.setFirstName("F");
+			person3.setMiddleName1("M1");
+			person3.setMiddleName2("M2");
+			// person3.setMiddleName3("M3");
+			person3.setMiddleName4("M4");
+			person3.setMiddleName5("M5");
+			person3.setLastName("L");
+
+			entityManager.persist(person3);
+			entityManager.flush();
+			System.out.println("Full name: " + person3.getFullName());
+		});
+
+		entityManagerFactory.close();
 	}
 }
-
-
 
 @Entity(name = "Persons3")
 class Person3 {
@@ -55,16 +50,10 @@ class Person3 {
 	private String middleName5;
 
 	@Generated(value = GenerationTime.ALWAYS) // if you will change columnDefinition drop the table before run the test.
-	@Column(columnDefinition =
-	        " varchar(255) AS (CONCAT(" +
-			"	COALESCE(firstName,'*'), " +
-			"	COALESCE(middleName1, '*'), " +
-			"	COALESCE(middleName2, '*'), " +
-			"	COALESCE(middleName3, '*'), " +
-			"	COALESCE(middleName4, '*'), " +
-			"	COALESCE(middleName5, '*'), " +
-			"	COALESCE(lastName, '*') " +
-			"))")
+	@Column(columnDefinition = " varchar(255) AS (CONCAT(" + "	COALESCE(firstName,'*'), "
+			+ "	COALESCE(middleName1, '*'), " + "	COALESCE(middleName2, '*'), " + "	COALESCE(middleName3, '*'), "
+			+ "	COALESCE(middleName4, '*'), " + "	COALESCE(middleName5, '*'), " + "	COALESCE(lastName, '*') "
+			+ "))")
 	private String fullName;
 
 	public Long getId() {
@@ -140,4 +129,3 @@ class Person3 {
 	}
 
 }
-

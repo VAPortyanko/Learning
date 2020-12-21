@@ -1,71 +1,64 @@
 package by.pva.hibernate.part01.types.entity_types.associations.many_to_one.join_formula;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.JoinFormula;
 
-public class TestManyToOne_JoinFormula {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToOne_JoinFormula extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query1 = entityManager.createQuery("delete from User");
+			Query query2 = entityManager.createQuery("delete from Country3");
+			query1.executeUpdate();
+			query2.executeUpdate();
 
-		Query query1 = entityManager.createQuery("delete from User");
-		Query query2 = entityManager.createQuery("delete from Country3");
-		query1.executeUpdate();
-		query2.executeUpdate();
-		
 //		Country US = new Country();
 //		US.setId(1);
 //		US.setName("United States");
 
-		Country Romania = new Country();
-		Romania.setId(40);
-		Romania.setName("Romania");
+			Country Romania = new Country();
+			Romania.setId(40);
+			Romania.setName("Romania");
 
 //		entityManager.persist(US);
-		entityManager.persist(Romania);
+			entityManager.persist(Romania);
 
 //		User user1 = new User();
 //		user1.setId(1L);
 //		user1.setFirstName("John");
 //		user1.setLastName("Doe");
 //		user1.setPhoneNumber("+1-234-5678");
-		
+
 //		entityManager.persist(user1);
 
-		User user2 = new User();
-		user2.setId(2L);
-		user2.setFirstName("Vlad");
-		user2.setLastName("Mihalcea");
-		user2.setPhoneNumber("+40-123-4567");
-		
-		entityManager.persist(user2);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			User user2 = new User();
+			user2.setId(2L);
+			user2.setFirstName("Vlad");
+			user2.setLastName("Mihalcea");
+			user2.setPhoneNumber("+40-123-4567");
 
-		//User john = entityManager.find(User.class, 1L);
-		//System.out.println(john.getCountry());
+			entityManager.persist(user2);
 
-		User vlad = entityManager.find(User.class, 2L);
-		System.out.println(vlad.getCountry().getName());
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.flush();
+			entityManager.clear();
+			
+			// User john = entityManager.find(User.class, 1L);
+			// System.out.println(john.getCountry());
+
+			User vlad = entityManager.find(User.class, 2L);
+			System.out.println(vlad.getCountry().getName());
+
+		});
+
 		entityManagerFactory.close();
 
 	}
@@ -82,7 +75,8 @@ class User {
 	private String phoneNumber;
 
 	@ManyToOne
-	//@JoinFormula("REGEXP_REPLACE(phoneNumber, '\\+(\\d+)-.*', '\\1')::int") // ToDo: adapt this for MySql.
+	// @JoinFormula("REGEXP_REPLACE(phoneNumber, '\\+(\\d+)-.*', '\\1')::int") //
+	// ToDo: adapt this for MySql.
 	@JoinFormula("40")
 	private Country country;
 

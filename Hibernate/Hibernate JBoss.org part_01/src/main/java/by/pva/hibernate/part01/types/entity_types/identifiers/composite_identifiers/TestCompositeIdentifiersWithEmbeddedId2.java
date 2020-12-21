@@ -6,38 +6,37 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class TestCompositeIdentifiersWithEmbeddedId2 {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCompositeIdentifiersWithEmbeddedId2 extends BaseTest {
+
 	public static void main(String[] args) {
+
+		doInJPA(entityManager -> {
+
+			Query query = entityManager.createQuery("delete from SystemUsers2");
+			Query query2 = entityManager.createQuery("delete from Subsystems");
+			query.executeUpdate();
+			query2.executeUpdate();
+
+			Subsystem subsystem = new Subsystem();
+			subsystem.setId("Subsystem");
+			subsystem.setDescription("Description");
+			PK2 pk2 = new PK2(subsystem, "username");
+			SystemUser2 user2 = new SystemUser2();
+			user2.setPk2(pk2);
+			user2.setName("Name");
+
+			entityManager.persist(subsystem);
+			entityManager.persist(user2);
+
+		});
 		
-		Subsystem subsystem = new Subsystem();
-		subsystem.setId("Subsystem");
-		subsystem.setDescription("Description");
-		PK2 pk2 = new PK2(subsystem, "username");
-		SystemUser2 user2 = new SystemUser2();
-		user2.setPk2(pk2);
-		user2.setName("Name");
-
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createQuery("delete from SystemUsers2");
-		Query query2 = entityManager.createQuery("delete from Subsystems");
-		query.executeUpdate();
-		query2.executeUpdate();
-		entityManager.persist(subsystem);
-		entityManager.persist(user2);
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 	}
 }
@@ -48,16 +47,19 @@ class SystemUser2 {
 	@EmbeddedId
 	private PK2 pk;
 	private String name;
-	
+
 	public PK2 getPk2() {
 		return pk;
 	}
+
 	public void setPk2(PK2 pk2) {
 		this.pk = pk2;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -88,7 +90,6 @@ class Subsystem {
 		this.description = description;
 	}
 
-	
 }
 
 @SuppressWarnings("serial")
@@ -111,19 +112,18 @@ class PK2 implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if ( this == o ) {
+		if (this == o) {
 			return true;
 		}
-		if ( o == null || getClass() != o.getClass() ) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		PK2 pk = (PK2) o;
-		return Objects.equals( subsystem, pk.subsystem ) &&
-				Objects.equals( username, pk.username );
+		return Objects.equals(subsystem, pk.subsystem) && Objects.equals(username, pk.username);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash( subsystem, username );
+		return Objects.hash(subsystem, username);
 	}
 }

@@ -2,32 +2,29 @@ package by.pva.hibernate.part01.types.entity_types.identifiers.generated_identif
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.TableGenerator;
 
-public class TestTableIdentifierType {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestTableIdentifierType extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		Product6 product61 = new Product6();
-		product61.setName("Name1");
-		Product6 product62 = new Product6();
-		product62.setName("Name2");
+			Product6 product61 = new Product6();
+			product61.setName("Name1");
+			Product6 product62 = new Product6();
+			product62.setName("Name2");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(product61);
-		entityManager.persist(product62);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.persist(product61);
+			entityManager.persist(product62);
+
+		});
+
 		entityManagerFactory.close();
 
 	}
@@ -37,13 +34,8 @@ public class TestTableIdentifierType {
 class Product6 {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE, 
-	                generator = "table-generator")
-	@TableGenerator(name = "table-generator",
-	                table = "table_identifier",
-	                pkColumnName = "table_name",
-	                valueColumnName = "seq_val",
-	                allocationSize = 3) // https://vladmihalcea.com/hibernate-hidden-gem-the-pooled-lo-optimizer/
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "table-generator")
+	@TableGenerator(name = "table-generator", table = "table_identifier", pkColumnName = "table_name", valueColumnName = "seq_val", allocationSize = 3) // https://vladmihalcea.com/hibernate-hidden-gem-the-pooled-lo-optimizer/
 	private Long id;
 
 	@Column(name = "product_name")

@@ -1,33 +1,31 @@
 package by.pva.hibernate.part01.types.entity_types.identifiers.derived_identifiers;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-import javax.persistence.Persistence;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestDerivedIdentifierWithMapsId {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestDerivedIdentifierWithMapsId extends BaseTest {
+
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Person person = new Person("ABC-1234");
-		person.setId(5L);
+		doInJPA(entityManager -> {
 
-		PersonDetails personDetails = new PersonDetails();
-		personDetails.setNickName("John Doe");
-		personDetails.setPerson(person);
+			Person person = new Person("ABC-1234");
+			person.setId(5L);
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(person);
-		entityManager.persist(personDetails);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			PersonDetails personDetails = new PersonDetails();
+			personDetails.setNickName("John Doe");
+			personDetails.setPerson(person);
+
+			entityManager.persist(person);
+			entityManager.persist(personDetails);
+		});
+
 		entityManagerFactory.close();
 	}
 }

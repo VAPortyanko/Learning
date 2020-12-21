@@ -2,29 +2,26 @@ package by.pva.hibernate.part01.types.entity_types.identifiers.generated_identif
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.SequenceGenerator;
 
-public class TestSequenceIdentifierType {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestSequenceIdentifierType extends BaseTest {
 
 	public static void main(String[] args) {
-		
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Product5 product5 = new Product5();
-		product5.setName("Name");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(product5);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Product5 product5 = new Product5();
+			product5.setName("Name");
+
+			entityManager.persist(product5);
+
+		});
+
 		entityManagerFactory.close();
 
 	}
@@ -34,11 +31,8 @@ public class TestSequenceIdentifierType {
 class Product5 {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,
-	                generator = "sequence-generator")
-	@SequenceGenerator(name = "sequence-generator",
-	                   sequenceName = "product5_sequence",
-	                   allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence-generator")
+	@SequenceGenerator(name = "sequence-generator", sequenceName = "product5_sequence", allocationSize = 1)
 	private Long id;
 	@Column(name = "product_name")
 	private String name;

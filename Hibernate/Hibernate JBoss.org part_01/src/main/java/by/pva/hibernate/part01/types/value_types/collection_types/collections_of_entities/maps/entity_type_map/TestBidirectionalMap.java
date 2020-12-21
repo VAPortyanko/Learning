@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,28 +14,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.MapKeyEnumerated;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestBidirectionalMap {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestBidirectionalMap extends BaseTest {
 
 	public static void main(String[] args) {
-		
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		doInJPA(entityManager -> {
 
-		Person31 person = new Person31();
+			Person31 person = new Person31();
 
-		person.getPhoneRegister().put(PhoneType.MOBILE, new Phone21(PhoneType.LAND_LINE, "028-234-9876"));
-		person.getPhoneRegister().put(PhoneType.MOBILE, new Phone21(PhoneType.MOBILE, "072-122-9876"));
+			person.getPhoneRegister().put(PhoneType.MOBILE, new Phone21(PhoneType.LAND_LINE, "028-234-9876"));
+			person.getPhoneRegister().put(PhoneType.MOBILE, new Phone21(PhoneType.MOBILE, "072-122-9876"));
 
-		entityManager.persist(person);
+			entityManager.persist(person);
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+
 		entityManagerFactory.close();
 
 	}
@@ -50,9 +45,7 @@ class Person31 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(mappedBy = "person",
-			   cascade = CascadeType.ALL,
-			   orphanRemoval = true)
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	@MapKey(name = "type")
 	@MapKeyEnumerated
 	private Map<PhoneType, Phone21> phoneRegister = new HashMap<>();
@@ -64,12 +57,14 @@ class Person31 {
 	public void setPhoneRegister(Map<PhoneType, Phone21> phoneRegister) {
 		this.phoneRegister = phoneRegister;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void addPhone(Phone21 phone) {
 		phone.setPerson(this);
-		phoneRegister.put( phone.getType(), phone );
+		phoneRegister.put(phone.getType(), phone);
 	}
 }
 
@@ -91,30 +86,39 @@ class Phone21 {
 		this.type = type;
 		this.number = number;
 	}
+
 	public PhoneType getType() {
 		return type;
 	}
+
 	public void setType(PhoneType type) {
 		this.type = type;
 	}
+
 	public String getNumber() {
 		return number;
 	}
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
 	public Date getSince() {
 		return since;
 	}
+
 	public void setSince(Date since) {
 		this.since = since;
 	}
+
 	public Person31 getPerson() {
 		return person;
 	}
+
 	public void setPerson(Person31 person) {
 		this.person = person;
 	}
+
 	public Long getId() {
 		return id;
 	}

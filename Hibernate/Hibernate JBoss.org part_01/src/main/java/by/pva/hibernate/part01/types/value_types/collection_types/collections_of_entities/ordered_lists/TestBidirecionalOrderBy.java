@@ -7,49 +7,44 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestBidirecionalOrderBy {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestBidirecionalOrderBy extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query = entityManager.createQuery("delete from Phone14");
+			Query query2 = entityManager.createQuery("delete from Person20");
+			query.executeUpdate();
+			query2.executeUpdate();
 
-		Query query = entityManager.createQuery("delete from Phone14");
-		Query query2 = entityManager.createQuery("delete from Person20");
-		query.executeUpdate();
-		query2.executeUpdate();
+			Person20 person = new Person20();
+			person.setId(1L);
+			person.addPhone(new Phone14("landline", "128-234-9876"));
+			person.addPhone(new Phone14("mobile", "372-122-9876"));
+			person.addPhone(new Phone14("mobile", "073-122-9876"));
+			entityManager.persist(person);
+			entityManager.flush();
+			entityManager.clear();
 
-		Person20 person = new Person20();
-		person.setId(1L);
-		person.addPhone(new Phone14("landline", "128-234-9876"));
-		person.addPhone(new Phone14("mobile", "372-122-9876"));
-		person.addPhone(new Phone14("mobile", "073-122-9876"));
-		entityManager.persist(person);
-		entityManager.flush();
-		entityManager.clear();
-		
-		Person20 person2 = entityManager.find(Person20.class, 1L); 
-		person2.getPhones().forEach(System.out::println);
+			Person20 person2 = entityManager.find(Person20.class, 1L);
+			person2.getPhones().forEach(System.out::println);
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+
 		entityManagerFactory.close();
 
 	}
@@ -109,6 +104,7 @@ class Phone14 {
 
 	public Phone14() {
 	}
+
 	public Phone14(String type, String number) {
 		this.type = type;
 		this.number = number;
@@ -158,6 +154,7 @@ class Phone14 {
 	public int hashCode() {
 		return Objects.hash(number);
 	}
+
 	@Override
 	public String toString() {
 		return this.type + ": " + this.number;

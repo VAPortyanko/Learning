@@ -4,39 +4,30 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
-public class TestUpdateTimestampAnnotation {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestUpdateTimestampAnnotation extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Bid bid = new Bid();
-		bid.setUpdatedBy("John Doe");
-		bid.setCents(150 * 100L);
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(bid);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Bid bid = new Bid();
+			bid.setUpdatedBy("John Doe");
+			bid.setCents(150 * 100L);
 
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		bid = entityManager.find(Bid.class, 1L);
-		bid.setUpdatedBy("John Doe Jr.");
-		bid.setCents(160 * 100L);
-		entityManager.persist(bid);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.persist(bid);
+
+			bid = entityManager.find(Bid.class, 1L);
+			bid.setUpdatedBy("John Doe Jr.");
+			bid.setCents(160 * 100L);
+			entityManager.persist(bid);
+		});
 
 		entityManagerFactory.close();
 	}

@@ -3,35 +3,33 @@ package by.pva.hibernate.part01.types.entity_types.associations.one_to_one;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestOneToOneUnidirectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOneToOneUnidirectional extends BaseTest {
 
 	public static void main(String[] args) {
-		
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		PhoneDetails phoneDetails = new PhoneDetails();
-		phoneDetails.setProvider("Provider");
-		phoneDetails.setTechnology("Technology");
-		
-		Phone phone = new Phone();
-		phone.setNumber("+375297777777");
-		phone.setDetails(phoneDetails);
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(phone);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			PhoneDetails phoneDetails = new PhoneDetails();
+			phoneDetails.setProvider("Provider");
+			phoneDetails.setTechnology("Technology");
+
+			Phone phone = new Phone();
+			phone.setNumber("+375297777777");
+			phone.setDetails(phoneDetails);
+
+			entityManager.persist(phone);
+
+		});
+
 		entityManagerFactory.close();
 
 	}

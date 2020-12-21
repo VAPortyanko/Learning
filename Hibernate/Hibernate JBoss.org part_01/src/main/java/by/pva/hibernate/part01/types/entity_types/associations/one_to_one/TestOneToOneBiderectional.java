@@ -3,62 +3,58 @@ package by.pva.hibernate.part01.types.entity_types.associations.one_to_one;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestOneToOneBiderectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOneToOneBiderectional extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		PhoneDetails3_2 details = new PhoneDetails3_2();
-		details.setProvider("Provider");
-		details.setTechnology("Technology");
+			PhoneDetails3_2 details = new PhoneDetails3_2();
+			details.setProvider("Provider");
+			details.setTechnology("Technology");
 
-		Phone6_2 phone = new Phone6_2();
-		phone.setNumber("+375(29) 457-85-74");
-		phone.addDetails(details);
+			Phone6_2 phone = new Phone6_2();
+			phone.setNumber("+375(29) 457-85-74");
+			phone.addDetails(details);
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			entityManager.persist(phone);
 
-		entityManager.persist(phone);
+			entityManager.flush();
+			entityManager.clear();
 
-		entityManager.flush();
-		entityManager.clear();
 //* commit from here
-		// When using a bidirectional @OneToOne association, Hibernate enforces the
-		// unique constraint upon fetching the child-side. If there are more than 
-		// one children associated with the same parent, Hibernate will throw a
-		// org.hibernate.exception.ConstraintViolationException.
-		// Continuing the previous example, when adding another PhoneDetails, Hibernate
-		// validates the uniqueness constraint when reloading the Phone object.
+			// When using a bidirectional @OneToOne association, Hibernate enforces the
+			// unique constraint upon fetching the child-side. If there are more than
+			// one children associated with the same parent, Hibernate will throw a
+			// org.hibernate.exception.ConstraintViolationException.
+			// Continuing the previous example, when adding another PhoneDetails, Hibernate
+			// validates the uniqueness constraint when reloading the Phone object.
 
-		PhoneDetails3_2 otherDetails = new PhoneDetails3_2();
-		otherDetails.setProvider("Provider2");
-		otherDetails.setTechnology("Technologiy2");
-		otherDetails.setPhone(phone);
-		entityManager.persist(otherDetails);
-		entityManager.flush();
-		entityManager.clear();
-		
-		// throws javax.persistence.PersistenceException: org.hibernate.HibernateException: 
-		// More than one row with the given identifier was found: 1
-		Phone6_2 somePhone = entityManager.find(Phone6_2.class, phone.getId());
-		System.out.println(somePhone.getNumber());
+			PhoneDetails3_2 otherDetails = new PhoneDetails3_2();
+			otherDetails.setProvider("Provider2");
+			otherDetails.setTechnology("Technologiy2");
+			otherDetails.setPhone(phone);
+			entityManager.persist(otherDetails);
+			entityManager.flush();
+			entityManager.clear();
+
+			// throws javax.persistence.PersistenceException:
+			// org.hibernate.HibernateException:
+			// More than one row with the given identifier was found: 1
+			Phone6_2 somePhone = entityManager.find(Phone6_2.class, phone.getId());
+			System.out.println(somePhone.getNumber());
 //* to here
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
 
 		entityManagerFactory.close();
 
@@ -74,10 +70,7 @@ class Phone6_2 {
 	private Long id;
 	@Column(name = "`number`")
 	private String number;
-	@OneToOne(mappedBy = "phone",
-			  cascade = CascadeType.ALL,
-			  orphanRemoval = true,
-			  fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "phone", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private PhoneDetails3_2 details;
 
 	public Long getId() {

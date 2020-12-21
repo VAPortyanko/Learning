@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.fetching.static_fetching.lazycollection_annotation;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +17,13 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.NaturalId;
 
-public class TestLazzyCollectionAnnotation {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestLazzyCollectionAnnotation extends BaseTest{
 
 	public static void main(String[] args) {
 
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("delete from Employee11");
 			query.executeUpdate();
@@ -64,8 +64,9 @@ public class TestLazzyCollectionAnnotation {
 			for(int i = 0; i < employeeCount; i++ ) { 
 				System.out.printf( "Fetched employee: %s\n", department.getEmployees().get(i).getUsername());
 			}
-
 		});
+		
+		entityManagerFactory.close();
 
 	}
 }

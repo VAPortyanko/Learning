@@ -7,53 +7,48 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.SortNatural;
 
-public class TestUnidirectionalNaturalSortedSet {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestUnidirectionalNaturalSortedSet extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+		doInJPA(entityManager -> {
 
-		Query query = entityManager.createQuery("delete from Person25");
-		Query query2 = entityManager.createQuery("delete from Phone18");
-		query.executeUpdate();
-		query2.executeUpdate();
-		
-		Person person = new Person();
-		person.getPhones().add(new Phone("landline", "228-234-9876"));
-		person.getPhones().add(new Phone("mobile"  , "672-122-9876"));
-		person.getPhones().add(new Phone("mobile"  , "772-122-9876"));
-		person.getPhones().add(new Phone("mobile"  , "472-122-9876"));
-		person.getPhones().add(new Phone("landline", "102-234-9876"));
-		person.getPhones().add(new Phone("landline", "928-234-9876"));
-		
-		entityManager.persist(person);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Query query = entityManager.createQuery("delete from Person25");
+			Query query2 = entityManager.createQuery("delete from Phone18");
+			query.executeUpdate();
+			query2.executeUpdate();
+
+			Person person = new Person();
+			person.getPhones().add(new Phone("landline", "228-234-9876"));
+			person.getPhones().add(new Phone("mobile", "672-122-9876"));
+			person.getPhones().add(new Phone("mobile", "772-122-9876"));
+			person.getPhones().add(new Phone("mobile", "472-122-9876"));
+			person.getPhones().add(new Phone("landline", "102-234-9876"));
+			person.getPhones().add(new Phone("landline", "928-234-9876"));
+
+			entityManager.persist(person);
+
+		});
+
 		entityManagerFactory.close();
-		
+
 	}
 }
 
 @Entity(name = "Person25")
-@Table(name = "Persons25")	
+@Table(name = "Persons25")
 class Person {
 
 	@Id
@@ -142,7 +137,7 @@ class Phone implements Comparable<Phone> {
 	public int hashCode() {
 		return Objects.hash(number);
 	}
-	
+
 	@Override
 	public String toString() {
 		return number + " " + type;

@@ -1,35 +1,29 @@
 package by.pva.hibernate.part01.naming_strategy;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.Collections;
+import java.util.Map;
 
-public class TestPhysicalNamingStrategy {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestPhysicalNamingStrategy extends BaseTest {
 	public static void main(String[] args) {
 
-		try {
-
-			EntityManagerFactory entityManagerFactory = Persistence
-					.createEntityManagerFactory("by.pva.hibernate.part01.namingstrategy.physical_naming_strategy");
+		Map<String, String> properties = Collections.singletonMap("hibernate.physical_naming_strategy",
+				"by.pva.hibernate.part01.naming_strategy.CustomPhysicalNamingStrategy");
+		rebuildEntityManagerFactory(properties);
+		
+		doInJPA(entityManager -> {
 
 			Customer customer = new Customer();
 			customer.setEmailAddress("Some@mail.com");
 			customer.setFirstName("FirstName");
 			customer.setLastName("LastName");
 
-			EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-			entityManager.getTransaction().begin();
 			entityManager.persist(customer);
-			entityManager.getTransaction().commit();
-			entityManager.close();
 
-			entityManagerFactory.close();
+		});
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("End!");
+		entityManagerFactory.close();
+
 	}
 }

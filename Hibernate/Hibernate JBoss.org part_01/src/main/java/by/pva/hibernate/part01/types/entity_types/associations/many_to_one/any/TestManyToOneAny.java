@@ -2,61 +2,56 @@ package by.pva.hibernate.part01.types.entity_types.associations.many_to_one.any;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.*;
 
-public class TestManyToOneAny {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToOneAny extends BaseTest {
 
 	public static void main(String[] args) {
-		
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		Query query = entityManager.createQuery("delete from IntegerProperty");
-		Query query2 = entityManager.createQuery("delete from StringProperty");
-		Query query3 = entityManager.createQuery("delete from PropertyHolder");
-		query.executeUpdate();
-		query2.executeUpdate();
-		query3.executeUpdate();
-		
-		IntegerProperty ageProperty = new IntegerProperty();
-		ageProperty.setId( 1L );
-		ageProperty.setName( "age" );
-		ageProperty.setValue( 23 );
-		
-		entityManager.persist( ageProperty );
-		
-		StringProperty nameProperty = new StringProperty();
-		nameProperty.setId( 1L );
-		nameProperty.setName( "name" );
-		nameProperty.setValue( "John Doe" );
-		
-		entityManager.persist( nameProperty );
-		
-		PropertyHolder namePropertyHolder = new PropertyHolder();
-		namePropertyHolder.setId( 1L );
-		namePropertyHolder.setProperty( nameProperty );
-		PropertyHolder agePropertyHolder = new PropertyHolder();
-		agePropertyHolder.setId( 2L );
-		agePropertyHolder.setProperty(ageProperty);
-		
-		entityManager.persist(namePropertyHolder);
-		entityManager.persist(agePropertyHolder);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+
+		doInJPA(entityManager -> {
+
+			Query query = entityManager.createQuery("delete from IntegerProperty");
+			Query query2 = entityManager.createQuery("delete from StringProperty");
+			Query query3 = entityManager.createQuery("delete from PropertyHolder");
+			query.executeUpdate();
+			query2.executeUpdate();
+			query3.executeUpdate();
+
+			IntegerProperty ageProperty = new IntegerProperty();
+			ageProperty.setId(1L);
+			ageProperty.setName("age");
+			ageProperty.setValue(23);
+
+			entityManager.persist(ageProperty);
+
+			StringProperty nameProperty = new StringProperty();
+			nameProperty.setId(1L);
+			nameProperty.setName("name");
+			nameProperty.setValue("John Doe");
+
+			entityManager.persist(nameProperty);
+
+			PropertyHolder namePropertyHolder = new PropertyHolder();
+			namePropertyHolder.setId(1L);
+			namePropertyHolder.setProperty(nameProperty);
+			PropertyHolder agePropertyHolder = new PropertyHolder();
+			agePropertyHolder.setId(2L);
+			agePropertyHolder.setProperty(ageProperty);
+
+			entityManager.persist(namePropertyHolder);
+			entityManager.persist(agePropertyHolder);
+
+		});
+
 		entityManagerFactory.close();
-		
+
 	}
 }
 
@@ -151,8 +146,7 @@ class PropertyHolder {
 
 	@Id
 	private Long id;
-	@Any(metaDef = "PropertyMetaDef",
-		 metaColumn = @Column(name = "property_type"))
+	@Any(metaDef = "PropertyMetaDef", metaColumn = @Column(name = "property_type"))
 //	@AnyMetaDef(name= "PropertyMetaDef", metaType = "string", idType = "long",
 //    metaValues = {
 //            @MetaValue(value = "S", targetEntity = StringProperty.class),

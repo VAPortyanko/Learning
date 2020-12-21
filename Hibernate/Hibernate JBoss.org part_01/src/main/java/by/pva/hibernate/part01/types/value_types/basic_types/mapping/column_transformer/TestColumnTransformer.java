@@ -7,41 +7,38 @@ import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.engine.jdbc.BlobProxy;
 
-public class TestColumnTransformer {
-	public static void main(String[] args) throws IOException, SQLException {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+import by.pva.hibernate.part01._myUtils.BaseTest;
 
-		Employee employee = new Employee();
-		employee.setUsername("UserName2");
-		employee.setAccessLevel(0);
-		byte[] buff = "Password".getBytes();
-		employee.setPassword(BlobProxy.generateProxy("Password".getBytes()));
+public class TestColumnTransformer extends BaseTest {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(employee);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Employee storedEmployee = entityManager.find(Employee.class, 1l);
-		Arrays.fill(buff, (byte)0);
-		storedEmployee.getPassword().getBinaryStream().read(buff);
-		System.out.println(new String(buff));
-		entityManager.getTransaction().commit();
-		entityManager.close();
+	public static void main(String[] args) {
+
+		doInJPA(entityManager -> {
+
+			Employee employee = new Employee();
+			employee.setUsername("UserName2");
+			employee.setAccessLevel(0);
+			byte[] buff = "Password".getBytes();
+			employee.setPassword(BlobProxy.generateProxy("Password".getBytes()));
+
+			entityManager.persist(employee);
+
+			Employee storedEmployee = entityManager.find(Employee.class, 1l);
+			Arrays.fill(buff, (byte) 0);
+			try {
+				storedEmployee.getPassword().getBinaryStream().read(buff);
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
+			}
+			System.out.println(new String(buff));
+
+		});
 
 		entityManagerFactory.close();
 	}
@@ -56,10 +53,7 @@ class Employee {
 
 	private String username;
 	@Column(name = "pswd")
-	@ColumnTransformer(
-			read = "aes_decrypt(pswd, 'mysecretkey')", 
-			write = "aes_encrypt(?, 'mysecretkey')"
-	) 
+	@ColumnTransformer(read = "aes_decrypt(pswd, 'mysecretkey')", write = "aes_encrypt(?, 'mysecretkey')")
 	private Blob password;
 	private int accessLevel;
 

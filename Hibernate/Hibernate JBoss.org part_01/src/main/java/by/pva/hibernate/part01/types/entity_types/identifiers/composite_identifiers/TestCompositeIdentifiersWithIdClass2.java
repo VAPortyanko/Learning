@@ -4,34 +4,30 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.SequenceGenerator;
 
-public class TestCompositeIdentifiersWithIdClass2 {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCompositeIdentifiersWithIdClass2 extends BaseTest {
 
 	public static void main(String[] args) {
 
-		SystemUser4 user4 = new SystemUser4();
-		user4.setId(new PK4("subsystem", "username"));
-		user4.setName("Name");
+		doInJPA(entityManager -> {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+			SystemUser4 user4 = new SystemUser4();
+			user4.setId(new PK4("subsystem", "username"));
+			user4.setName("Name");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createQuery("delete from SystemUsers4");
-		query.executeUpdate();
-		entityManager.persist(user4);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Query query = entityManager.createQuery("delete from SystemUsers4");
+			query.executeUpdate();
+			entityManager.persist(user4);
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -45,8 +41,8 @@ class SystemUser4 {
 	@Id
 	private String username;
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_seq")
-	@SequenceGenerator(name="users_seq", sequenceName="SystemUser4Sequence", allocationSize=10)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+	@SequenceGenerator(name = "users_seq", sequenceName = "SystemUser4Sequence", allocationSize = 10)
 	private Integer registrationId;
 
 	private String name;

@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.fetching.static_fetching.fetch_anotation;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,13 +18,16 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NaturalId;
 
-public class TestHibSpecificFetchAnnotationJoinMode {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestHibSpecificFetchAnnotationJoinMode extends BaseTest{
 	
 	public static void main(String[] args) {
 	
 		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "false");
+		rebuildEntityManagerFactory(properties);
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 			
 			Query query = entityManager.createQuery("delete from Employee10");
 			query.executeUpdate();
@@ -92,7 +93,9 @@ public class TestHibSpecificFetchAnnotationJoinMode {
 //				dep.getEmployees().forEach(System.out::println);
 //			}
 			
-		}, properties);
+		});
+		
+		entityManagerFactory.close();
 		
 	}
 }

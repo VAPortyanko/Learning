@@ -1,34 +1,37 @@
 package by.pva.hibernate.part01.types.entity_types.identifiers.derived_identifiers;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Persistence;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Query;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestDerivedIdentifierWithPrimaryKeyJoinColumn {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestDerivedIdentifierWithPrimaryKeyJoinColumn extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Person6 person = new Person6("ABC-123");
-		person.setId(1L);
+		doInJPA(entityManager -> {
 
-		Person6Details personDetails = new Person6Details();
-		personDetails.setNickName("John Doe");
-		personDetails.setPerson(person);
+			Query query1 = entityManager.createQuery("Delete from Person6Details");
+			query1.executeUpdate();
+			Query query2 = entityManager.createQuery("Delete from Person6");
+			query2.executeUpdate();
+			
+			Person6 person = new Person6("ABC-123");
+			person.setId(1L);
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(person);
-		entityManager.persist(personDetails);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Person6Details personDetails = new Person6Details();
+			personDetails.setNickName("John Doe");
+			personDetails.setPerson(person);
+
+			entityManager.persist(person);
+			entityManager.persist(personDetails);
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -74,7 +77,7 @@ class Person6Details {
 	private Long id;
 	private String nickName;
 
-	@OneToOne
+	@OneToOne()
 	@PrimaryKeyJoinColumn
 	private Person6 person;
 

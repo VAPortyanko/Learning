@@ -1,10 +1,7 @@
 package by.pva.hibernate.part01.fetching.static_fetching.batch_fetching;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,15 +16,15 @@ import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.NaturalId;
 import org.jboss.logging.Logger;
 
-public class TestBatchFetching {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestBatchFetching extends BaseTest{
 
 	private final static Logger log = Logger.getLogger("org.hibernate.SQL");
 	
 	public static void main(String[] args) {
 
-		Map<String, String> properties = null;
-		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("delete from Employee8");
 			query.executeUpdate();
@@ -110,8 +107,10 @@ public class TestBatchFetching {
 			
 			// Note: When batch size = 1, then "select ... where ... id in ()" replace with "select ... where ... id = " in addition selects. 
 			
-		}, properties);	
+		});	
 
+		entityManagerFactory.close();
+		
 	}
 }
 

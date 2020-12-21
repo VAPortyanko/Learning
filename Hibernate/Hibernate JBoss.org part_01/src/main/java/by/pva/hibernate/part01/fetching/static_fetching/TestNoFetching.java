@@ -1,10 +1,9 @@
 package by.pva.hibernate.part01.fetching.static_fetching;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,14 +17,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 import org.jboss.logging.Logger;
 
-public class TestNoFetching {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestNoFetching extends BaseTest{
 
 	private final static Logger log = Logger.getLogger("org.hibernate.SQL");
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		rebuildEntityManagerFactory(properties);
+		
+		doInJPA(entityManager -> {
 		
 			Query query1 = entityManager.createQuery("Delete from Employee3");
 			Query query2 = entityManager.createQuery("Delete from Project");
@@ -85,7 +89,9 @@ public class TestNoFetching {
 			.setParameter( "password", "password")
 			.getSingleResult();
 			
-		}, Collections.singletonMap("hibernate.format_sql", "true"));
+		});
+		
+		entityManagerFactory.close();
 		
 	}
 }

@@ -4,68 +4,61 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
-public class TestTablePerClassInheritanceStrategy {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestTablePerClassInheritanceStrategy extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query1 = entityManager.createQuery("delete from Account6");
+			query1.executeUpdate(); // Also delete records from two other tables.
 
-		Query query1 = entityManager.createQuery("delete from Account6");
-		query1.executeUpdate(); // Also delete records from two other tables.
-		
-		Account account = new Account();
-		account.setId(1L);
-		account.setOwner("John Doe");
-		account.setBalance(BigDecimal.valueOf(100));
-		account.setInterestRate(BigDecimal.valueOf(1.5d));
-		
-		// A requirement for all child objects of the same parent entity is that they have unique IDs among them.
-		// https://stackoverflow.com/questions/47455957/how-can-i-combine-table-per-class-and-generationtype-identity
-		DebitAccount debitAccount = new DebitAccount();
-		debitAccount.setId(2L);
-		debitAccount.setOwner("John Doe");
-		debitAccount.setBalance(BigDecimal.valueOf(100));
-		debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
-		debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
+			Account account = new Account();
+			account.setId(1L);
+			account.setOwner("John Doe");
+			account.setBalance(BigDecimal.valueOf(100));
+			account.setInterestRate(BigDecimal.valueOf(1.5d));
 
-		CreditAccount creditAccount = new CreditAccount();
-		creditAccount.setId(3L);
-		creditAccount.setOwner("John Doe");
-		creditAccount.setBalance(BigDecimal.valueOf(1000));
-		creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
-		creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
+			// A requirement for all child objects of the same parent entity is that they
+			// have unique IDs among them.
+			// https://stackoverflow.com/questions/47455957/how-can-i-combine-table-per-class-and-generationtype-identity
+			DebitAccount debitAccount = new DebitAccount();
+			debitAccount.setId(2L);
+			debitAccount.setOwner("John Doe");
+			debitAccount.setBalance(BigDecimal.valueOf(100));
+			debitAccount.setInterestRate(BigDecimal.valueOf(1.5d));
+			debitAccount.setOverdraftFee(BigDecimal.valueOf(25));
 
-		entityManager.persist(account);
-		entityManager.persist(debitAccount);
-		entityManager.persist(creditAccount);
+			CreditAccount creditAccount = new CreditAccount();
+			creditAccount.setId(3L);
+			creditAccount.setOwner("John Doe");
+			creditAccount.setBalance(BigDecimal.valueOf(1000));
+			creditAccount.setInterestRate(BigDecimal.valueOf(1.9d));
+			creditAccount.setCreditLimit(BigDecimal.valueOf(5000));
 
-		entityManager.flush();
-		entityManager.clear();
-		
-		@SuppressWarnings("unchecked")
-		List<Account> accounts = entityManager
-				.createQuery("select a from Account6 a")
-				.getResultList();
-		accounts.stream().forEach(System.out::println);
+			entityManager.persist(account);
+			entityManager.persist(debitAccount);
+			entityManager.persist(creditAccount);
 
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.flush();
+			entityManager.clear();
+
+			@SuppressWarnings("unchecked")
+			List<Account> accounts = entityManager.createQuery("select a from Account6 a").getResultList();
+			accounts.stream().forEach(System.out::println);
+
+		});
+
 		entityManagerFactory.close();
-		
+
 	}
 }
 
@@ -79,31 +72,39 @@ class Account {
 	String owner;
 	BigDecimal balance;
 	BigDecimal interestRate;
-	
+
 	public String getOwner() {
 		return owner;
 	}
+
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
+
 	public BigDecimal getBalance() {
 		return balance;
 	}
+
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
+
 	public BigDecimal getInterestRate() {
 		return interestRate;
 	}
+
 	public void setInterestRate(BigDecimal interestRate) {
 		this.interestRate = interestRate;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	@Override
 	public String toString() {
 		return "Account [id=" + id + ", owner=" + owner + ", balance=" + balance + ", interestRate=" + interestRate
@@ -121,9 +122,11 @@ class DebitAccount extends Account {
 	public BigDecimal getOverdraftFee() {
 		return overdraftFee;
 	}
+
 	public void setOverdraftFee(BigDecimal overdraftFee) {
 		this.overdraftFee = overdraftFee;
 	}
+
 	@Override
 	public String toString() {
 		return "DebitAccount [overdraftFee=" + overdraftFee + ", id=" + id + ", owner=" + owner + ", balance=" + balance

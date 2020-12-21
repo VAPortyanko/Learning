@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Version;
 
 public class TestAccessStrategy {
+	
 	public static void main(String[] args) {
 
 	}

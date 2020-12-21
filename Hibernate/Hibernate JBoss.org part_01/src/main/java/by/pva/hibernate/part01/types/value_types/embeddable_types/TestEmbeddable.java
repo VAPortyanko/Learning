@@ -3,33 +3,29 @@ package by.pva.hibernate.part01.types.value_types.embeddable_types;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
+import by.pva.hibernate.part01._myUtils.BaseTest;
 
-public class TestEmbeddable {
+public class TestEmbeddable extends BaseTest {
+
 	public static void main(String[] args) {
-		
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-		
-		Book book = new Book();
-		Publisher publisher = new Publisher();
-		Location location = new Location("Country", "City");
-		publisher.setLocation(location);
-		publisher.setName("PublisherName");
-		book.setAuthor("BookAutor");
-		book.setTitle("BookTitle");
-		book.setPublisher(publisher);
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(book);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+
+		doInJPA(entityManager -> {
+
+			Book book = new Book();
+			Publisher publisher = new Publisher();
+			Location location = new Location("Country", "City");
+			publisher.setLocation(location);
+			publisher.setName("PublisherName");
+			book.setAuthor("BookAutor");
+			book.setTitle("BookTitle");
+			book.setPublisher(publisher);
+
+			entityManager.persist(book);
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -43,28 +39,35 @@ class Book {
 	private String title;
 	private String author;
 	private Publisher publisher;
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public Publisher getPublisher() {
 		return publisher;
 	}
+
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
 	}
@@ -108,7 +111,8 @@ class Location {
 	}
 
 	@SuppressWarnings("unused")
-	private Location() {}
+	private Location() {
+	}
 
 	public String getCountry() {
 		return country;
@@ -126,4 +130,3 @@ class Location {
 		this.city = city;
 	}
 }
-

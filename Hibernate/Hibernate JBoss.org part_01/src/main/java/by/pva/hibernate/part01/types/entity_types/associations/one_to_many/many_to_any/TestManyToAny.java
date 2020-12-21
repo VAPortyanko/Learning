@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -18,62 +15,59 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.MetaValue;
 
-public class TestManyToAny {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToAny extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		
-		// ToDo: Refactor the next block of the code (And the entire example).
-		// How to clear all tables with queries?
-		PropertyRepository propertyRepository = entityManager.find(PropertyRepository.class, 1L);
-		if (null != propertyRepository) {
-			Property<?> p1 = propertyRepository.getProperties().get(0);
-			Property<?> p2 = propertyRepository.getProperties().get(1);
-			propertyRepository.getProperties().clear();
-			entityManager.remove(p1);
-			entityManager.remove(p2);
-			entityManager.remove(propertyRepository);
-			entityManager.flush();
-			
-	    }	
-		
-		IntegerProperty ageProperty = new IntegerProperty();
-		ageProperty.setId(1L);
-		ageProperty.setName("age");
-		ageProperty.setValue(23);
+		doInJPA(entityManager -> {
 
-		entityManager.persist(ageProperty);
+			// ToDo: Refactor the next block of the code (And the entire example).
+			// How to clear all tables with queries?
+			PropertyRepository propertyRepository = entityManager.find(PropertyRepository.class, 1L);
+			if (null != propertyRepository) {
+				Property<?> p1 = propertyRepository.getProperties().get(0);
+				Property<?> p2 = propertyRepository.getProperties().get(1);
+				propertyRepository.getProperties().clear();
+				entityManager.remove(p1);
+				entityManager.remove(p2);
+				entityManager.remove(propertyRepository);
+				entityManager.flush();
 
-		StringProperty nameProperty = new StringProperty();
-		nameProperty.setId(1L);
-		nameProperty.setName("name");
-		nameProperty.setValue("John Doe");
+			}
 
-		entityManager.persist(nameProperty);
+			IntegerProperty ageProperty = new IntegerProperty();
+			ageProperty.setId(1L);
+			ageProperty.setName("age");
+			ageProperty.setValue(23);
 
-		propertyRepository = new PropertyRepository();
-		propertyRepository.setId(1L);
+			entityManager.persist(ageProperty);
 
-		propertyRepository.getProperties().add(ageProperty);
-		propertyRepository.getProperties().add(nameProperty);
+			StringProperty nameProperty = new StringProperty();
+			nameProperty.setId(1L);
+			nameProperty.setName("name");
+			nameProperty.setValue("John Doe");
 
-		entityManager.persist(propertyRepository);
-		
-		PropertyRepository propertyRepository2 = entityManager.find(PropertyRepository.class, 1L);
-		
-		System.out.println("Properties:");
-		propertyRepository2.getProperties().stream()
-		                                   .forEach(System.out::println); 
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.persist(nameProperty);
+
+			propertyRepository = new PropertyRepository();
+			propertyRepository.setId(1L);
+
+			propertyRepository.getProperties().add(ageProperty);
+			propertyRepository.getProperties().add(nameProperty);
+
+			entityManager.persist(propertyRepository);
+
+			PropertyRepository propertyRepository2 = entityManager.find(PropertyRepository.class, 1L);
+
+			System.out.println("Properties:");
+			propertyRepository2.getProperties().stream().forEach(System.out::println);
+
+		});
+
 		entityManagerFactory.close();
-		
+
 	}
 }
 
@@ -83,18 +77,12 @@ class PropertyRepository {
 
 	@Id
 	private Long id;
-	@ManyToAny(metaDef = "PropertyMetaDef3",
-			   metaColumn = @Column(name = "property_type"))
-	@AnyMetaDef(name= "PropertyMetaDef3", metaType = "string", idType = "long",
-			    metaValues = {
-			          @MetaValue(value = "S", targetEntity = StringProperty.class),
-			          @MetaValue(value = "I", targetEntity = IntegerProperty.class)
-			    }
-	 )
-	@Cascade({org.hibernate.annotations.CascadeType.ALL})
-	@JoinTable(name = "repository_properties",
-	           joinColumns = @JoinColumn(name = "repository_id"),
-	           inverseJoinColumns = @JoinColumn(name = "property_id"))
+	@ManyToAny(metaDef = "PropertyMetaDef3", metaColumn = @Column(name = "property_type"))
+	@AnyMetaDef(name = "PropertyMetaDef3", metaType = "string", idType = "long", metaValues = {
+			@MetaValue(value = "S", targetEntity = StringProperty.class),
+			@MetaValue(value = "I", targetEntity = IntegerProperty.class) })
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@JoinTable(name = "repository_properties", joinColumns = @JoinColumn(name = "repository_id"), inverseJoinColumns = @JoinColumn(name = "property_id"))
 	private List<Property<?>> properties = new ArrayList<>();
 
 	public Long getId() {
@@ -129,6 +117,7 @@ class PropertyRepository {
 interface Property<T> {
 
 	String getName();
+
 	T getValue();
 }
 
@@ -168,6 +157,7 @@ class IntegerProperty implements Property<Integer> {
 	public void setValue(Integer value) {
 		this.value = value;
 	}
+
 	@Override
 	public String toString() {
 		return "Property: " + name + ":" + value;

@@ -4,75 +4,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.WhereJoinTable;
 
-public class TestWhereJoinTableMapping {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestWhereJoinTableMapping extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query = entityManager.createNativeQuery("Delete from book11_reader");
+			query.executeUpdate();
+			query = entityManager.createQuery("Delete from Book11");
+			query.executeUpdate();
+			query = entityManager.createQuery("Delete from Reader");
+			query.executeUpdate();
 
-		Query query = entityManager.createNativeQuery("Delete from book11_reader");
-		query.executeUpdate();
-		query = entityManager.createQuery("Delete from Book11");
-		query.executeUpdate();
-		query = entityManager.createQuery("Delete from Reader");
-		query.executeUpdate();
-		
-		Book book = new Book();
-		book.setId(1L);
-		book.setTitle("High-Performance Java Persistence");
-		book.setAuthor("Vad Mihalcea");
-		entityManager.persist(book);
+			Book book = new Book();
+			book.setId(1L);
+			book.setTitle("High-Performance Java Persistence");
+			book.setAuthor("Vad Mihalcea");
+			entityManager.persist(book);
 
-		Reader reader1 = new Reader();
-		reader1.setId(1L);
-		reader1.setName("John Doe");
-		entityManager.persist(reader1);
+			Reader reader1 = new Reader();
+			reader1.setId(1L);
+			reader1.setName("John Doe");
+			entityManager.persist(reader1);
 
-		Reader reader2 = new Reader();
-		reader2.setId(2L);
-		reader2.setName("John Doe Jr.");
-		entityManager.persist(reader2);
+			Reader reader2 = new Reader();
+			reader2.setId(2L);
+			reader2.setName("John Doe Jr.");
+			entityManager.persist(reader2);
 
-		Query query1 = entityManager.createNativeQuery(
-				"INSERT INTO Book11_Reader " +
-				"	(book_id, reader_id, created_on) " +
-				"VALUES " +
-				"	(1, 1, '2021-01-01') "
-		);
-		query1.executeUpdate();
-		
-		Query query2 = entityManager.createNativeQuery(
-				"INSERT INTO Book11_Reader" +
-				"	(book_id, reader_id, created_on)" +
-				"VALUES " +
-				"	(1, 2,  '2019-01-01')"
-		);
-		query2.executeUpdate();
-		
-		entityManager.flush();
-		//entityManager.clear();
+			Query query1 = entityManager.createNativeQuery("INSERT INTO Book11_Reader "
+					+ "	(book_id, reader_id, created_on) " + "VALUES " + "	(1, 1, '2021-01-01') ");
+			query1.executeUpdate();
 
-		Book book2 = entityManager.find(Book.class, 1L);
-		System.out.println(book2.getCurrentWeekReaders().size());
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Query query2 = entityManager.createNativeQuery("INSERT INTO Book11_Reader"
+					+ "	(book_id, reader_id, created_on)" + "VALUES " + "	(1, 2,  '2019-01-01')");
+			query2.executeUpdate();
+
+			entityManager.flush();
+			entityManager.clear();
+
+			Book book2 = entityManager.find(Book.class, 1L);
+			System.out.println(book2.getCurrentWeekReaders().size());
+
+		});
+
 		entityManagerFactory.close();
 	}
 

@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.fetching.dynamic_fetching.via_entity_graph;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,13 +18,16 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
-public class TestFetchingViaEntityGraph {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestFetchingViaEntityGraph extends BaseTest{
 
 	public static void main(String[] args) {
 
 		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		rebuildEntityManagerFactory(properties);
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query1 = entityManager.createQuery("Delete from Employee5");
 			Query query2 = entityManager.createQuery("Delete from Project3");
@@ -71,8 +72,9 @@ public class TestFetchingViaEntityGraph {
 					                                                                entityManager.getEntityGraph( "employee.projects" )
 				)
 			);
-			
-		}, properties);
+		});
+		
+		entityManagerFactory.close();
 	}
 }
 
@@ -110,7 +112,6 @@ class Department {
 		this.departmentName = departmentName;
 	}
 
-	
 }
 
 @Entity(name = "Employee5")

@@ -6,53 +6,51 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestManyToManyUnidirectional {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToManyUnidirectional extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person person1 = new Person();
+			Person person2 = new Person();
 
-		Person person1 = new Person();
-		Person person2 = new Person();
+			Address address1 = new Address("12th Avenue", "12A");
+			Address address2 = new Address("18th Avenue", "18B");
+			Address address3 = new Address("19th Avenue", "19B");
+			Address address4 = new Address("20th Avenue", "20B");
 
-		Address address1 = new Address("12th Avenue", "12A");
-		Address address2 = new Address("18th Avenue", "18B");
-		Address address3 = new Address("19th Avenue", "19B");
-		Address address4 = new Address("20th Avenue", "20B");
+			person1.getAddresses().add(address1);
+			person1.getAddresses().add(address2);
+			person1.getAddresses().add(address3);
+			person1.getAddresses().add(address4);
 
-		person1.getAddresses().add(address1);
-		person1.getAddresses().add(address2);
-		person1.getAddresses().add(address3);
-		person1.getAddresses().add(address4);
+			person2.getAddresses().add(address1);
 
-		person2.getAddresses().add(address1);
+			entityManager.persist(person1);
+			entityManager.persist(person2);
 
-		entityManager.persist(person1);
-		entityManager.persist(person2);
-			
-		// When an entity is removed from the @ManyToMany collection, Hibernate simply deletes
-		// the joining record in the link table. Unfortunately, this operation requires removing
-		// all entries associated with a given parent and recreating the ones that are listed 
-		// in the current running persistent context.
-		
-		entityManager.flush();
+			// When an entity is removed from the @ManyToMany collection, Hibernate simply
+			// deletes
+			// the joining record in the link table. Unfortunately, this operation requires
+			// removing
+			// all entries associated with a given parent and recreating the ones that are
+			// listed
+			// in the current running persistent context.
 
-		person1.getAddresses().remove(address1);
+			entityManager.flush();
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			person1.getAddresses().remove(address1);
+
+		});
 
 		entityManagerFactory.close();
 
@@ -66,7 +64,7 @@ class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<Address> addresses = new ArrayList<>();
 
 	public Long getId() {
@@ -90,12 +88,12 @@ class Person {
 @Entity(name = "Address")
 @Table(name = "Adresses")
 class Address {
-	
+
 	public Address(String street, String number) {
 		this.street = street;
 		this.number = number;
 	}
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

@@ -6,27 +6,25 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+
+import by.pva.hibernate.part01._myUtils.BaseTest;
 
 // another example - https://www.concretepage.com/hibernate/example-embeddedid-hibernate.
+public class TestCompositeIdentifiersWithEmbeddedId extends BaseTest {
 
-public class TestCompositeIdentifiersWithEmbeddedId {
 	public static void main(String[] args) {
-		PK pk = new PK("subsystem", "username");
-		SystemUser user = new SystemUser();
-		user.setPk(pk);
-		user.setName("Name");
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(user);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			PK pk = new PK("subsystem", "username");
+			SystemUser user = new SystemUser();
+			user.setPk(pk);
+			user.setName("Name");
+
+			entityManager.persist(user);
+
+		});
+
 		entityManagerFactory.close();
 	}
 }

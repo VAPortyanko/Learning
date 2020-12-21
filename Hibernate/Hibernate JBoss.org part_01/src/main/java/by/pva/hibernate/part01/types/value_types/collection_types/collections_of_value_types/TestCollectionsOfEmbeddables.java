@@ -7,34 +7,30 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestCollectionsOfEmbeddables {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCollectionsOfEmbeddables extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person15 person = new Person15();
 
-		Person15 person = new Person15();
-		
-		person.getPhones().add(new Phone("landline", "028-234-9876"));
-		person.getPhones().add(new Phone("mobile", "072-122-9876"));
+			person.getPhones().add(new Phone("landline", "028-234-9876"));
+			person.getPhones().add(new Phone("mobile", "072-122-9876"));
 
-		entityManager.persist(person);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.persist(person);
+
+		});
+
 		entityManagerFactory.close();
-		
+
 	}
 }
 
@@ -47,15 +43,19 @@ class Person15 {
 	private Long id;
 	@ElementCollection
 	private List<Phone> phones = new ArrayList<>();
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public List<Phone> getPhones() {
 		return phones;
 	}
+
 	public void setPhones(List<Phone> phones) {
 		this.phones = phones;
 	}

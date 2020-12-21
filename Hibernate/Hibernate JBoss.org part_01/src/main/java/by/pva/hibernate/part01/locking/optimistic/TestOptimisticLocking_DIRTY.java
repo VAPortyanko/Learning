@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.locking.optimistic;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -15,10 +13,12 @@ import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
-public class TestOptimisticLocking_DIRTY {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestOptimisticLocking_DIRTY extends BaseTest{
 	public static void main(String[] args) {
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("Delete from Person39");
 			query.executeUpdate();
@@ -40,6 +40,8 @@ public class TestOptimisticLocking_DIRTY {
 			person2.setCity( "Washington D.C." ); // Only changed fields will be used to identify a row for update.
 	
 		});
+		
+		entityManagerFactory.close();
 		
 	}
 }

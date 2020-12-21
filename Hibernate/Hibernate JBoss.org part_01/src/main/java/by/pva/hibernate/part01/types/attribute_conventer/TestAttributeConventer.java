@@ -4,27 +4,26 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Convert;
 import javax.persistence.Converter;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 
-public class TestAttributeConventer {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestAttributeConventer extends BaseTest {
+
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Person person = new Person();
-		person.setGender(Gender.MALE);
-		person.setName("Vasia");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(person);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Person person = new Person();
+			person.setGender(Gender.MALE);
+			person.setName("Vasia");
+
+			entityManager.persist(person);
+
+		});
+
 		entityManagerFactory.close();
 	}
 }

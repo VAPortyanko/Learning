@@ -1,29 +1,26 @@
 package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
-
 import org.hibernate.annotations.Type;
 
-public class TestEnumAsCustomTypeMapping {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestEnumAsCustomTypeMapping extends BaseTest {
+
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
 
-		Person2 person2 = new Person2();
-		person2.setGender(Gender.MALE);
-		person2.setName("Kiril");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(person2);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Person2 person2 = new Person2();
+			person2.setGender(Gender.MALE);
+			person2.setName("Kiril");
+
+			entityManager.persist(person2);
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -62,4 +59,3 @@ class Person2 {
 		this.gender = gender;
 	}
 }
-

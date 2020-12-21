@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.fetching;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,14 +11,16 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 import org.jboss.logging.Logger;
 
-public class TestDirectFetchingVSEntityQuery {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestDirectFetchingVSEntityQuery extends BaseTest{
 
 	private final static Logger log = Logger.getLogger("org.hibernate.SQL");
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("delete from Employee2");
 			query.executeUpdate();
@@ -88,6 +88,9 @@ public class TestDirectFetchingVSEntityQuery {
 			.getSingleResult();
 			
 		});
+		
+		entityManagerFactory.close();
+		
 	}
 }
 

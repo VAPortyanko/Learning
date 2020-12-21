@@ -6,49 +6,39 @@ import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.Session;
 import org.hibernate.annotations.NaturalId;
 
-public class TestNaturalIdUsingSingleEmbeddedAttribute {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestNaturalIdUsingSingleEmbeddedAttribute extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query = entityManager.createQuery("delete from Book8");
+			query.executeUpdate();
 
-		Query query = entityManager.createQuery("delete from Book8");
-		query.executeUpdate();
+			Isbn isbn = new Isbn("973022823X", "978-9730228236");
 
-		Isbn isbn = new Isbn("973022823X",
-				             "978-9730228236"); 
-		
-		Book8 book = new Book8();
-		book.setId(1L);
-		book.setAuthor("Author");
-		book.setTitle("Title");
-		book.setIsbn(isbn);
+			Book8 book = new Book8();
+			book.setId(1L);
+			book.setAuthor("Author");
+			book.setTitle("Title");
+			book.setIsbn(isbn);
 
-		entityManager.persist(book);
+			entityManager.persist(book);
 
-		entityManager.flush();
-		entityManager.clear();
+			entityManager.flush();
+			entityManager.clear();
 
-		Book8 book2 = entityManager
-			.unwrap(Session.class)
-			.byNaturalId(Book8.class)
-			.using("isbn", new Isbn("973022823X",
-					                "978-9730228236"))
-			.load();
+			Book8 book2 = entityManager.unwrap(Session.class).byNaturalId(Book8.class)
+					.using("isbn", new Isbn("973022823X", "978-9730228236")).load();
 
 //      or		
 //		Book8 book2 = entityManager
@@ -61,12 +51,10 @@ public class TestNaturalIdUsingSingleEmbeddedAttribute {
 //				)
 //			);
 
+			System.out.println(book2);
 
-		
-		System.out.println(book2);
+		});
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
 		entityManagerFactory.close();
 
 	}
@@ -86,35 +74,43 @@ class Book8 {
 
 	public Book8() {
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getAuthor() {
 		return author;
 	}
+
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+
 	public Isbn getIsbn() {
 		return isbn;
 	}
+
 	public void setIsbn(Isbn isbn) {
 		this.isbn = isbn;
 	}
 
 	@Override
 	public String toString() {
-		return "Book8 [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn.getIsbn10() + ", " + isbn.getIsbn13() + "]";
+		return "Book8 [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn.getIsbn10() + ", "
+				+ isbn.getIsbn13() + "]";
 	}
 
 }
@@ -128,7 +124,7 @@ class Isbn implements Serializable {
 
 	public Isbn() {
 	}
-	
+
 	public Isbn(String isbn10, String isbn13) {
 		this.isbn10 = isbn10;
 		this.isbn13 = isbn13;

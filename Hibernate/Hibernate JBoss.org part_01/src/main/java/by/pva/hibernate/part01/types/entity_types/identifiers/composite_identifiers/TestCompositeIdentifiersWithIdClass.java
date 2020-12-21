@@ -4,31 +4,28 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-public class TestCompositeIdentifiersWithIdClass {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestCompositeIdentifiersWithIdClass extends BaseTest {
 
 	public static void main(String[] args) {
-		
+
 		SystemUser3 user3 = new SystemUser3();
 		user3.setId(new PK3("subsystem", "username"));
 		user3.setName("name");
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		Query query = entityManager.createQuery("delete from SystemUsers3");
-		query.executeUpdate();
-		entityManager.persist(user3);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			Query query = entityManager.createQuery("delete from SystemUsers3");
+			query.executeUpdate();
+			entityManager.persist(user3);
+
+		});
+
 		entityManagerFactory.close();
 	}
 }

@@ -3,54 +3,51 @@ package by.pva.hibernate.part01.types.attribute_conventer;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Persistence;
 import org.hibernate.query.Query;
 
 import org.hibernate.metamodel.spi.MetamodelImplementor;
 import org.hibernate.type.Type;
 
-public class TestAttributeConventerEntityPropertyAsQueryParameter {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestAttributeConventerEntityPropertyAsQueryParameter extends BaseTest {
+
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		Caption caption = new Caption("Caption");
-		Photo photo = new Photo();
-		photo.setCaption(caption);
-		photo.setName("Photo name");
+			Caption caption = new Caption("Caption");
+			Photo photo = new Photo();
+			photo.setCaption(caption);
+			photo.setName("Photo name");
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
-		entityManager.persist(photo);
-		entityManager.getTransaction().commit();
-		entityManager.close();
-		
-		// Traditionally, you could only use the DB data Caption representation, 
-		// which in our case is a String, when referencing the caption entity property.
-		entityManager = entityManagerFactory.createEntityManager();
-		Photo photo2 = entityManager
-				.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ", Photo.class)
-				.setMaxResults(1).setParameter("caption", "Caption").getSingleResult();
-		System.out.println(photo2);
-		entityManager.close();
-        
-		// In order to use the Java object Caption representation, you have to get the associated Hibernate Type.
-		MetamodelImplementor metamodelImplementor = (MetamodelImplementor) entityManagerFactory.getMetamodel();
-		Type captionType = metamodelImplementor.entityPersister(Photo.class.getName()).getPropertyType("caption");
-		entityManager = entityManagerFactory.createEntityManager();
-		Photo photo3 = (Photo) entityManager
-				.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ", Photo.class)
-				.unwrap(Query.class)
-				.setMaxResults(1)
-				.setParameter("caption", caption, captionType)
-				.getSingleResult();
-		System.out.println(photo3);
+			entityManager.persist(photo);
+
+			// Traditionally, you could only use the DB data Caption representation,
+			// which in our case is a String, when referencing the caption entity property.
+			Photo photo2 = entityManager
+					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ",
+							Photo.class)
+					.setMaxResults(1).setParameter("caption", "Caption").getSingleResult();
+			System.out.println(photo2);
+
+			// In order to use the Java object Caption representation, you have to get the
+			// associated Hibernate Type.
+			MetamodelImplementor metamodelImplementor = (MetamodelImplementor) entityManagerFactory.getMetamodel();
+			Type captionType = metamodelImplementor.entityPersister(Photo.class.getName()).getPropertyType("caption");
+
+			Photo photo3 = (Photo) entityManager
+					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ",
+							Photo.class)
+					.unwrap(Query.class).setMaxResults(1).setParameter("caption", caption, captionType)
+					.getSingleResult();
+			System.out.println(photo3);
+
+		});
+
 		entityManagerFactory.close();
 
 	}

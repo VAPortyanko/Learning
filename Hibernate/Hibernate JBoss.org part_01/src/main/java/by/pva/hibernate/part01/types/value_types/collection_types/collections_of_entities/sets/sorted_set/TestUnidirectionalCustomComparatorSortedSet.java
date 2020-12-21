@@ -7,45 +7,41 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.SortComparator;
 
-public class TestUnidirectionalCustomComparatorSortedSet {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestUnidirectionalCustomComparatorSortedSet extends BaseTest {
 
 	public static void main(String[] args) {
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
-		
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
 
-		Query query = entityManager.createQuery("delete from Person26");
-		Query query2 = entityManager.createQuery("delete from Phone19");
-		query.executeUpdate();
-		query2.executeUpdate();
-		
-		Person26 person = new Person26();
-		person.getPhones().add(new Phone19("landline", "228-234-9876"));
-		person.getPhones().add(new Phone19("mobile"  , "672-122-9876"));
-		person.getPhones().add(new Phone19("mobile"  , "772-122-9876"));
-		person.getPhones().add(new Phone19("mobile"  , "472-122-9876"));
-		person.getPhones().add(new Phone19("landline", "102-234-9876"));
-		person.getPhones().add(new Phone19("landline", "928-234-9876"));
-		
-		entityManager.persist(person);
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		doInJPA(entityManager -> {
+
+			Query query = entityManager.createQuery("delete from Person26");
+			Query query2 = entityManager.createQuery("delete from Phone19");
+			query.executeUpdate();
+			query2.executeUpdate();
+
+			Person26 person = new Person26();
+			person.getPhones().add(new Phone19("landline", "228-234-9876"));
+			person.getPhones().add(new Phone19("mobile", "672-122-9876"));
+			person.getPhones().add(new Phone19("mobile", "772-122-9876"));
+			person.getPhones().add(new Phone19("mobile", "472-122-9876"));
+			person.getPhones().add(new Phone19("landline", "102-234-9876"));
+			person.getPhones().add(new Phone19("landline", "928-234-9876"));
+
+			entityManager.persist(person);
+
+		});
+
 		entityManagerFactory.close();
 	}
 }
@@ -64,12 +60,15 @@ class Person26 {
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public SortedSet<Phone19> getPhones() {
 		return phones;
 	}
+
 	public void setPhones(SortedSet<Phone19> phones) {
 		this.phones = phones;
 	}
@@ -91,44 +90,50 @@ class Phone19 implements Comparable<Phone19> {
 		this.type = type;
 		this.number = number;
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public String getNumber() {
 		return number;
 	}
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
 
 	@Override
 	public int compareTo(Phone19 o) {
-		return number.compareTo( o.getNumber() );
+		return number.compareTo(o.getNumber());
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if ( this == o ) {
+		if (this == o) {
 			return true;
 		}
-		if ( o == null || getClass() != o.getClass() ) {
+		if (o == null || getClass() != o.getClass()) {
 			return false;
 		}
 		Phone19 phone = (Phone19) o;
-		return Objects.equals( number, phone.number );
+		return Objects.equals(number, phone.number);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash( number );
+		return Objects.hash(number);
 	}
 }

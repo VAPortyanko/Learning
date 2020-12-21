@@ -1,7 +1,5 @@
 package by.pva.hibernate.part01.batching;
 
-import static by.pva.hibernate.part01._myUtils.MyUtils.doInHibernateWithDefaultPersistanceUnit;
-
 import java.util.Collections;
 import java.util.Map;
 
@@ -9,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Query;
 import javax.persistence.Table;
+
+import by.pva.hibernate.part01._myUtils.BaseTest;
 
 //To enable batch loging you need to add "BatchingBatch" logger to your logging provider.
 // org.hibernate.engine.jdbc.batch.internal.BatchingBatch
@@ -23,16 +23,17 @@ import javax.persistence.Table;
 // entityManager.unwrap(Session.class)
 //              .setJdbcBatchSize(10);
 
-public class TestBatching {
+public class TestBatching extends BaseTest{
 
 	public static void main(String[] args) {
 		
-		// In order to be optimal you have to define your jdbc.batch_size and your flushing param identical.
+		// In order to be optimal you have to define your jdbc.batch_size and your flushing parameter identical.
 		final int BATCH_SIZE = 20;
 		
 		Map<String, String> properties = Collections.singletonMap("hibernate.jdbc.batch_size", String.valueOf(BATCH_SIZE));
+		rebuildEntityManagerFactory(properties);
 		
-		doInHibernateWithDefaultPersistanceUnit(entityManager -> {
+		doInJPA(entityManager -> {
 			
 			Query query = entityManager.createQuery("delete from Person40");
 			query.executeUpdate();
@@ -52,8 +53,10 @@ public class TestBatching {
 				entityManager.persist(Person);
 			}
 			
-		}, properties);
+		});
 
+		entityManagerFactory.close();
+		
 	}
 }
 

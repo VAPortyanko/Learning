@@ -2,40 +2,35 @@ package by.pva.hibernate.part01.types.entity_types.associations.many_to_one;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
 
-public class TestManyToOne {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToOne extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Person9 person = new Person9();
+			person.setName("Person");
+			entityManager.persist(person);
 
-		Person9 person = new Person9();
-		person.setName("Person");
-		entityManager.persist(person);
+			Phone2 phone = new Phone2("123-456-7890");
+			phone.setPerson(person);
+			entityManager.persist(phone);
 
-		Phone2 phone = new Phone2("123-456-7890");
-		phone.setPerson(person);
-		entityManager.persist(phone);
+			entityManager.flush();
+			phone.setPerson(null);
 
-		entityManager.flush();
-		phone.setPerson( null );
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		});
+		
 		entityManagerFactory.close();
 
 	}

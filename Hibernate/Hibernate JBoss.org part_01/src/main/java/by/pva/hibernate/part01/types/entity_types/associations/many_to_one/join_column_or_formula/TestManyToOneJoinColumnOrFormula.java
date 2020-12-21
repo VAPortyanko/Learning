@@ -4,11 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
@@ -16,61 +13,59 @@ import javax.persistence.JoinColumn;
 import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.JoinFormula;
 
-public class TestManyToOneJoinColumnOrFormula {
+import by.pva.hibernate.part01._myUtils.BaseTest;
+
+public class TestManyToOneJoinColumnOrFormula extends BaseTest {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence
-				.createEntityManagerFactory("by.pva.hibernate.part01.basicWithTableAutoGeneration");
+		doInJPA(entityManager -> {
 
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		entityManager.getTransaction().begin();
+			Query query1 = entityManager.createQuery("delete from User2");
+			Query query2 = entityManager.createQuery("delete from Country4");
+			query1.executeUpdate();
+			query2.executeUpdate();
 
-		Query query1 = entityManager.createQuery("delete from User2");
-		Query query2 = entityManager.createQuery("delete from Country4");
-		query1.executeUpdate();
-		query2.executeUpdate();
-		
-		Country US = new Country();
-		US.setId(1);
-		US.setDefault(true);
-		US.setPrimaryLanguage("English");
-		US.setName("United States");
+			Country US = new Country();
+			US.setId(1);
+			US.setDefault(true);
+			US.setPrimaryLanguage("English");
+			US.setName("United States");
 
-		Country Romania = new Country();
-		Romania.setId(40);
-		Romania.setDefault(true);
-		Romania.setName("Romania");
-		Romania.setPrimaryLanguage("Romanian");
+			Country Romania = new Country();
+			Romania.setId(40);
+			Romania.setDefault(true);
+			Romania.setName("Romania");
+			Romania.setPrimaryLanguage("Romanian");
 
-		entityManager.persist(US);
-		entityManager.persist(Romania);
-		
-		User user1 = new User();
-		user1.setId(1L);
-		user1.setFirstName("John");
-		user1.setLastName("Doe");
-		user1.setLanguage("English");
-		entityManager.persist(user1);
+			entityManager.persist(US);
+			entityManager.persist(Romania);
 
-		User user2 = new User();
-		user2.setId(2L);
-		user2.setFirstName("Vlad");
-		user2.setLastName("Mihalcea");
-		user2.setLanguage("Romanian");
-		entityManager.persist(user2);
+			User user1 = new User();
+			user1.setId(1L);
+			user1.setFirstName("John");
+			user1.setLastName("Doe");
+			user1.setLanguage("English");
+			entityManager.persist(user1);
 
-		entityManager.flush();
-		entityManager.clear();
-		
-		User john = entityManager.find(User.class, 1L);
-		System.out.println(john.getCountry().getName());
+			User user2 = new User();
+			user2.setId(2L);
+			user2.setFirstName("Vlad");
+			user2.setLastName("Mihalcea");
+			user2.setLanguage("Romanian");
+			entityManager.persist(user2);
 
-		User vlad = entityManager.find(User.class, 2L);
-		System.out.println(vlad.getCountry().getName());
-		
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.flush();
+			entityManager.clear();
+
+			User john = entityManager.find(User.class, 1L);
+			System.out.println(john.getCountry().getName());
+
+			User vlad = entityManager.find(User.class, 2L);
+			System.out.println(vlad.getCountry().getName());
+
+		});
+
 		entityManagerFactory.close();
 
 	}
