@@ -7,43 +7,32 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit
-		name="by.pva.hibernate.part01.basicWithTableAutoGeneration">
+	<persistence-unit name = "by.pva.hibernate.part01.basicWithTableAutoGeneration">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="com.mysql.cj.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/hibernate_jboss_part01?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password"
-				value="password" />
-
-			<property name="hibernate.show_sql" value="true" />
-
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name = "javax.persistence.jdbc.driver"   value = "com.mysql.cj.jdbc.Driver" />
+			<property name = "javax.persistence.jdbc.url" 
+			         value = "jdbc:mysql://localhost:3306/hibernate_jboss_part01?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk" />
+			<property name = "javax.persistence.jdbc.user"     value = "root" />
+			<property name = "javax.persistence.jdbc.password" value = "password" />
+			<property name = "hibernate.show_sql"              value = "true" />
+			<property name = "hibernate.hbm2ddl.auto"          value = "update" />
 		</properties>
 	</persistence-unit>
 
 
 <!--  This should be deleted later -->
-	<persistence-unit
-		name="by.pva.hibernate.part01.namingstrategy.implicit_naming_strategy_component_path_impl">
+	<persistence-unit name = "by.pva.hibernate.part01.namingstrategy.implicit_naming_strategy_component_path_impl">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
-			<property name="javax.persistence.jdbc.driver"
-				value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/hibernate_jboss_part01?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password"
-				value="password" />
-
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
-
-			<property name="hibernate.implicit_naming_strategy"
-				value="component-path" />
+			<property name = "javax.persistence.jdbc.driver"      value = "com.mysql.jdbc.Driver" />
+			<property name = "javax.persistence.jdbc.url"
+			         value = "jdbc:mysql://localhost:3306/hibernate_jboss_part01?useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Minsk" />
+			<property name = "javax.persistence.jdbc.user"        value = "root" />
+			<property name = "javax.persistence.jdbc.password"    value = "password" />
+			<property name = "hibernate.show_sql"                 value = "true" />
+			<property name = "hibernate.hbm2ddl.auto"             value = "update" />
+			<property name = "hibernate.implicit_naming_strategy" value = "component-path" />
 		</properties>
 	</persistence-unit>
 
