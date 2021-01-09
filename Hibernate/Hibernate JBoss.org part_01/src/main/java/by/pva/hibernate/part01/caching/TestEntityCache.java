@@ -60,6 +60,11 @@ public class TestEntityCache extends BaseTest {
 		});
 		
 		doInJPA(entityManager -> {
+			// Remove the data for entities of the specified class (and its subclasses) from the cache.
+			entityManager.getEntityManagerFactory().getCache().evict(Phone25.class);
+			// Evicting entities with Hibernate native API
+			// session.getSessionFactory().getCache().evictQueryRegion("query.cache.phone25");
+			
 			Phone25 phone25_6 = entityManager.find(Phone25.class, 1L);
 			System.out.println("End session #4");
 		});
@@ -70,6 +75,10 @@ public class TestEntityCache extends BaseTest {
 		});
 		
 		entityManagerFactory.close();
+		
+		
+
+
 	}
 }
 
