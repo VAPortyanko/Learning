@@ -16,7 +16,6 @@ import javax.persistence.Query;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.jboss.logging.Logger;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
 
@@ -39,7 +38,6 @@ public class TestCollectionCache extends BaseTest{
 			query2.executeUpdate();
 			query3.executeUpdate();
 			
-
 			Phone26 phone26_1 = new Phone26();
 			phone26_1.setId(1L);
 			phone26_1.setNumber("+37529 567-98-11");
