@@ -45,6 +45,4 @@ public class Call {
 		this.duration = duration;
 	}
 
-    
-
 }

@@ -84,5 +84,9 @@ public class Person {
 	public int getVersion() {
 		return version;
 	}
+    public void addPhone(Phone phone) {
+        phones.add(phone);
+        phone.setPerson(this);
+    }
 
 }
