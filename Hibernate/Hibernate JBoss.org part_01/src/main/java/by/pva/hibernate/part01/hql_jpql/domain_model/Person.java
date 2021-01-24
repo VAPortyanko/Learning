@@ -88,5 +88,13 @@ public class Person {
         phones.add(phone);
         phone.setPerson(this);
     }
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", nickName=" + nickName + ", address=" + address
+				+ ", createdOn=" + createdOn + ", phones=" + phones + ", addresses=" + addresses + ", version="
+				+ version + "]";
+	}
+    
+    
 
 }

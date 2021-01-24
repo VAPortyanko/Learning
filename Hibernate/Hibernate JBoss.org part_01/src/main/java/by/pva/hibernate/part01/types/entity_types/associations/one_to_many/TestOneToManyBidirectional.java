@@ -49,7 +49,6 @@ class Person8 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Phone4> phones = new ArrayList<>();
 
@@ -86,11 +85,9 @@ class Phone4 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@NaturalId
 	@Column(name = "`number`", unique = true)
 	private String number;
-
 	@ManyToOne
 	private Person8 person;
 

@@ -80,6 +80,11 @@ public class HqlJpqlDBUtils extends BaseTest{
 		});
 	}
 	
+	public static void prepareDomainModel() {
+		clearHqlJpqlDB();
+		populateHqlJpqlDB();
+	}
+	
 }
 
 // Don't forget to close the entityManagerFactory.
