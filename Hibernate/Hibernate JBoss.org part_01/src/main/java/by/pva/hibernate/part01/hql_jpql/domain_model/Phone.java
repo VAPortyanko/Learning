@@ -21,6 +21,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 
+@org.hibernate.annotations.NamedQueries({
+    @org.hibernate.annotations.NamedQuery(
+        name = "get_phone_by_number",
+        query = "select p " +
+                "from Phone27 p " +
+                "where p.number = :number",
+        timeout = 1,
+        readOnly = true
+    )
+})
 @Entity(name = "Phone27")
 @Table(name = "Phones27")
 public class Phone {
@@ -90,4 +100,13 @@ public class Phone {
         callHistory.put(call.getTimestamp(), call);
         call.setPhone(this);
     }
+	@Override
+	public String toString() {
+		return "Phone ["
+				+ "id="     + id     + ", "
+				+ "number=" + number + ", "
+				+ "type="   + type 
+				+ "]";
+	}
+
 }

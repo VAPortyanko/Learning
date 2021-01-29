@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
@@ -19,6 +20,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
+@NamedQuery(
+    name = "get_person_by_name",
+    query = "select p from Person44 p where name = :name"
+)
 @Entity(name = "Person44")
 @Table(name = "Persons44")
 public class Person {
@@ -90,11 +95,7 @@ public class Person {
     }
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", name=" + name + ", nickName=" + nickName + ", address=" + address
-				+ ", createdOn=" + createdOn + ", phones=" + phones + ", addresses=" + addresses + ", version="
-				+ version + "]";
+		return "Person [id=" + id + ", name=" + name + ", nickName=" + nickName + "]";
 	}
-    
-    
 
 }
