@@ -52,6 +52,26 @@ public class TestJpaQueryApi extends BaseTest {
 			namedTypedQuery.setParameter("name", parameter2)
 		          .getResultList()
 		          .forEach(System.out::println);
+			
+			/* 
+			JPA name parameter binding^
+			   1) by name:
+			   
+			        entityManager.createQuery("select p from Person p where p.name like :name" )
+			       .setParameter( "name", "J%" );
+			
+			   2) by position:
+			   
+			        entityManager.createQuery(	"select p from Person p where p.name like ?1" )
+                    .setParameter( 1, "J%" );
+			 
+			   3) For generic temporal field types (e.g. `java.util.Date`, `java.util.Calendar`)
+			      we also need to provide the associated `TemporalType`
+			      
+			        Query query = entityManager.createQuery("select p from Person p where p.createdOn > :timestamp" )
+			                                   .setParameter( "timestamp", timestamp, TemporalType.DATE );
+             */
+
 
 		});
 
