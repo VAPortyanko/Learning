@@ -60,7 +60,7 @@ public class TestJpaQueryApi extends BaseTest {
 			        entityManager.createQuery("select p from Person p where p.name like :name" )
 			       .setParameter( "name", "J%" );
 			
-			   2) by position:
+			   2) by position (The ordinals start with 1.):
 			   
 			        entityManager.createQuery(	"select p from Person p where p.name like ?1" )
                     .setParameter( 1, "J%" );
