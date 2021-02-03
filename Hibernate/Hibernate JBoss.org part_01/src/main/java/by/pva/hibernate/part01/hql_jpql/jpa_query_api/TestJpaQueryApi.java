@@ -54,7 +54,7 @@ public class TestJpaQueryApi extends BaseTest {
 		          .forEach(System.out::println);
 			
 			/* 
-			JPA name parameter binding^
+			JPA name parameter binding:
 			   1) by name:
 			   
 			        entityManager.createQuery("select p from Person p where p.name like :name" )
@@ -73,6 +73,13 @@ public class TestJpaQueryApi extends BaseTest {
              */
 
 
+			// Methods for retrieving a result set:
+			//    Query.getResultList()   - executes the select query and returns back the list of results.
+		    //    Query.getResultStream() - executes the select query and returns back a Stream over the results.
+		    //    Query.getSingleResult() - executes the select query and returns a single result. If there were more than one result an exception is thrown.
+
+
+			
 		});
 
 		entityManagerFactory.close();
