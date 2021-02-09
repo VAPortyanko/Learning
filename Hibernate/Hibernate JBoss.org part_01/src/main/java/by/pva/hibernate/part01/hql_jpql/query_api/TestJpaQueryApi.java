@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.hql_jpql.jpa_query_api;
+package by.pva.hibernate.part01.hql_jpql.query_api;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;

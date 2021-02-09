@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.hql_jpql.hibenrate_query_api;
+package by.pva.hibernate.part01.hql_jpql.query_api;
 
 import java.util.List;
 
