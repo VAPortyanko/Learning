@@ -25,6 +25,10 @@ public class TestQueryStreaming extends BaseTest {
 			.limit(2)
 			.collect(Collectors.toList());
 			
+			// The Stream is closed automatically after calling the collect method,
+			// since there is no reason to keep the underlying JDBC ResultSet open if
+			// the Stream cannot be reused.
+			
 			persons.stream().forEach(System.out::println);
 
 		});
