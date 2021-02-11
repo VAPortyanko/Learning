@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Query;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -37,6 +38,7 @@ public class TestDerivedIdentifierWithPrimaryKeyJoinColumn extends BaseTest {
 }
 
 @Entity(name = "Person6")
+@Table(name = "Persons6")
 class Person6 {
 
 	@Id

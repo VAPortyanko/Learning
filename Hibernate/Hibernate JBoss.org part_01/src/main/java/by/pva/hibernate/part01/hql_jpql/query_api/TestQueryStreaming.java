@@ -30,7 +30,7 @@ public class TestQueryStreaming extends BaseTest {
 			// the Stream cannot be reused.
 			
 			persons.stream().forEach(System.out::println);
-
+			
 		});
 
 		entityManagerFactory.close();
