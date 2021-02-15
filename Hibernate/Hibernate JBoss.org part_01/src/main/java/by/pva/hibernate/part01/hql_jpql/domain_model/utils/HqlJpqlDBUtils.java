@@ -15,7 +15,7 @@ import by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
 //Don't forget to close the entityManagerFactory.
 public class HqlJpqlDBUtils extends BaseTest{
 	
-	public static final boolean IS_DATABASE_EXIST = true;
+	public static final boolean IS_DATABASE_EXIST = false;
 	
 	public static void populateHqlJpqlDB() {
 		doInJPA(entityManager -> {
