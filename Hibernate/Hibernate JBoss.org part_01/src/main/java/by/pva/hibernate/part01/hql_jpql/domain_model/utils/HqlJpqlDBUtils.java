@@ -81,33 +81,43 @@ public class HqlJpqlDBUtils extends BaseTest{
 			phone1_1.setId(1L);
 			phone1_1.setNumber("+375 (33) 675-23-43");
 			phone1_1.setType(PhoneType.LAND_LINE);
+			phone1_1.setPerson(person1);
 			phone1_2.setId(2L);
 			phone1_2.setNumber("+375 (33) 012-38-22");
 			phone1_2.setType(PhoneType.MOBILE);
+			phone1_2.setPerson(person1);
 			phone2_1.setId(3L);
 			phone2_1.setNumber("+375 (33) 675-00-01");
 			phone2_1.setType(PhoneType.LAND_LINE);
+			phone2_1.setPerson(person2);
 			phone2_2.setId(4L);
 			phone2_2.setNumber("+375 (33) 612-11-29");
 			phone2_2.setType(PhoneType.MOBILE);
+			phone2_2.setPerson(person2);
 			phone3_1.setId(5L);
 			phone3_1.setNumber("+375 (33) 222-45-45");
 			phone3_1.setType(PhoneType.LAND_LINE);
+			phone3_1.setPerson(person3);
 			phone3_2.setId(6L);
 			phone3_2.setNumber("+375 (33) 489-01-41");
 			phone3_2.setType(PhoneType.MOBILE);
+			phone3_2.setPerson(person3);
 			phone4_1.setId(7L);
 			phone4_1.setNumber("+375 (33) 656-13-53");
 			phone4_1.setType(PhoneType.LAND_LINE);
 			phone4_2.setId(8L);
+			phone4_1.setPerson(person4);
 			phone4_2.setNumber("+375 (33) 111-11-11");
 			phone4_2.setType(PhoneType.MOBILE);
+			phone4_2.setPerson(person4);
 			phone5_1.setId(9L);
 			phone5_1.setNumber("+375 (33) 222-22-22");
 			phone5_1.setType(PhoneType.LAND_LINE);
+			phone5_1.setPerson(person5);
 			phone5_2.setId(10L);
 			phone5_2.setNumber("+375 (33) 101-10-01");
 			phone5_2.setType(PhoneType.MOBILE);
+			phone5_2.setPerson(person5);
 			
 			entityManager.persist(person1);
 			entityManager.persist(person2);
@@ -131,12 +141,12 @@ public class HqlJpqlDBUtils extends BaseTest{
 	
 	public static void clearHqlJpqlDB() {
 		doInJPA(entityManager -> {
-			Query query1 = entityManager.createNativeQuery("delete from Person44_addresses");
-			Query query2 = entityManager.createQuery("delete from Person44");
+			Query query1 = entityManager.createQuery("delete from Phone27");
 			query1.executeUpdate();
-			query2.executeUpdate();
 			
-			Query query3 = entityManager.createQuery("delete from Phone27");
+			Query query2 = entityManager.createNativeQuery("delete from Person44_addresses");
+			Query query3 = entityManager.createQuery("delete from Person44");
+			query2.executeUpdate();
 			query3.executeUpdate();
 			
 			Query query4 = entityManager.createQuery("delete from Partner");

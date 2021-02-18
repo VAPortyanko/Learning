@@ -1,6 +1,9 @@
 package by.pva.hibernate.part01.hql_jpql.query_api;
 
+import java.util.List;
+
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 
@@ -27,19 +30,26 @@ public class TestFromClause extends BaseTest {
 			.getResultList()
 			.stream()
 			.forEach(System.out::println);
-
-			
-			String str = "select distinct a, b from by.pva.hibernate.part01.hql_jpql.domain_model.Person a, by.pva.hibernate.part01.hql_jpql.domain_model.Phone b where b.person = a and b is not null";
-			System.out.println(str.substring(0, 83));
 			
 			// Simple query using multiple root entity references.
-			entityManager.createQuery(
-				"select distinct a, b " +
-				"from Person44 a, Phone27 b " +
-				"where b.person = a and b is not null", Object[].class)
-			.getResultList()
-			.stream()
-			.forEach(e->System.out.println(e[0]));
+			List<Object[]> persons = entityManager.createQuery(
+				"select distinct pr, ph " +
+				"from Person44 pr, Phone27 ph " +
+				"where ph.type =:type and ph.person = pr", Object[].class)
+			.setParameter("type", PhoneType.LAND_LINE)		
+			.getResultList();
+
+			persons.stream().forEach(e -> System.out.println(e[0] + " " + e[1]));
+			
+			List<Person> persons2 = entityManager.createQuery(
+				"select distinct pr1" +
+				" from Person44 pr1, Person44 pr2" +
+				" where pr1.id <> pr2.id" +
+				" and pr1.id + pr2.id = 3"
+				, Person.class)
+			.getResultList();
+
+			persons2.stream().forEach(System.out::println);
 
 
 
