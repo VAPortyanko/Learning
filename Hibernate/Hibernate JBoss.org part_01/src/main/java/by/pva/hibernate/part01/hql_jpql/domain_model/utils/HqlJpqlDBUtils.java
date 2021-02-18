@@ -138,6 +138,10 @@ public class HqlJpqlDBUtils extends BaseTest{
 			
 			Query query3 = entityManager.createQuery("delete from Phone27");
 			query3.executeUpdate();
+			
+			Query query4 = entityManager.createQuery("delete from Partner");
+			query4.executeUpdate();
+			
 		});
 	}
 	
