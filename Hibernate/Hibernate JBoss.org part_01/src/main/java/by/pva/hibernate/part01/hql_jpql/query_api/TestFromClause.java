@@ -1,8 +1,8 @@
 package by.pva.hibernate.part01.hql_jpql.query_api;
 
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
-import by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 
 public class TestFromClause extends BaseTest {
 
@@ -15,7 +15,7 @@ public class TestFromClause extends BaseTest {
 			// Simple query example.
 			entityManager.createQuery(
 				"select p " +
-				"from by.pva.hibernate.part01.hql_jpql.domain_model.Person p", Person.class )
+				"from _by.pva.hibernate.part01.hql_jpql.domain_model.Person p", Person.class )
 			.getResultList()
 			.stream()
 			.forEach(System.out::println);

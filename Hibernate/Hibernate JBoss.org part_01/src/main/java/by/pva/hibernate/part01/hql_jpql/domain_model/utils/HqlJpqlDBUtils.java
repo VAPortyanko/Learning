@@ -6,11 +6,11 @@ import java.time.ZoneOffset;
 
 import javax.persistence.Query;
 
+import _by.pva.hibernate.part01.hql_jpql.domain_model.AddressType;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.AddressType;
-import by.pva.hibernate.part01.hql_jpql.domain_model.Person;
-import by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
-import by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
 
 //Don't forget to close the entityManagerFactory.
 public class HqlJpqlDBUtils extends BaseTest{

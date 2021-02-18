@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.hql_jpql.domain_model;
+package _by.pva.hibernate.part01.hql_jpql.domain_model;
 
 import org.hibernate.Session;
 

@@ -6,9 +6,9 @@ import javax.persistence.TypedQuery;
 
 import org.hibernate.Session;
 
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
-import by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 
 public class TestHibernateQueryApi extends BaseTest {
