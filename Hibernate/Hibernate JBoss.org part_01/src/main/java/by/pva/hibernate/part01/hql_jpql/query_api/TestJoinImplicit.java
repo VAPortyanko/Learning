@@ -8,7 +8,7 @@ import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 
-public class TestJoinImplicit  extends BaseTest {
+public class TestJoinImplicit extends BaseTest {
 
 	public static void main(String[] args) {
 
