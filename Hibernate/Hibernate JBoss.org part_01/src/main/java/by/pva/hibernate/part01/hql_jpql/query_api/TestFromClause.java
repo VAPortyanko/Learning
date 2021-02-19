@@ -50,10 +50,7 @@ public class TestFromClause extends BaseTest {
 			.getResultList();
 
 			persons2.stream().forEach(System.out::println);
-
-
-
-			
+		
 		});
 
 		entityManagerFactory.close();

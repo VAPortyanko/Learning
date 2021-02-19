@@ -119,6 +119,17 @@ public class HqlJpqlDBUtils extends BaseTest{
 			phone5_2.setType(PhoneType.MOBILE);
 			phone5_2.setPerson(person5);
 			
+			person1.getPhones().add(phone1_1);
+			person1.getPhones().add(phone1_2);
+			person2.getPhones().add(phone2_1);
+			person2.getPhones().add(phone2_2);
+			person3.getPhones().add(phone3_1);
+			person3.getPhones().add(phone3_2);
+			person4.getPhones().add(phone4_1);
+			person4.getPhones().add(phone4_2);
+			person5.getPhones().add(phone5_1);
+			person5.getPhones().add(phone5_2);
+			
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
