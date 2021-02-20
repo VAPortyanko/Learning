@@ -1,4 +1,4 @@
-package _by.pva.hibernate.part01.hql_jpql.domain_model;
+package by.pva.hibernate.part01.hql_jpql.query_api;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.hibernate.Session;
 
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 
@@ -55,3 +56,6 @@ public class TestCollectionMemberReference extends BaseTest {
 		entityManagerFactory.close();
 	}
 }
+// References to collection-valued associations actually refer to the values of that collection.
+// The example also shows the alternate syntax for specifying collection association joins using the IN syntax. 
+// Both forms are equivalent.
