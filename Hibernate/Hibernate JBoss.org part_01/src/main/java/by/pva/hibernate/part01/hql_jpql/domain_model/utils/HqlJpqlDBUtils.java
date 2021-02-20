@@ -7,6 +7,7 @@ import java.time.ZoneOffset;
 import javax.persistence.Query;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.AddressType;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Call;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
@@ -119,6 +120,108 @@ public class HqlJpqlDBUtils extends BaseTest{
 			phone5_2.setType(PhoneType.MOBILE);
 			phone5_2.setPerson(person5);
 			
+			Call call_1_1_1 = new Call();
+			Call call_1_1_2 = new Call();
+			Call call_1_2_1 = new Call();
+			Call call_1_2_2 = new Call();
+			Call call_2_1_1 = new Call();
+			Call call_2_1_2 = new Call();
+			Call call_2_2_1 = new Call();
+			Call call_2_2_2 = new Call();
+			Call call_3_1_1 = new Call();
+			Call call_3_1_2 = new Call();
+			Call call_3_2_1 = new Call();
+			Call call_3_2_2 = new Call();
+			Call call_4_1_1 = new Call();
+			Call call_4_1_2 = new Call();
+			Call call_4_2_1 = new Call();
+			Call call_4_2_2 = new Call();
+			Call call_5_1_1 = new Call();
+			Call call_5_1_2 = new Call();
+			Call call_5_2_1 = new Call();
+			Call call_5_2_2 = new Call();
+			
+			call_1_1_1.setId(1L);
+			call_1_1_1.setPhone(phone1_1);
+			call_1_1_1.setDuration(10);
+			call_1_1_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 20, 22).toInstant(ZoneOffset.UTC)));
+			call_1_1_2.setId(2L);
+			call_1_1_2.setPhone(phone1_1);
+			call_1_1_2.setDuration(15);
+			call_1_1_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 23, 22).toInstant(ZoneOffset.UTC)));
+			call_1_2_1.setId(3L);
+			call_1_2_1.setPhone(phone1_2);
+			call_1_2_1.setDuration(80);
+			call_1_2_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 24, 22).toInstant(ZoneOffset.UTC)));
+			call_1_2_2.setId(4L);
+			call_1_2_2.setPhone(phone1_2);
+			call_1_2_2.setDuration(70);
+			call_1_2_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 25, 22).toInstant(ZoneOffset.UTC)));
+			call_2_1_1.setId(5L);
+			call_2_1_1.setPhone(phone2_1);
+			call_2_1_1.setDuration(10);
+			call_2_1_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 26, 22).toInstant(ZoneOffset.UTC)));
+			call_2_1_2.setId(6L);
+			call_2_1_2.setPhone(phone2_1);
+			call_2_1_2.setDuration(90);
+			call_2_1_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 26, 22).toInstant(ZoneOffset.UTC)));
+			call_2_2_1.setId(7L);
+			call_2_2_1.setPhone(phone2_2);
+			call_2_2_1.setDuration(30);
+			call_2_2_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 27, 22).toInstant(ZoneOffset.UTC)));
+			call_2_2_2.setId(8L);
+			call_2_2_2.setPhone(phone2_2);
+			call_2_2_2.setDuration(30);
+			call_2_2_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 28, 22).toInstant(ZoneOffset.UTC)));
+			call_3_1_1.setId(9L);
+			call_3_1_1.setPhone(phone3_1);
+			call_3_1_1.setDuration(55);
+			call_3_1_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 29, 22).toInstant(ZoneOffset.UTC)));
+			call_3_1_2.setId(10L);
+			call_3_1_2.setPhone(phone3_1);
+			call_3_1_2.setDuration(45);
+			call_3_1_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 30, 22).toInstant(ZoneOffset.UTC)));
+			call_3_2_1.setId(11L);
+			call_3_2_1.setPhone(phone3_2);
+			call_3_2_1.setDuration(70);
+			call_3_2_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 31, 22).toInstant(ZoneOffset.UTC)));
+			call_3_2_2.setId(12L);
+			call_3_2_2.setPhone(phone3_2);
+			call_3_2_2.setDuration(20);
+			call_3_2_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 32, 22).toInstant(ZoneOffset.UTC)));
+			call_4_1_1.setId(13L);
+			call_4_1_1.setPhone(phone4_1);
+			call_4_1_1.setDuration(90);
+			call_4_1_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 33, 22).toInstant(ZoneOffset.UTC)));
+			call_4_1_2.setId(14L);
+			call_4_1_2.setPhone(phone4_1);
+			call_4_1_2.setDuration(80);
+			call_4_1_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 34, 22).toInstant(ZoneOffset.UTC)));
+			call_4_2_1.setId(15L);
+			call_4_2_1.setPhone(phone4_2);
+			call_4_2_1.setDuration(70);
+			call_4_2_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 35, 22).toInstant(ZoneOffset.UTC)));
+			call_4_2_2.setId(16L);
+			call_4_2_2.setPhone(phone4_2);
+			call_4_2_2.setDuration(60);
+			call_4_2_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 36, 22).toInstant(ZoneOffset.UTC)));
+			call_5_1_1.setId(17L);
+			call_5_1_1.setPhone(phone5_1);
+			call_5_1_1.setDuration(50);
+			call_5_1_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 37, 22).toInstant(ZoneOffset.UTC)));
+			call_5_1_2.setId(18L);
+			call_5_1_2.setPhone(phone5_1);
+			call_5_1_2.setDuration(40);
+			call_5_1_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 38, 22).toInstant(ZoneOffset.UTC)));
+			call_5_2_1.setId(19L);
+			call_5_2_1.setPhone(phone5_2);
+			call_5_2_1.setDuration(30);
+			call_5_2_1.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 39, 22).toInstant(ZoneOffset.UTC)));
+			call_5_2_2.setId(20L);
+			call_5_2_2.setPhone(phone5_2);
+			call_5_2_2.setDuration(20);
+			call_5_2_2.setTimestamp(Timestamp.from(LocalDateTime.of(2021, 2, 20, 19, 40, 22).toInstant(ZoneOffset.UTC)));
+			
 			person1.getPhones().add(phone1_1);
 			person1.getPhones().add(phone1_2);
 			person2.getPhones().add(phone2_1);
@@ -129,6 +232,27 @@ public class HqlJpqlDBUtils extends BaseTest{
 			person4.getPhones().add(phone4_2);
 			person5.getPhones().add(phone5_1);
 			person5.getPhones().add(phone5_2);
+			
+			phone1_1.getCalls().add(call_1_1_1);
+			phone1_1.getCalls().add(call_1_1_2);
+			phone1_2.getCalls().add(call_1_2_1);
+			phone1_2.getCalls().add(call_1_2_2);
+			phone2_1.getCalls().add(call_2_1_1);
+			phone2_1.getCalls().add(call_2_1_2);
+			phone2_2.getCalls().add(call_2_2_1);
+			phone2_2.getCalls().add(call_2_2_2);
+			phone3_1.getCalls().add(call_3_1_1);
+			phone3_1.getCalls().add(call_3_1_2);
+			phone3_2.getCalls().add(call_3_2_1);
+			phone3_2.getCalls().add(call_3_2_2);
+			phone4_1.getCalls().add(call_4_1_1);
+			phone4_1.getCalls().add(call_4_1_2);
+			phone4_2.getCalls().add(call_4_2_1);
+			phone4_2.getCalls().add(call_4_2_2);
+			phone5_1.getCalls().add(call_5_1_1);
+			phone5_1.getCalls().add(call_5_1_2);
+			phone5_2.getCalls().add(call_5_2_1);
+			phone5_2.getCalls().add(call_5_2_2);
 			
 			entityManager.persist(person1);
 			entityManager.persist(person2);
@@ -147,21 +271,45 @@ public class HqlJpqlDBUtils extends BaseTest{
 			entityManager.persist(phone5_1);
 			entityManager.persist(phone5_2);
 			
+			entityManager.persist(call_1_1_1);
+			entityManager.persist(call_1_1_2);
+			entityManager.persist(call_1_2_1);
+			entityManager.persist(call_1_2_2);
+			entityManager.persist(call_2_1_1);
+			entityManager.persist(call_2_1_2);
+			entityManager.persist(call_2_2_1);
+			entityManager.persist(call_2_2_2);
+			entityManager.persist(call_3_1_1);
+			entityManager.persist(call_3_1_2);
+			entityManager.persist(call_3_2_1);
+			entityManager.persist(call_3_2_2);
+			entityManager.persist(call_4_1_1);
+			entityManager.persist(call_4_1_2);
+			entityManager.persist(call_4_2_1);
+			entityManager.persist(call_4_2_2);
+			entityManager.persist(call_5_1_1);
+			entityManager.persist(call_5_1_2);
+			entityManager.persist(call_5_2_1);
+			entityManager.persist(call_5_2_2);
+			
 		});
 	}
 	
 	public static void clearHqlJpqlDB() {
 		doInJPA(entityManager -> {
-			Query query1 = entityManager.createQuery("delete from Phone27");
+			Query query1 = entityManager.createQuery("delete from Call");
 			query1.executeUpdate();
 			
-			Query query2 = entityManager.createNativeQuery("delete from Person44_addresses");
-			Query query3 = entityManager.createQuery("delete from Person44");
+			Query query2 = entityManager.createQuery("delete from Phone27");
 			query2.executeUpdate();
-			query3.executeUpdate();
 			
-			Query query4 = entityManager.createQuery("delete from Partner");
+			Query query3 = entityManager.createNativeQuery("delete from Person44_addresses");
+			Query query4 = entityManager.createQuery("delete from Person44");
+			query3.executeUpdate();
 			query4.executeUpdate();
+			
+			Query query5 = entityManager.createQuery("delete from Partner");
+			query5.executeUpdate();
 			
 		});
 	}

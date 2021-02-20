@@ -22,7 +22,7 @@ import javax.persistence.Version;
 
 @NamedQuery(
     name = "get_person_by_name",
-    query = "select p from Person44 p where name = :name"
+    query = "select p from Person44 p where p.name = :name"
 )
 @Entity(name = "Person44")
 @Table(name = "Persons44")

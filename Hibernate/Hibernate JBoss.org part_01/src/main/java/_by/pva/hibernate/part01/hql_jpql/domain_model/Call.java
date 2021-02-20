@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name = "phone_call")
-@Table(name = "phone_calls")
+@Entity(name = "Call")
+@Table(name = "Calls")
 public class Call {
 
     @Id
