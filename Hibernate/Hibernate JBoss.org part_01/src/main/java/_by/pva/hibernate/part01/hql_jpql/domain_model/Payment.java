@@ -44,5 +44,9 @@ public class Payment {
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+	@Override
+	public String toString() {
+		return "Payment [id=" + id + ", amount=" + amount + "]";
+	}
 
 }

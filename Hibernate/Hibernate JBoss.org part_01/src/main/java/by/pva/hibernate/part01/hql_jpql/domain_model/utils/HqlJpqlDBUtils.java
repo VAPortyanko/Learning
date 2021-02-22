@@ -311,6 +311,9 @@ public class HqlJpqlDBUtils extends BaseTest{
 			Query query5 = entityManager.createQuery("delete from Partner");
 			query5.executeUpdate();
 			
+			Query query6 = entityManager.createQuery("delete from Payment");
+			query6.executeUpdate();
+			
 		});
 	}
 	
