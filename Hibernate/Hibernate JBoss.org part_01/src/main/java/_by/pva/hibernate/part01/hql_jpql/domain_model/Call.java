@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity(name = "Call")
-@Table(name = "Calls")
+@Table(name = "Phone_calls")
 public class Call {
 
     @Id
@@ -44,5 +44,9 @@ public class Call {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
-
+	@Override
+	public String toString() {
+		return "Call [id=" + id + ", phone=" + "id=" + phone.getId() + " ("+ phone.getType() + ") "+ phone.getNumber() + ", timestamp=" + timestamp + ", duration=" + duration + "]";
+	}
+	
 }
