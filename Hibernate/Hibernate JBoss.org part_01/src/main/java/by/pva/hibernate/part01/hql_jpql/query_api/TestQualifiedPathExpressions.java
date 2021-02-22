@@ -84,3 +84,13 @@ public class TestQualifiedPathExpressions extends BaseTest {
 	}
 	
 }
+
+/*
+VALUE - Refers to the collection value. Same as not specifying a qualifier. Useful to explicitly show intent. Valid for any type of collection-valued reference.
+INDEX - According to HQL rules, this is valid for both Maps and Lists which specify a javax.persistence.OrderColumn annotation to refer to the Map key 
+        or the List position (aka the OrderColumn value). JPQL however, reserves this for use in the List case and adds KEY for the Map case. 
+        Applications interested in JPA provider portability should be aware of this distinction.
+KEY   - Valid only for Maps. Refers to the map’s key. If the key is itself an entity, it can be further navigated.
+ENTRY - Only valid for Maps. Refers to the map’s logical java.util.Map.Entry tuple (the combination of its key and value). 
+        ENTRY is only valid as a terminal path and it’s applicable to the SELECT clause only.
+*/
