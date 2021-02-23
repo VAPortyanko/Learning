@@ -16,7 +16,7 @@ import by.pva.hibernate.part01._myUtils.BaseTest;
 //Don't forget to close the entityManagerFactory.
 public class HqlJpqlDBUtils extends BaseTest{
 	
-	public static final boolean IS_DATABASE_EXIST = false;
+	public static final boolean IS_DATABASE_EXIST = true;
 	
 	public static void populateHqlJpqlDB() {
 		doInJPA(entityManager -> {
