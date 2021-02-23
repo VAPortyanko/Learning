@@ -113,9 +113,9 @@ public class TestWhereMapping extends BaseTest {
 
 			Client client2 = entityManager.find(Client.class, 1L);
 			System.out.println("Credit accounts:");
-			client2.getCreditAccounts().stream().forEach(System.out::println);
+			client2.getCreditAccounts().forEach(System.out::println);
 			System.out.println("Debit accounts:");
-			client2.getDebitAccounts().stream().forEach(System.out::println);
+			client2.getDebitAccounts().forEach(System.out::println);
 
 		});
 

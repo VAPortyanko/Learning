@@ -39,7 +39,7 @@ public class TestSingleTableInheritance extends BaseTest {
 
 			@SuppressWarnings("unchecked")
 			List<Account2> accounts = entityManager.createQuery("select a from Account2 a").getResultList();
-			accounts.stream().forEach(System.out::println);
+			accounts.forEach(System.out::println);
 
 		});
 

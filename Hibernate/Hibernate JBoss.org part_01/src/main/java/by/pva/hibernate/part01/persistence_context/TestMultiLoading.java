@@ -33,7 +33,7 @@ public class TestMultiLoading extends BaseTest {
 			List<Person> persons = session.byMultipleIds(Person.class).multiLoad(3L, 1L, 2L);
 
 			System.out.println("persons (" + persons.size() + "):");
-			persons.stream().forEach(System.out::println);
+			persons.forEach(System.out::println);
 
 			// An additional select query will be executed if we uncomment the code below or
 			// set the enableSessionCheck to false.
@@ -46,7 +46,7 @@ public class TestMultiLoading extends BaseTest {
 			List<Person> samePersons = session.byMultipleIds(Person.class).enableSessionCheck(true).multiLoad(3L, 1L, 2L);
 
 			System.out.println("samePersons (" + samePersons.size() + "):");
-			samePersons.stream().forEach(System.out::println);
+			samePersons.forEach(System.out::println);
 
 		});
 

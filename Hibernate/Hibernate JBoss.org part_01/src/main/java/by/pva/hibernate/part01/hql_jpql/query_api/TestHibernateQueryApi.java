@@ -60,7 +60,7 @@ public class TestHibernateQueryApi extends BaseTest {
 			                     "where p.name like :name", Person.class)
 					.setParameter("name", "name%")
 					.list();
-			persons.stream().forEach(System.out::println);
+			persons.forEach(System.out::println);
 			
 			Person person = entityManager.unwrap(Session.class)
 					.createQuery("select p " +

@@ -38,7 +38,7 @@ public class TestJoinTableInheritanceStrategy extends BaseTest {
 
 			@SuppressWarnings("unchecked")
 			List<Account> accounts = entityManager.createQuery("select a from Account4 a").getResultList();
-			accounts.stream().forEach(System.out::println);
+			accounts.forEach(System.out::println);
 
 		});
 

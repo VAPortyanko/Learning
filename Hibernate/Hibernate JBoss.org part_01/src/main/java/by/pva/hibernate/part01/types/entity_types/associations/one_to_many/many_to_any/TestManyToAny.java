@@ -62,7 +62,7 @@ public class TestManyToAny extends BaseTest {
 			PropertyRepository propertyRepository2 = entityManager.find(PropertyRepository.class, 1L);
 
 			System.out.println("Properties:");
-			propertyRepository2.getProperties().stream().forEach(System.out::println);
+			propertyRepository2.getProperties().forEach(System.out::println);
 
 		});
 

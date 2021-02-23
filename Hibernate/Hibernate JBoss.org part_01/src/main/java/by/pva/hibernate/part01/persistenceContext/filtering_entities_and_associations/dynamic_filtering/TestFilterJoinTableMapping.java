@@ -65,7 +65,7 @@ public class TestFilterJoinTableMapping extends BaseTest {
 			entityManager.clear();
 
 			Client4 client2 = entityManager.find(Client4.class, 1L);
-			client2.getAccounts().stream().forEach(System.out::println);
+			client2.getAccounts().forEach(System.out::println);
 
 			entityManager.flush();
 			entityManager.clear();
@@ -74,7 +74,7 @@ public class TestFilterJoinTableMapping extends BaseTest {
 
 			entityManager.unwrap(Session.class).enableFilter("firstAccounts").setParameter("maxOrderId", 1);
 
-			client3.getAccounts().stream().forEach(System.out::println);
+			client3.getAccounts().forEach(System.out::println);
 
 		});
 		

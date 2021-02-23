@@ -58,7 +58,7 @@ public class TestFilterWithSQLFragmentAliasmapping extends BaseTest {
 
 			List<Account9> accounts = entityManager.createQuery("select a from Account9 a", Account9.class)
 					.getResultList();
-			accounts.stream().forEach(System.out::println);
+			accounts.forEach(System.out::println);
 
 		});
 

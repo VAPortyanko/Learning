@@ -48,7 +48,7 @@ public class TestPolymorphism extends BaseTest {
 				"from Payment p ", Payment.class )
 			.getResultList();
 
-			payments.stream().forEach(System.out::println);
+			payments.forEach(System.out::println);
 			
 			List<Payment> payments2 = entityManager.createQuery(
 					"select p " +
@@ -56,7 +56,7 @@ public class TestPolymorphism extends BaseTest {
 					"where type(p) = CreditCardPayment", Payment.class )
 				.getResultList();
 			
-			payments2.stream().forEach(System.out::println);
+			payments2.forEach(System.out::println);
 			
 		});
 

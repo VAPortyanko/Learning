@@ -42,7 +42,7 @@ public class TestExpressions_Arithmetic extends BaseTest {
 				"where year(current_date()) - year(p.createdOn) < 1", Person.class)
 			.getResultList();
 
-			persons.stream().forEach(System.out::println);
+			persons.forEach(System.out::println);
 		});
 
 		entityManagerFactory.close();

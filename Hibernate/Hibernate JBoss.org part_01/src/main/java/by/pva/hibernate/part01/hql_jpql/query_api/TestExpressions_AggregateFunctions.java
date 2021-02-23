@@ -41,7 +41,7 @@ public class TestExpressions_AggregateFunctions extends BaseTest {
 				"group by p.number", Object[].class )
 			.getResultList();
 			
-			callCount.stream().forEach(e -> System.out.println(e[0] + " " + e[1]));
+			callCount.forEach(e -> System.out.println(e[0] + " " + e[1]));
 
 		});
 

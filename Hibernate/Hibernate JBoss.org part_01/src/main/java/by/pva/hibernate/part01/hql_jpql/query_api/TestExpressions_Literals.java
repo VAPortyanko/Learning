@@ -1,8 +1,6 @@
 package by.pva.hibernate.part01.hql_jpql.query_api;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Call;
@@ -13,10 +11,6 @@ public class TestExpressions_Literals extends BaseTest {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		
-		Map<String, String> properties = new HashMap<>();
-		properties.put("hibernate.format_sql", "false");
-		rebuildEntityManagerFactory(properties);
 		
 		HqlJpqlDBUtils.prepareDomainModel();
 

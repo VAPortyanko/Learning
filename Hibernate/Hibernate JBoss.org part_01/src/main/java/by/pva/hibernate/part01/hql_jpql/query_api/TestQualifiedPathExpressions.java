@@ -39,8 +39,8 @@ public class TestQualifiedPathExpressions extends BaseTest {
 			.setParameter("id", 1L)
 			.getResultList();
 
-			calls1.stream().forEach(System.out::println);
-			calls2.stream().forEach(System.out::println);
+			calls1.forEach(System.out::println);
+			calls2.forEach(System.out::println);
 			
 			// Select all the Call timestamps (the map key) for a given Phone.
 			List<Date> timestamps1 = entityManager.createQuery(
@@ -51,7 +51,7 @@ public class TestQualifiedPathExpressions extends BaseTest {
 			.setParameter( "id", 1L)
 			.getResultList();
 			
-			timestamps1.stream().forEach(System.out::println);
+			timestamps1.forEach(System.out::println);
 
 // ToDo: Fix code below ...			
 			// Select all the Call and their timestamps (the 'Map.Entry') for a given Phone.
@@ -63,7 +63,7 @@ public class TestQualifiedPathExpressions extends BaseTest {
 //			.setParameter("id", 1L)
 //			.getResultList();
 //
-//          callHistory.stream().forEach(e -> System.out.println(e.getKey() + " " + e.getValue()));
+//          callHistory.forEach(e -> System.out.println(e.getKey() + " " + e.getValue()));
 			
 			Long duration = entityManager.createQuery(
 					"select sum(ch.duration) " +

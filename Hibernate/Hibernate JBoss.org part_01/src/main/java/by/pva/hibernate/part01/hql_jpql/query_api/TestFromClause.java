@@ -20,7 +20,6 @@ public class TestFromClause extends BaseTest {
 				"select p " +
 				"from _by.pva.hibernate.part01.hql_jpql.domain_model.Person p", Person.class )
 			.getResultList()
-			.stream()
 			.forEach(System.out::println);
 
 			// Simple query using entity name for root entity reference.
@@ -28,7 +27,6 @@ public class TestFromClause extends BaseTest {
 				"select p " +
 				"from Person44 p", Person.class )
 			.getResultList()
-			.stream()
 			.forEach(System.out::println);
 			
 			// Simple query using multiple root entity references.
@@ -39,7 +37,7 @@ public class TestFromClause extends BaseTest {
 			.setParameter("type", PhoneType.LAND_LINE)		
 			.getResultList();
 
-			persons.stream().forEach(e -> System.out.println(e[0] + " " + e[1]));
+			persons.forEach(e -> System.out.println(e[0] + " " + e[1]));
 			
 			List<Person> persons2 = entityManager.createQuery(
 				"select distinct pr1" +
@@ -49,7 +47,7 @@ public class TestFromClause extends BaseTest {
 				, Person.class)
 			.getResultList();
 
-			persons2.stream().forEach(System.out::println);
+			persons2.forEach(System.out::println);
 		
 		});
 

@@ -71,7 +71,7 @@ public class TestFilterMapping extends BaseTest {
 			List<Account> accounts = entityManager.createQuery("select a from Account8 a", Account.class)
 					.getResultList();
 
-			accounts.stream().forEach(System.out::println);
+			accounts.forEach(System.out::println);
 
 			entityManager.unwrap(Session.class).enableFilter("activeAccount").setParameter("active", true);
 
@@ -82,7 +82,7 @@ public class TestFilterMapping extends BaseTest {
 			List<Account> accounts2 = entityManager.createQuery("select a from Account8 a", Account.class)
 					.getResultList();
 
-			accounts2.stream().forEach(System.out::println);
+			accounts2.forEach(System.out::println);
 
 		});
 

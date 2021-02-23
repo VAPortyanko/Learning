@@ -46,8 +46,7 @@ public class TestDiscriminatorFormula extends BaseTest{
 				.createQuery("select a from Account3 a")
 				.getResultList();
 		
-		accounts.stream()
-		        .forEach(System.out::println);
+		accounts.forEach(System.out::println);
 				
 		});
 		

@@ -35,7 +35,7 @@ public class TestCollectionMemberReference extends BaseTest {
 			.setParameter("duration", 20)
 			.getResultList();
 			
-			phones1.stream().forEach(System.out::println);
+			phones1.forEach(System.out::println);
 			
 			// alternate syntax
 			List<Phone> phones2 = entityManager.unwrap(Session.class).createQuery(
@@ -49,7 +49,7 @@ public class TestCollectionMemberReference extends BaseTest {
 			.setParameter("duration", 20)
 			.list();
 
-			phones2.stream().forEach(System.out::println);
+			phones2.forEach(System.out::println);
 			
 		});	
 		

@@ -50,7 +50,7 @@ public class TestImplicitAndExplicitPolymorphism extends BaseTest {
 					.getResultList();
 
 			System.out.println("Size of resultSet = " + accounts.size());
-			accounts.stream().forEach(System.out::println);
+			accounts.forEach(System.out::println);
 
 		});
 

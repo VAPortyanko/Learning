@@ -25,7 +25,6 @@ public class TestBasicCRUDStatementsSelect extends BaseTest {
 			entityManager.createQuery("select p " +
 							          "from Person44 p", Person.class )
 					.getResultList()
-					.stream()
 					.forEach(System.out::println);
 
 			// 3) [Select] clause and parameter binding.
@@ -39,7 +38,6 @@ public class TestBasicCRUDStatementsSelect extends BaseTest {
 			          , Person.class)
 			.setParameter("id", 2L)
 			.getResultList()
-			.stream()
 			.forEach(System.out::println);
 			
 		});
