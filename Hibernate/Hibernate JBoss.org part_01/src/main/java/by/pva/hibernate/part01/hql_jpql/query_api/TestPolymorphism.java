@@ -41,7 +41,8 @@ public class TestPolymorphism extends BaseTest {
 			
 			entityManager.flush();
 			entityManager.clear();
-
+			
+			// HQL and JPQL queries are inherently polymorphic.
 			List<Payment> payments = entityManager.createQuery(
 				"select p " +
 				"from Payment p ", Payment.class )
@@ -49,9 +50,19 @@ public class TestPolymorphism extends BaseTest {
 
 			payments.stream().forEach(System.out::println);
 			
+			List<Payment> payments2 = entityManager.createQuery(
+					"select p " +
+					"from Payment p " +
+					"where type(p) = CreditCardPayment", Payment.class )
+				.getResultList();
+			
+			payments2.stream().forEach(System.out::println);
+			
 		});
 
 		entityManagerFactory.close();
 	}
 	
 }
+
+// https://stackoverflow.com/questions/27966134/hibernate-explicit-polymorphism-with-joined-inheritence-strategy.
