@@ -219,7 +219,7 @@ public class TestExpressions_Predicates extends BaseTest {
 
 			persons11.forEach(e -> System.out.println("Between4 persons: " + e));
 
-			// In predicate
+			// [IN] predicate
             // IN predicates performs a check that a particular value is in a list of values. 
 			// Its syntax is:
 			// in_expression ::=
@@ -247,7 +247,7 @@ public class TestExpressions_Predicates extends BaseTest {
 				"where type(p) in (CreditCardPayment, WireTransferPayment)", Payment.class)
 			.getResultList();
 			
-			payments3.forEach(e -> System.out.println("Predicate [IN] 1: " + e));
+			payments3.forEach(e -> System.out.println("[IN] predicare example 1: " + e));
 			
 			List<Phone> phones2 = entityManager.createQuery(
 				"select p " +
@@ -255,7 +255,7 @@ public class TestExpressions_Predicates extends BaseTest {
 				"where type in ('MOBILE', 'LAND_LINE')", Phone.class)
 			.getResultList();
 			
-			phones2.forEach(e -> System.out.println("Predicate [IN] 2: " + e));
+			phones2.forEach(e -> System.out.println("[IN] predicare example 2: " + e));
 			
 			List<Phone> phones3 = entityManager.createQuery(
 				"select p " +
@@ -264,7 +264,7 @@ public class TestExpressions_Predicates extends BaseTest {
 			.setParameter("types", Arrays.asList(PhoneType.MOBILE, PhoneType.LAND_LINE))
 			.getResultList();
 			
-			phones3.forEach(e -> System.out.println("Predicate [IN] 3: " + e));
+			phones3.forEach(e -> System.out.println("[IN] predicare example 3: " + e));
 			
 			List<Phone> phones4 = entityManager.createQuery(
 				"select distinct p " +
@@ -276,7 +276,7 @@ public class TestExpressions_Predicates extends BaseTest {
 				")", Phone.class )
 			.getResultList();
 			
-			phones4.forEach(e -> System.out.println("Predicate [IN] 4:" + e));
+			phones4.forEach(e -> System.out.println("[IN] predicare example 4:" + e));
 			
 			// Not JPQL compliant!
 			List<Phone> phones5 = entityManager.createQuery(
@@ -289,7 +289,7 @@ public class TestExpressions_Predicates extends BaseTest {
 				")", Phone.class)
 			.getResultList();
 			
-			phones5.forEach(e -> System.out.println("Predicate [IN] 5:" + e));
+			phones5.forEach(e -> System.out.println("[IN] predicare example 5:" + e));
 			
 			// Not JPQL compliant!
 			List<Payment> payments4 = entityManager.createQuery(
@@ -302,9 +302,21 @@ public class TestExpressions_Predicates extends BaseTest {
 				")", Payment.class)
 			.getResultList();
 			
-			payments4.forEach(e -> System.out.println("Predicate [IN] 6:" + e));
+			payments4.forEach(e -> System.out.println("[IN] predicare example 6:" + e));
 
-
+			List<Person> persons13 = entityManager.createQuery(
+					"select distinct p " +
+					"from Person44 p " +
+					"where exists (" +
+					"	select py.person " +
+					"	from Payment py" +
+					"	where py.person = p " +
+					")", Person.class)
+				.getResultList();
+			
+			persons13.forEach(e -> System.out.println("[EXISTS] prdicate artificial example: " + e));
+			
+			
 			
 			
 			
@@ -314,8 +326,6 @@ public class TestExpressions_Predicates extends BaseTest {
 			.getResultList();
 			
 			paymentsForDelete.forEach(e -> entityManager.remove(e));
-
-			
 			
 		});
 
