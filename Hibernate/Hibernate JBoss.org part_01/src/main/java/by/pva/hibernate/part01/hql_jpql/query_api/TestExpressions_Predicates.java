@@ -14,7 +14,6 @@ import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 
 public class TestExpressions_Predicates extends BaseTest {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
 		HqlJpqlDBUtils.prepareDomainModel();
@@ -316,9 +315,50 @@ public class TestExpressions_Predicates extends BaseTest {
 			
 			persons13.forEach(e -> System.out.println("[EXISTS] prdicate artificial example: " + e));
 			
+			// The IS [NOT] EMPTY expression applies to collection-valued path expressions. 
+			// It checks whether the particular collection has any associated values.
+			List<Person> persons14 = entityManager.createQuery(
+				"select p " +
+				"from Person44 p " +
+				"where p.phones is empty", Person.class )
+			.getResultList();
 			
+			List<Person> persons15 = entityManager.createQuery(
+				"select p " +
+				"from Person44 p " +
+				"where p.phones is not empty", Person.class )
+			.getResultList();
 			
+			persons14.forEach(e -> System.out.println("[IS EMPTY] predicate: " + e));
+			persons15.forEach(e -> System.out.println("[EMPTY] predicate: " + e));
 			
+			// Member-of collection predicate.
+            // The [NOT] MEMBER [OF] expression applies to collection-valued path expressions. It checks whether a value is a member of the specified collection.
+			List<Person> persons16 = entityManager.createQuery(
+				"select p " +
+				"from Person44 p " +
+				"where 'Home address' member of p.addresses", Person.class)
+			.getResultList();
+
+			List<Person> persons17 = entityManager.createQuery(
+				"select p " +
+				"from Person44 p " +
+				"where 'Home address' not member of p.addresses", Person.class)
+			.getResultList();
+
+			persons16.forEach(e -> System.out.println("[MEMBER OF] predicate: " + e));
+			persons17.forEach(e -> System.out.println("[NOT MEMBER OF] predicate: " + e));
+			
+			// NOT predicate operator
+			// The NOT operator is used to negate the predicate that follows it. If that following predicate is true, the NOT resolves to false.
+	        // If the predicate is true, NOT resolves to false. If the predicate is unknown (e.g. NULL), then NOT resolves to unknown as well.
+
+			//  AND predicate operator
+			// The AND operator is used to combine 2 predicate expressions. The result of the AND expression is true if and only if both predicates resolve to true. 
+			// If either predicate resolves to unknown, the AND expression resolves to unknown as well. Otherwise, the result is false.
+			// OR predicate operator
+			// The OR operator is used to combine 2 predicate expressions. The result of the OR expression is true if one predicate resolves to true. 
+			// If both predicates resolve to unknown, the OR expression resolves to unknown. Otherwise, the result is false.
 			
 			List<Payment> paymentsForDelete = entityManager.createQuery(
 					"select p" +
