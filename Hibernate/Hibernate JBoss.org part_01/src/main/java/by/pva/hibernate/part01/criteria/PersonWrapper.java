@@ -17,10 +17,5 @@ public class PersonWrapper {
     public String getNickName() {
         return nickName;
     }
-
-	@Override
-	public String toString() {
-		return "PersonWrapper [id=" + id + ", nickName=" + nickName + "]";
-	}
     
 }
