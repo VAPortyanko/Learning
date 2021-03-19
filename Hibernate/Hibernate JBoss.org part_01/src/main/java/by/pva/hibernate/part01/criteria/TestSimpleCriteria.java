@@ -12,7 +12,7 @@ import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
 
-public class SimpleCriteria extends BaseTest {
+public class TestSimpleCriteria extends BaseTest {
 
 public static void main(String[] args) {
 		
@@ -114,20 +114,18 @@ public static void main(String[] args) {
 				System.out.println("id:" + id6_2 + ", nickName: " + nickName6_2);
 			}
 			
-// The javax.persistence.Tuple contract provides three forms of access to the underlying elements:
-// 			
-//    typed      - the Selecting a tuple example illustrates this form of access in the tuple.get(idPath) and tuple.get(nickNamePath) calls. 
-//			       This allows typed access to the underlying tuple values based on the javax.persistence.TupleElement expressions used to build the criteria.
-//    positional - Allows access to the underlying tuple values based on the position. 
-// 			       The simple Object get(int position) form is very similar to the access illustrated in Selecting an array and Selecting an array using multiselect. 
-//                 The <X> X get(int position, Class<X> type form allows typed positional access, 
-//    			   but based on the explicitly supplied type which the tuple value must be type-assignable to.
-//    aliased    - Allows access to the underlying tuple values based on (optionally) assigned alias.
-// 			       The example query did not apply an alias. An alias would be applied via the alias method on javax.persistence.criteria.Selection. 
-// 			       Just like positional access, there is both a typed (Object get(String alias)) and an untyped (<X> X get(String alias, Class<X> type)) form.
-
-
-			
+			// The javax.persistence.Tuple contract provides three forms of access to the underlying elements:
+			// 			
+			//    typed      - the Selecting a tuple example illustrates this form of access in the tuple.get(idPath) and tuple.get(nickNamePath) calls. 
+			//			       This allows typed access to the underlying tuple values based on the javax.persistence.TupleElement expressions used to build the criteria.
+			//    positional - Allows access to the underlying tuple values based on the position. 
+			// 			       The simple Object get(int position) form is very similar to the access illustrated in Selecting an array and Selecting an array using multiselect. 
+			//                 The <X> X get(int position, Class<X> type form allows typed positional access, 
+			//    			   but based on the explicitly supplied type which the tuple value must be type-assignable to.
+			//    aliased    - Allows access to the underlying tuple values based on (optionally) assigned alias.
+			// 			       The example query did not apply an alias. An alias would be applied via the alias method on javax.persistence.criteria.Selection. 
+			// 			       Just like positional access, there is both a typed (Object get(String alias)) and an untyped (<X> X get(String alias, Class<X> type)) form.
+		
 		});
 
 		entityManagerFactory.close();

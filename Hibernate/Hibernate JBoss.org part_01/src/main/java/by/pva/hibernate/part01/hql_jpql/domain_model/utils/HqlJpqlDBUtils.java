@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.AddressType;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Call;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Partner;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
@@ -254,6 +255,13 @@ public class HqlJpqlDBUtils extends BaseTest{
 			phone5_2.getCalls().add(call_5_2_1);
 			phone5_2.getCalls().add(call_5_2_2);
 			
+			Partner partner1 = new Partner();
+			partner1.setId(1L);
+			partner1.setName("Partner1");
+			Partner partner2 = new Partner();
+			partner2.setId(2L);
+			partner2.setName("Partner2");
+			
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -292,6 +300,8 @@ public class HqlJpqlDBUtils extends BaseTest{
 			entityManager.persist(call_5_2_1);
 			entityManager.persist(call_5_2_2);
 			
+			entityManager.persist(partner1);
+			entityManager.persist(partner2);
 		});
 	}
 	
@@ -313,6 +323,9 @@ public class HqlJpqlDBUtils extends BaseTest{
 			
 			Query query6 = entityManager.createQuery("delete from Payment");
 			query6.executeUpdate();
+			
+			Query query7 = entityManager.createQuery("delete from Partner");
+			query7.executeUpdate();
 			
 		});
 	}

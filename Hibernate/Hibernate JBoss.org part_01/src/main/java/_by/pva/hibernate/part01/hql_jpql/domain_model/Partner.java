@@ -29,5 +29,9 @@ public class Partner {
 	public int getVersion() {
 		return version;
 	}
+	@Override
+	public String toString() {
+		return "Partner [id=" + id + ", name=" + name + ", version=" + version + "]";
+	}
 
 }
