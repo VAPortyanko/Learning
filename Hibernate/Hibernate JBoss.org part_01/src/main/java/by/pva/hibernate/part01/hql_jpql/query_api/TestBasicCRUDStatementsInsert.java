@@ -3,7 +3,7 @@ package by.pva.hibernate.part01.hql_jpql.query_api;
 import org.hibernate.Session;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 // There is no JPQL equivalent to HQL-style INSERT statements.
 public class TestBasicCRUDStatementsInsert extends BaseTest {

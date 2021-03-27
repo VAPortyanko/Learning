@@ -2,7 +2,7 @@ package by.pva.hibernate.part01.hql_jpql.query_api;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 public class TestBasicCRUDStatementsDelete extends BaseTest {
 

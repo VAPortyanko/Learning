@@ -1,5 +1,6 @@
-package by.pva.hibernate.part01.hql_jpql.domain_model.utils;
+package by.pva.hibernate.part01._myUtils;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,11 +9,11 @@ import javax.persistence.Query;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.AddressType;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Call;
+import _by.pva.hibernate.part01.hql_jpql.domain_model.CreditCardPayment;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Partner;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Phone;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.PhoneType;
-import by.pva.hibernate.part01._myUtils.BaseTest;
 
 //Don't forget to close the entityManagerFactory.
 public class HqlJpqlDBUtils extends BaseTest{
@@ -262,6 +263,12 @@ public class HqlJpqlDBUtils extends BaseTest{
 			partner2.setId(2L);
 			partner2.setName("Partner2");
 			
+			CreditCardPayment creditcardPayment = new CreditCardPayment();
+			creditcardPayment.setId(1L);
+			creditcardPayment.setPerson(person1);
+			creditcardPayment.setAmount(BigDecimal.ONE);
+			creditcardPayment.setCompleted(false);
+			
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 			entityManager.persist(person3);
@@ -302,6 +309,8 @@ public class HqlJpqlDBUtils extends BaseTest{
 			
 			entityManager.persist(partner1);
 			entityManager.persist(partner2);
+			
+			entityManager.persist(creditcardPayment);
 		});
 	}
 	
@@ -310,8 +319,11 @@ public class HqlJpqlDBUtils extends BaseTest{
 			Query query1 = entityManager.createQuery("delete from Call");
 			query1.executeUpdate();
 			
-			Query query2 = entityManager.createQuery("delete from Phone27");
-			query2.executeUpdate();
+			
+			Query query2_1 = entityManager.createNativeQuery("delete from phone27_repairtimestamps");
+			Query query2_2 = entityManager.createQuery("delete from Phone27");
+			query2_1.executeUpdate();
+			query2_2.executeUpdate();
 			
 			Query query3 = entityManager.createNativeQuery("delete from Person44_addresses");
 			Query query4 = entityManager.createQuery("delete from Person44");

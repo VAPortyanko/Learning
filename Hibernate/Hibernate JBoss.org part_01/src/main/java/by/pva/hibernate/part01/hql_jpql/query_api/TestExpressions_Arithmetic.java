@@ -3,7 +3,7 @@ package by.pva.hibernate.part01.hql_jpql.query_api;
 import java.util.List;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 
 public class TestExpressions_Arithmetic extends BaseTest {

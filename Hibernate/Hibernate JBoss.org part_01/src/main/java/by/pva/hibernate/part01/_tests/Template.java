@@ -1,7 +1,7 @@
 package by.pva.hibernate.part01._tests;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 public class Template extends BaseTest {
 
@@ -10,6 +10,8 @@ public class Template extends BaseTest {
 		HqlJpqlDBUtils.prepareDomainModel();
 
 		doInJPA(entityManager -> {
+			
+			
 			
 		});
 

@@ -9,7 +9,7 @@ import _by.pva.hibernate.part01.hql_jpql.domain_model.CreditCardPayment;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Payment;
 import _by.pva.hibernate.part01.hql_jpql.domain_model.WireTransferPayment;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 public class TestPolymorphism extends BaseTest {
 

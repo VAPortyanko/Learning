@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 public class TestQueryStreaming extends BaseTest {
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import _by.pva.hibernate.part01.hql_jpql.domain_model.*;
 import by.pva.hibernate.part01._myUtils.BaseTest;
-import by.pva.hibernate.part01.hql_jpql.domain_model.utils.HqlJpqlDBUtils;
+import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
 // Predicates form the basis of the where clause, the having clause and searched case expressions. 
 // They are expressions which resolve to a truth value, generally TRUE or FALSE, although boolean comparisons

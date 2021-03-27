@@ -7,23 +7,122 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ColumnResult;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Id;
 import javax.persistence.MapKeyEnumerated;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.persistence.ConstructorResult;
+import javax.persistence.EntityResult;
+import javax.persistence.FieldResult;
+
+import by.pva.hibernate.part01.native_query.PersonNames;
 
 @NamedQuery(
     name = "get_person_by_name",
     query = "select p from Person44 p where p.name = :name"
 )
+@NamedNativeQuery(
+	    name = "find_person_name",
+	    query =
+	        "SELECT name " +
+	        "FROM Persons44 "
+)
+@NamedNativeQuery(
+	    name = "find_person_name_and_nickName",
+	    query =
+	        "SELECT " +
+	        "   name, " +
+	        "   nickName " +
+	        "FROM Persons44 "
+)
+@NamedNativeQuery(
+    name = "find_person_name_and_nickName_dto",
+    query =
+        "SELECT " +
+        "   name, " +
+        "   nickName " +
+        "FROM Persons44 ",
+    resultSetMapping = "name_and_nickName_dto"
+)
+@SqlResultSetMapping(
+    name = "name_and_nickName_dto",
+    classes = @ConstructorResult(
+        targetClass = PersonNames.class,
+        columns = {
+            @ColumnResult(name = "name"),
+            @ColumnResult(name = "nickName")
+        }
+    )
+)
+@NamedNativeQuery(
+	    name = "find_person_by_name",
+	    query =
+	        "SELECT " +
+	        "   p.id AS \"id\", " +
+	        "   p.name AS \"name\", " +
+	        "   p.nickName AS \"nickName\", " +
+	        "   p.address AS \"address\", " +
+	        "   p.createdOn AS \"createdOn\", " +
+	        "   p.version AS \"version\" " +
+	        "FROM Persons44 p " +
+	        "WHERE p.name LIKE :name",
+	    resultClass = Person.class
+)
+@NamedNativeQuery(
+	    name = "find_person_with_phones_by_name",
+	    query =
+	        "SELECT " +
+	        "   pr.id AS \"pr.id\", " +
+	        "   pr.name AS \"pr.name\", " +
+	        "   pr.nickName AS \"pr.nickName\", " +
+	        "   pr.address AS \"pr.address\", " +
+	        "   pr.createdOn AS \"pr.createdOn\", " +
+	        "   pr.version AS \"pr.version\", " +
+	        "   ph.id AS \"ph.id\", " +
+	        "   ph.person_id AS \"ph.person_id\", " +
+	        "   ph.phone_number AS \"ph.number\", " +
+	        "   ph.phone_type AS \"ph.type\" " +
+	        "FROM Persons44 pr " +
+	        "JOIN Phones27 ph ON pr.id = ph.person_id " +
+	        "WHERE pr.name LIKE :name",
+	    resultSetMapping = "person_with_phones"
+	)
+	 @SqlResultSetMapping(
+	     name = "person_with_phones",
+	     entities = {
+	         @EntityResult(
+	             entityClass = Person.class,
+	             fields = {
+	                 @FieldResult( name = "id", column = "pr.id" ),
+	                 @FieldResult( name = "name", column = "pr.name" ),
+	                 @FieldResult( name = "nickName", column = "pr.nickName" ),
+	                 @FieldResult( name = "address", column = "pr.address" ),
+	                 @FieldResult( name = "createdOn", column = "pr.createdOn" ),
+	                 @FieldResult( name = "version", column = "pr.version" ),
+	             }
+	         ),
+	         @EntityResult(
+	             entityClass = Phone.class,
+	             fields = {
+	                 @FieldResult( name = "id", column = "ph.id" ),
+	                 @FieldResult( name = "person", column = "ph.person_id" ),
+	                 @FieldResult( name = "number", column = "ph.number" ),
+	                 @FieldResult( name = "type", column = "ph.type" ),
+	             }
+	         )
+	     }
+	 )
 @Entity(name = "Person44")
 @Table(name = "Persons44")
 public class Person {
