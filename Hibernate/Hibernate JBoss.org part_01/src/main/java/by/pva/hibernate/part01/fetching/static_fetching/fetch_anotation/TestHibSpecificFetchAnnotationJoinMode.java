@@ -25,7 +25,7 @@ public class TestHibSpecificFetchAnnotationJoinMode extends BaseTest{
 	public static void main(String[] args) {
 	
 		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "false");
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 		
 		doInJPA(entityManager -> {
 			

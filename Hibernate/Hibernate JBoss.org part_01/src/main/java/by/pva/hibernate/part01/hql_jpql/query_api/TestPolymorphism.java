@@ -17,7 +17,7 @@ public class TestPolymorphism extends BaseTest {
 		
 		Map<String, String> properties = new HashMap<>();
 		properties.put("hibernate.format_sql", "true");
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 		
 		HqlJpqlDBUtils.prepareDomainModel();
 

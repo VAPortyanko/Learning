@@ -23,7 +23,7 @@ public class TestQueryCache extends BaseTest {
 		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 		properties.put("hibernate.cache.use_query_cache", "true"); // !!! Enable query cache!
 
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 
 		doInJPA(entityManager -> {
 

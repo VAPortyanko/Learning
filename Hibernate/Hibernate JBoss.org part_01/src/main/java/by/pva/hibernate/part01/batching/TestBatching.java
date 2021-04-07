@@ -31,7 +31,7 @@ public class TestBatching extends BaseTest{
 		final int BATCH_SIZE = 20;
 		
 		Map<String, String> properties = Collections.singletonMap("hibernate.jdbc.batch_size", String.valueOf(BATCH_SIZE));
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 		
 		doInJPA(entityManager -> {
 			

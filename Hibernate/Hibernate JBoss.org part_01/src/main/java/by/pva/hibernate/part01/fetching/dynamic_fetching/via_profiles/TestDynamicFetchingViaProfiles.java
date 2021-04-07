@@ -23,7 +23,7 @@ public class TestDynamicFetchingViaProfiles extends BaseTest{
 	public static void main(String[] args) {
 		
 		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 		
 		doInJPA(entityManager -> {
 

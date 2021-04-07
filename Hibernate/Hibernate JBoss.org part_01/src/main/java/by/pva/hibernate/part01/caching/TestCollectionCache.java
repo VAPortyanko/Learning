@@ -27,7 +27,7 @@ public class TestCollectionCache extends BaseTest{
 		properties.put("hibernate.cache.use_second_level_cache", "true");
 		properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
 
-		rebuildEntityManagerFactory(properties);
+		buildEntityManagerFactory(properties);
 
 		doInJPA(entityManager -> {
 

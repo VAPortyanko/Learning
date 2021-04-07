@@ -11,18 +11,26 @@ import javax.persistence.Persistence;
 public class BaseTest {
 	
 	protected final static String DEFAULT_PERSISTENCE_UNIT = "by.pva.hibernate.part01.basicWithTableAutoGeneration"; 
-	protected static EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT);
+	protected static EntityManagerFactory entityManagerFactory = null;
 	
-	protected static void rebuildEntityManagerFactory(Map<String, String> properties) {
-		rebuildEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT, properties);
+	protected static void buildDefaultEntityManagerFactory () {
+		entityManagerFactory = Persistence.createEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT);
 	}
 	
-	protected static void rebuildEntityManagerFactory(String persistenceUnit, Map<String, String> properties) {
+	protected static void buildEntityManagerFactory(Map<String, String> properties) {
+		buildEntityManagerFactory(DEFAULT_PERSISTENCE_UNIT, properties);
+	}
+	
+	protected static void buildEntityManagerFactory(String persistenceUnit, Map<String, String> properties) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit, properties);
 	}
 	
 	protected static void doInJPA(Consumer<EntityManager> code) {
 
+		if (entityManagerFactory == null){
+			buildDefaultEntityManagerFactory();
+		}
+		
 		EntityManager entityManager = null;
 		EntityTransaction txn = null;
 		try {
