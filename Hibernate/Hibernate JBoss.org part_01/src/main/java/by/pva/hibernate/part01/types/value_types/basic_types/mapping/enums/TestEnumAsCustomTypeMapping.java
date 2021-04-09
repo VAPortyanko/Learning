@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
+package by.pva.hibernate.part01.types.value_types.basic_types.mapping.enums;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +32,7 @@ class Person2 {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	@Type(type = "by.pva.hibernate.part01.types.value_types.basic_types.mapping.GenderType")
+	@Type(type = "by.pva.hibernate.part01.types.value_types.basic_types.mapping.enums.GenderType")
 	public Gender gender;
 
 	public Long getId() {

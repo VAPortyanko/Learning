@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
+package by.pva.hibernate.part01.types.value_types.basic_types.mapping.enums;
 
 import org.hibernate.type.descriptor.WrapperOptions;
 import org.hibernate.type.descriptor.java.AbstractTypeDescriptor;
@@ -32,7 +32,7 @@ public class GenderJavaTypeDescriptor extends AbstractTypeDescriptor<Gender> {
 
     public <X> Gender wrap(X value, WrapperOptions options) {
         return Gender.fromCode(
-            CharacterTypeDescriptor.INSTANCE.wrap( value, options )
+            CharacterTypeDescriptor.INSTANCE.wrap(value, options)
         );
     }
 }

@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
+package by.pva.hibernate.part01.types.value_types.basic_types.mapping.enums;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,8 +41,7 @@ class Phone {
 	@Column(name = "phone_number")
 	private String number;
 
-	@Enumerated(EnumType.STRING) // Store as a String value while @Enumerated(EnumType.ORDINAL) store as a Number
-									// value.
+	@Enumerated(EnumType.STRING) // Store as a String value while @Enumerated(EnumType.ORDINAL) store as a Number value.
 	@Column(name = "phone_type")
 	private PhoneType type;
 

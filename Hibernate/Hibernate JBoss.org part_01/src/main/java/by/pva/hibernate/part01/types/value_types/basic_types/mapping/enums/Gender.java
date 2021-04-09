@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
+package by.pva.hibernate.part01.types.value_types.basic_types.mapping.enums;
 
 public enum Gender {
 

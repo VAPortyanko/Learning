@@ -21,8 +21,8 @@ public class TestMappingNationalizedCharacterData extends BaseTest {
 
 		doInJPA(entityManager -> {
 
-			String warrantyRussian = "Гарантия на мой продукт";
-			String warrantyChinese = "我的产品的保修";
+			String warrantyRussian = "Гарантия на мой продукт"; // Russian
+			String warrantyChinese = "我的产品的保修";           // Chinese 
 
 			final Product4 product4 = new Product4();
 			product4.setName("Mobile phone");
@@ -30,8 +30,12 @@ public class TestMappingNationalizedCharacterData extends BaseTest {
 			product4.setWarranty2(warrantyChinese);
 
 			entityManager.persist(product4);
+			
+			entityManager.flush();
+			entityManager.clear();
 
 			Product4 storedProduct4 = entityManager.find(Product4.class, 1);
+
 			try (Reader reader = storedProduct4.getWarranty().getCharacterStream()) {
 				int code;
 				System.out.print("Warranty1: ");
@@ -60,7 +64,10 @@ class Product4 {
 	@Nationalized
 	// Clob also works, because NClob extends Clob.
 	// The database type is still NCLOB either way and handled as such.
-	private NClob warranty; // https://stackoverflow.com/questions/27147567/java-sql-sqlexception-incorrect-string-value-xf0-x9f-x98-x8f-for-column-tw
+	private NClob warranty; 
+	// Note: To avoid the java.sql.SQLException: Incorrect string value: '\xF0\x9F\x98\x8F' for column  'warranty' at row ... see 
+	// https://stackoverflow.com/questions/27147567/java-sql-sqlexception-incorrect-string-value-xf0-x9f-x98-x8f-for-column-tw
+	// https://stackoverflow.com/questions/1294117/how-to-change-collation-of-database-table-column
 	@Nationalized
 	private String warranty2;
 

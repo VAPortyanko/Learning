@@ -20,26 +20,31 @@ public class TestLobMapping extends BaseTest{
 		
 		doInJPA(entityManager -> {
 
-		String warranty = "My product warranty";
-
-		final Product3 product3 = new Product3();
-		product3.setName("Mobile phone");
-		product3.setWarranty(ClobProxy.generateProxy(warranty));
-		product3.setWarranty2(warranty);
-
-		entityManager.persist(product3);
-		
-		Product3 storedProduct3 = entityManager.find(Product3.class, 1);
-		try (Reader reader = storedProduct3.getWarranty().getCharacterStream()) {
-			int code;
-			System.out.print("Warranty1: ");
-			while ((code = reader.read()) > 0) {
-				System.out.print((char) code);
+			final String WARRANTY = "My product warranty";
+	
+			Product3 product3 = new Product3();
+			
+			product3.setName("Mobile phone");
+			product3.setWarranty(ClobProxy.generateProxy(WARRANTY));
+			product3.setWarranty2(WARRANTY);
+	
+			entityManager.persist(product3);
+			
+			entityManager.flush();
+			entityManager.clear();
+			
+			Product3 storedProduct3 = entityManager.find(Product3.class, 1);
+			
+			try (Reader reader = storedProduct3.getWarranty().getCharacterStream()) {
+				int code;
+				System.out.print("Warranty1: ");
+				while ((code = reader.read()) > 0) {
+					System.out.print((char) code);
+				}
+			} catch (IOException | SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException | SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println("\nWarranty2: " + storedProduct3.getWarranty2());
+			System.out.println("\nWarranty2: " + storedProduct3.getWarranty2());
 		});
 
 		entityManagerFactory.close();

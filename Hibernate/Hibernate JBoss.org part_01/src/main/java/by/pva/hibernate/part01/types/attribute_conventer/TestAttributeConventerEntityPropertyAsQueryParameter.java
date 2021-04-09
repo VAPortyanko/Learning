@@ -29,21 +29,27 @@ public class TestAttributeConventerEntityPropertyAsQueryParameter extends BaseTe
 			// Traditionally, you could only use the DB data Caption representation,
 			// which in our case is a String, when referencing the caption entity property.
 			Photo photo2 = entityManager
-					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ",
-							Photo.class)
-					.setMaxResults(1).setParameter("caption", "Caption").getSingleResult();
+					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ", Photo.class)
+					.setMaxResults(1)
+					.setParameter("caption", "Caption")
+					.getSingleResult();
+			
 			System.out.println(photo2);
 
 			// In order to use the Java object Caption representation, you have to get the
 			// associated Hibernate Type.
 			MetamodelImplementor metamodelImplementor = (MetamodelImplementor) entityManagerFactory.getMetamodel();
-			Type captionType = metamodelImplementor.entityPersister(Photo.class.getName()).getPropertyType("caption");
+			Type captionType = metamodelImplementor
+					           .entityPersister(Photo.class.getName())
+					           .getPropertyType("caption");
 
 			Photo photo3 = (Photo) entityManager
-					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ",
-							Photo.class)
-					.unwrap(Query.class).setMaxResults(1).setParameter("caption", caption, captionType)
+					.createQuery("select p " + "from Photos p " + "where upper(caption) = upper(:caption) ", Photo.class)
+					.unwrap(Query.class)
+					.setMaxResults(1)
+					.setParameter("caption", caption, captionType)
 					.getSingleResult();
+			
 			System.out.println(photo3);
 
 		});

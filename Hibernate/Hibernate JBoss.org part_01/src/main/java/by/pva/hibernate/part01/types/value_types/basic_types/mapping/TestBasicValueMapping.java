@@ -1,7 +1,6 @@
 package by.pva.hibernate.part01.types.value_types.basic_types.mapping;
 
 import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
