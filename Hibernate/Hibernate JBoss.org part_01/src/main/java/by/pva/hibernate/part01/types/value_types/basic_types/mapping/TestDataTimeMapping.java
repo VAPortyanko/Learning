@@ -40,6 +40,8 @@ public class TestDataTimeMapping extends BaseTest {
 	}
 }
 
+// java.sql vs java.util - https://stackoverflow.com/questions/2305973/java-util-date-vs-java-sql-date .
+
 @Entity(name = "DateEvents")
 class DateEvent {
 

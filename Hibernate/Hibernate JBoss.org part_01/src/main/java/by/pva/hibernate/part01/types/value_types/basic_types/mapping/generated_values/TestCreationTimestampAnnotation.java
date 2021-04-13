@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.CreationTimestamp;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
@@ -18,15 +20,16 @@ public class TestCreationTimestampAnnotation extends BaseTest {
 		doInJPA(entityManager -> {
 
 			Event event = new Event();
-
 			entityManager.persist(event);
+			
 		});
 
 		entityManagerFactory.close();
 	}
 }
 
-@Entity(name = "events")
+@Entity(name = "Event")
+@Table(name = "events")
 class Event {
 
 	@Id

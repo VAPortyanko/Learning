@@ -1,5 +1,7 @@
 package by.pva.hibernate.part01.types.value_types.basic_types.mapping.generated_values;
 
+import java.util.Collections;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,8 @@ public class TestGeneratedValue extends BaseTest {
 
 	public static void main(String[] args) {
 
+		buildEntityManagerFactory(Collections.singletonMap("hibernate.format_sql", "true"));
+		
 		doInJPA(entityManager -> {
 
 			Person3 person3 = new Person3();
@@ -26,7 +30,10 @@ public class TestGeneratedValue extends BaseTest {
 			person3.setLastName("L");
 
 			entityManager.persist(person3);
+			
 			entityManager.flush();
+			entityManager.clear();
+			
 			System.out.println("Full name: " + person3.getFullName());
 		});
 

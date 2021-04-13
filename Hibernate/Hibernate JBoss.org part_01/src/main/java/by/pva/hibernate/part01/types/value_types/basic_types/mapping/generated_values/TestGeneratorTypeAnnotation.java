@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.Session;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GeneratorType;
@@ -15,9 +17,9 @@ public class TestGeneratorTypeAnnotation extends BaseTest {
 
 	public static void main(String[] args) {
 
+		CurrentUser.INSTANCE.logIn("Alice");
+		
 		doInJPA(entityManager -> {
-
-			CurrentUser.INSTANCE.logIn("Alice");
 
 			Person4 person4 = new Person4();
 			person4.setFirstName("John");
@@ -26,10 +28,8 @@ public class TestGeneratorTypeAnnotation extends BaseTest {
 			entityManager.persist(person4);
 
 			CurrentUser.INSTANCE.logOut();
-
 			CurrentUser.INSTANCE.logIn("Bob");
 
-			person4 = entityManager.find(Person4.class, 1L);
 			person4.setFirstName("Mr. John");
 		});
 
@@ -68,7 +68,8 @@ class LoggedUserGenerator implements ValueGenerator<String> {
 	}
 }
 
-@Entity(name = "Persons4")
+@Entity(name = "Person4")
+@Table(name = "Persons4")
 class Person4 {
 
 	@Id
@@ -112,5 +113,4 @@ class Person4 {
 	public String getUpdatedBy() {
 		return updatedBy;
 	}
-
 }

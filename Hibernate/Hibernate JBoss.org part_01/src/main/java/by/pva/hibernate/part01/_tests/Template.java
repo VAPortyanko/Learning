@@ -1,5 +1,7 @@
 package by.pva.hibernate.part01._tests;
 
+import java.util.Collections;
+
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
@@ -11,7 +13,7 @@ public class Template extends BaseTest {
 
 		doInJPA(entityManager -> {
 			
-			
+			buildEntityManagerFactory(Collections.singletonMap("hibernate.format_sql", "true"));
 			
 		});
 

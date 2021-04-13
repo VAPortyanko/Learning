@@ -6,6 +6,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import by.pva.hibernate.part01._myUtils.BaseTest;
 
 public class TestBasicValueMapping extends BaseTest {
@@ -19,7 +21,7 @@ public class TestBasicValueMapping extends BaseTest {
 			bta.setLastName("lastName");
 
 			entityManager.persist(bta);
-
+			
 		});
 
 		entityManagerFactory.close();
@@ -28,7 +30,8 @@ public class TestBasicValueMapping extends BaseTest {
 }
 
 // @Basic is the default annotation.
-@Entity(name = "Basic_types")
+@Entity(name = "Basic_type")
+@Table(name = "Basic_types")
 class BasicTypesAggregator {
 
 	@Id

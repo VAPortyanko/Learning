@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.engine.jdbc.BlobProxy;
 
@@ -44,7 +46,8 @@ public class TestColumnTransformer extends BaseTest {
 	}
 }
 
-@Entity(name = "employees")
+@Entity(name = "Employee")
+@Table(name = "employees")
 class Employee {
 
 	@Id
@@ -56,12 +59,6 @@ class Employee {
 	@ColumnTransformer(read = "aes_decrypt(pswd, 'mysecretkey')", write = "aes_encrypt(?, 'mysecretkey')")
 	private Blob password;
 	private int accessLevel;
-
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private Department department;
-//
-//	@ManyToMany(mappedBy = "employees")
-//	private List<Project> projects = new ArrayList<>();
 
 	public Long getId() {
 		return id;
