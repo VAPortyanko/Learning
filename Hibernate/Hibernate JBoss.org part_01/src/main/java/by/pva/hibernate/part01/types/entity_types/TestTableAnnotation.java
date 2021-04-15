@@ -25,11 +25,11 @@ public class TestTableAnnotation extends BaseTest {
 	}
 }
 
-@Entity(name = "Book") // The name provided for using in JPQL queries.
+@Entity(name = "Book1") // The name provided for using in JPQL queries.
 @Table(
 //	catalog = "public",
 //	schema = "store",
-		name = "books4" // The table name.
+		name = "books1" // The table name.
 )
 class Book {
 

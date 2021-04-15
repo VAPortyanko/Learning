@@ -2,10 +2,13 @@ package by.pva.hibernate.part01.types.value_types.embeddable_types;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import by.pva.hibernate.part01._myUtils.BaseTest;
 
 public class TestEmbeddable extends BaseTest {
@@ -30,7 +33,8 @@ public class TestEmbeddable extends BaseTest {
 	}
 }
 
-@Entity(name = "books")
+@Entity(name = "Book")
+@Table(name = "books")
 class Book {
 
 	@Id
@@ -38,6 +42,7 @@ class Book {
 	private Long id;
 	private String title;
 	private String author;
+	@Embedded // This is an optional annotation. 
 	private Publisher publisher;
 
 	public Long getId() {

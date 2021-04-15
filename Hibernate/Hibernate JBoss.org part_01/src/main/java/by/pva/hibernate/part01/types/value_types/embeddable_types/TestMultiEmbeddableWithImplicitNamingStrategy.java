@@ -6,6 +6,7 @@ package by.pva.hibernate.part01.types.value_types.embeddable_types;
 
 //import javax.persistence.Embeddable;
 //import javax.persistence.Entity;
+//import javax.persistence.Table;
 //import javax.persistence.EntityManager;
 //import javax.persistence.EntityManagerFactory;
 //import javax.persistence.FetchType;
@@ -48,7 +49,8 @@ public class TestMultiEmbeddableWithImplicitNamingStrategy {
 	}
 }
 //
-//@Entity(name = "books3")
+//@Entity(name = "Book3")
+//@Table(name = "books3")
 //class Book3 {
 //
 //	@Id

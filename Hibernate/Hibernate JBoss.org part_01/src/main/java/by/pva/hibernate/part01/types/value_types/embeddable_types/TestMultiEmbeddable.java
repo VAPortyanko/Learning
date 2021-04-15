@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.hibernate.annotations.NaturalId;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
@@ -43,12 +45,16 @@ public class TestMultiEmbeddable extends BaseTest {
 	}
 }
 
-@Entity(name = "books2")
-@AttributeOverrides({ @AttributeOverride(name = "author1.name", column = @Column(name = "author1_name")),
-		@AttributeOverride(name = "author2.name", column = @Column(name = "author2_name")) })
+@Entity(name = "Book2")
+@Table(name = "books2")
+@AttributeOverrides({
+	@AttributeOverride(name = "author1.name", column = @Column(name = "author1_name")),
+	@AttributeOverride(name = "author2.name", column = @Column(name = "author2_name"))
+})
 @AssociationOverrides({
-		@AssociationOverride(name = "author1.country", joinColumns = @JoinColumn(name = "author1_country_id")),
-		@AssociationOverride(name = "author2.country", joinColumns = @JoinColumn(name = "author2_country_id")) })
+	@AssociationOverride(name = "author1.country", joinColumns = @JoinColumn(name = "author1_country_id")),
+	@AssociationOverride(name = "author2.country", joinColumns = @JoinColumn(name = "author2_country_id"))
+})
 class Book2 {
 
 	@Id
