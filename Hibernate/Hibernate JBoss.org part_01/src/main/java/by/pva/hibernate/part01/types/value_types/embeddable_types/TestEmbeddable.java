@@ -42,7 +42,7 @@ class Book {
 	private Long id;
 	private String title;
 	private String author;
-	@Embedded // This is an optional annotation. 
+	@Embedded // It isn't mandatory to specify both @Embeddable and @Embedded annotations. You can only use one of them. 
 	private Publisher publisher;
 
 	public Long getId() {

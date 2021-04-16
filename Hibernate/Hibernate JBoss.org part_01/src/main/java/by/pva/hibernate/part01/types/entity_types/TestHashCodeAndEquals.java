@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
 
@@ -37,6 +38,7 @@ public class TestHashCodeAndEquals extends BaseTest {
 			// == 1? - true;
 
 			System.out.println("book51 == book52: " + (book51 == book52));
+			// Result is true.  But if the instances of Book51 and Book52 were retrieved in different sessions, the result would be the opposite. 
 
 			entityManager.remove(library);
 
@@ -46,7 +48,8 @@ public class TestHashCodeAndEquals extends BaseTest {
 	}
 }
 
-@Entity(name = "Libraries")
+@Entity(name = "Library")
+@Table(name = "Libraries")
 class Library {
 
 	@Id
@@ -82,7 +85,8 @@ class Library {
 
 }
 
-@Entity(name = "books5")
+@Entity(name = "Book5")
+@Table(name = "books5")
 class Book5 {
 
 	@Id
