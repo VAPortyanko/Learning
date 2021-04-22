@@ -85,7 +85,10 @@ class Person6Details {
 
 	public void setPerson(Person6 person) {
 		this.person = person;
-		this.id = person.getId(); // !!!
+		// Unlike @MapsId, the application developer is responsible for ensuring that the entity 
+		// identifier and the many-to-one (or one-to-one) association are in sync, as you can see
+		// in the PersonDetails.setPerson method.
+		this.id = person.getId(); 
 	}
 
 	public Long getId() {
