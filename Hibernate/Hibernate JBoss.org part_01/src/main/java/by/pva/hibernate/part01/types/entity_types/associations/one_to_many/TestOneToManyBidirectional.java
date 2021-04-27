@@ -49,7 +49,9 @@ class Person8 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "person",  // That tells Hibernate "Go look over on the bean property named 'person' on the thing I have a collection of to find the configuration." 
+			   cascade = CascadeType.ALL,
+			   orphanRemoval = true)
 	private List<Phone4> phones = new ArrayList<>();
 
 	public Long getId() {
@@ -79,7 +81,8 @@ class Person8 {
 	}
 }
 
-@Entity(name = "Phones4")
+@Entity(name = "Phone4")
+@Table(name = "phones4")
 class Phone4 {
 
 	@Id

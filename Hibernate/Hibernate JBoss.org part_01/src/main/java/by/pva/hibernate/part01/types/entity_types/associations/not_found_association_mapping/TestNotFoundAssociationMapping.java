@@ -66,7 +66,10 @@ class Person {
 	private String cityName;
 	@ManyToOne
 	@NotFound(action = NotFoundAction.IGNORE)
-	@JoinColumn(name = "cityName", referencedColumnName = "name", insertable = false, updatable = false)
+	@JoinColumn(name = "cityName", 
+	            referencedColumnName = "name", 
+	            insertable = false, 
+	            updatable = false)
 	private City city;
 
 	public Long getId() {

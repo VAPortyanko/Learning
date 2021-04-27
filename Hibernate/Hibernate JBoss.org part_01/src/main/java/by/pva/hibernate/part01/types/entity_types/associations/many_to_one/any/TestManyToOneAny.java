@@ -56,9 +56,7 @@ public class TestManyToOneAny extends BaseTest {
 }
 
 interface Property<T> {
-
 	String getName();
-
 	T getValue();
 }
 

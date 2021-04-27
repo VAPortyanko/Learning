@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import by.pva.hibernate.part01._myUtils.BaseTest;
 
@@ -48,13 +49,17 @@ public class TestOneToManyUnidirectional extends BaseTest {
 	}
 }
 
-@Entity(name = "Persons7")
+@Entity(name = "Person7")
+@Table(name = "persons7")
 class Person7 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	// When persisting the Person entity, the cascade will propagate the persist operation to the underlying Phone children as well.
+	// Upon removing a Phone from the phones collection, the association row is deleted from the link table, 
+	// and the orphanRemoval attribute will trigger a Phone removal as well.
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) 
 	private List<Phone3> phones = new ArrayList<>();
 
 	public Long getId() {
@@ -75,7 +80,8 @@ class Person7 {
 
 }
 
-@Entity(name = "Phones3")
+@Entity(name = "Phone3")
+@Table(name = "Phones3")
 class Phone3 {
 
 	@Id

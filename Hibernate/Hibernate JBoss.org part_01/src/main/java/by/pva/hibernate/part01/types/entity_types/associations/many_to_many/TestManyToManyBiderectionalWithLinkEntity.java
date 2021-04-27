@@ -66,7 +66,9 @@ class Person11 implements Serializable {
 	private Long id;
 	@NaturalId
 	private String registrationNumber;
-	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "person", 
+			   cascade = CascadeType.ALL,
+			   orphanRemoval = true)
 	private List<Person11Address3> addresses = new ArrayList<>();
 
 	public Person11(String registrationNumber) {

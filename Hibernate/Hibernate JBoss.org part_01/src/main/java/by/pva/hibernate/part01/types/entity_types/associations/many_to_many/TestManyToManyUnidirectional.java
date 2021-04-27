@@ -34,21 +34,29 @@ public class TestManyToManyUnidirectional extends BaseTest {
 			person1.getAddresses().add(address4);
 
 			person2.getAddresses().add(address1);
+			person2.getAddresses().add(address2);
 
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 
-			// When an entity is removed from the @ManyToMany collection, Hibernate simply
-			// deletes
-			// the joining record in the link table. Unfortunately, this operation requires
-			// removing
-			// all entries associated with a given parent and recreating the ones that are
-			// listed
-			// in the current running persistent context.
-
 			entityManager.flush();
-
+			
+			Long id = person1.getId();
+			System.out.println(id);
+			
+			// When an entity is removed from the @ManyToMany collection, Hibernate simply
+			// deletes the joining record in the link table. Unfortunately, this operation requires
+			// removing all entries associated with a given parent and recreating the ones that are
+			// listed in the current running persistent context.
 			person1.getAddresses().remove(address1);
+			
+			entityManager.remove(person1); // It works if the person1 in the pesistent context (with any annotation (Ano1 or Ano2))
+			                               // But if place the entityManager.clear() expression before this line with Ano1 we will get the Exception.
+			
+// This doesn't work with Ano1.
+//			entityManager.flush();
+//			entityManager.clear();
+//			entityManager.remove(entityManager.find(Person.class, id));
 
 		});
 
@@ -64,7 +72,8 @@ class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	// @ManyToMany(cascade = CascadeType.ALL)                               // Ano1
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })       // Ano2
 	private List<Address> addresses = new ArrayList<>();
 
 	public Long getId() {
@@ -89,6 +98,9 @@ class Person {
 @Table(name = "Adresses")
 class Address {
 
+	public Address() {
+	}
+	
 	public Address(String street, String number) {
 		this.street = street;
 		this.number = number;

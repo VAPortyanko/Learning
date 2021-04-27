@@ -27,7 +27,6 @@ public class TestManyToOne extends BaseTest {
 			entityManager.persist(phone);
 
 			entityManager.flush();
-			phone.setPerson(null);
 
 		});
 		
@@ -36,7 +35,7 @@ public class TestManyToOne extends BaseTest {
 	}
 }
 
-@Entity
+@Entity(name = "Person9")
 @Table(name = "Persons9")
 class Person9 {
 
@@ -63,7 +62,7 @@ class Person9 {
 
 }
 
-@Entity
+@Entity(name = "Phone2")
 @Table(name = "Phones2")
 class Phone2 {
 
@@ -74,7 +73,10 @@ class Phone2 {
 	private String number;
 
 	@ManyToOne(optional = true)
-	@JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "PERSON_ID_FK"))
+	@JoinColumn(name = "person_id", 
+	            foreignKey = @ForeignKey(name = "PERSON_ID_FK"),
+	            referencedColumnName = "id" // https://stackoverflow.com/questions/11244569/what-is-referencedcolumnname-used-for-in-jpa    
+	            )
 	private Person9 person;
 
 	public Phone2(String number) {

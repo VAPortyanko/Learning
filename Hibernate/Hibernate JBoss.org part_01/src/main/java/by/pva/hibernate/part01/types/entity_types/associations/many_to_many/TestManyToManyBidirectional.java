@@ -38,17 +38,13 @@ public class TestManyToManyBidirectional extends BaseTest {
 			entityManager.persist(person1);
 			entityManager.persist(person2);
 
-			// If a bidirectional @OneToMany association performs better when removing or
-			// changing
+			// If a bidirectional @OneToMany association performs better when removing or changing
 			// the order of child elements, the @ManyToMany relationship cannot benefit from
-			// such
-			// an optimization because the foreign key side is not in control. To overcome
-			// this limitation,
-			// the link table must be directly exposed and the @ManyToMany association split
-			// into two
-			// bidirectional @OneToMany relationships.
-			// see
-			// by.pva.hibernate.part01.types.entity_types.associations.many_to_many.TestManyToManyBiderectionalWithLinkEntity;
+			// such an optimization because the foreign key side is not in control. To overcome
+			// this limitation, the link table must be directly exposed and the @ManyToMany association
+			// split into two bidirectional @OneToMany relationships.
+			// 
+			// See: by.pva.hibernate.part01.types.entity_types.associations.many_to_many.TestManyToManyBiderectionalWithLinkEntity;
 			entityManager.flush();
 
 			person1.removeAddress(address1); // !!! Reinserting records in PersonAdress table after deleting one.
