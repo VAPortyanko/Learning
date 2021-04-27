@@ -43,7 +43,7 @@ public class TestHibernateUsesItsOwnCollectionImplementations extends BaseTest {
 			 * org.hibernate.collection.internal.PersistentBag cannot be cast to
 			 * java.util.ArrayList Hibernate uses its own collection implementations!
 			 */
-			// Person person2 = entityManager.find( Person.class, 1L );
+			// Person person2 = entityManager.find(Person.class, 1L);
 			// ArrayList<String> phones2 = (ArrayList<String>) person2.getPhones();
 
 		});
