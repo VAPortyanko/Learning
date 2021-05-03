@@ -20,6 +20,7 @@ public class TestArrayAsBInary extends BaseTest {
 			person.setId(1L);
 			String[] phones = { "+375(29)768-15-34", "+375(29)400-37-91", "+375(29)999-62-55" };
 			person.setPhones(phones);
+			
 			entityManager.persist(person);
 
 			entityManager.flush();

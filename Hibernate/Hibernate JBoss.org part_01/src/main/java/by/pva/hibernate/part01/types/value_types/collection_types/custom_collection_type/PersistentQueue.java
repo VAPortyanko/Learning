@@ -1,4 +1,4 @@
-package by.pva.hibernate.part01.types.value_types.collection_types;
+package by.pva.hibernate.part01.types.value_types.collection_types.custom_collection_type;
 
 import java.util.List;
 import java.util.NoSuchElementException;
