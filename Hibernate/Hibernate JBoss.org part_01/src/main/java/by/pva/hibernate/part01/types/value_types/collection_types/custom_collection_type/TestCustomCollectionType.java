@@ -60,7 +60,7 @@ class Person34 {
 	@Id
 	private Long id;
 	@OneToMany(cascade = CascadeType.ALL)
-	@CollectionType(type = "by.pva.hibernate.part01.types.value_types.collection_types.QueueType")
+	@CollectionType(type = "by.pva.hibernate.part01.types.value_types.collection_types.custom_collection_type.QueueType")
 	private Collection<Phone22> phones = new LinkedList<>();
 
 	public Long getId() {

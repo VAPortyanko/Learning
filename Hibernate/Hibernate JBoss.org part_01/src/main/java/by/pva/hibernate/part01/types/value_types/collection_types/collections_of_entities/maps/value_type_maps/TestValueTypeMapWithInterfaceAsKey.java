@@ -105,7 +105,8 @@ class Person29 {
 	private Long id;
 
 	@ElementCollection
-	@CollectionTable(name = "call_register2", joinColumns = @JoinColumn(name = "person_id"))
+	@CollectionTable(name = "call_register2", 
+	                 joinColumns = @JoinColumn(name = "person_id"))
 	@MapKeyColumn(name = "call_timestamp_epoch")
 	@MapKeyClass(MobilePhone.class)
 	@Column(name = "call_register")
