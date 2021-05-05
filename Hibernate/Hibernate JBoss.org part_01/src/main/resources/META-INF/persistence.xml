@@ -8,7 +8,10 @@
 	version="2.0">
 
 	<persistence-unit name = "by.pva.hibernate.part01.basicWithTableAutoGeneration">
+
+		<!-- About provider tag - https://stackoverflow.com/questions/27420513/what-is-a-jpa-provider -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
 		<properties>
 			<property name = "javax.persistence.jdbc.driver"   value = "com.mysql.cj.jdbc.Driver" />
 			<property name = "javax.persistence.jdbc.url" 
