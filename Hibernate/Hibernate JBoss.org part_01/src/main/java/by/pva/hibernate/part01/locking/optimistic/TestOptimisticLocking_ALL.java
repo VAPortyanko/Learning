@@ -1,6 +1,8 @@
 package by.pva.hibernate.part01.locking.optimistic;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +21,10 @@ public class TestOptimisticLocking_ALL extends BaseTest{
 
 	public static void main(String[] args) {
  
+		Map<String, String> properties = new HashMap<>();
+		properties.put("hibernate.format_sql", "true");
+		buildEntityManagerFactory(properties);
+		
 		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("Delete from Person38");
