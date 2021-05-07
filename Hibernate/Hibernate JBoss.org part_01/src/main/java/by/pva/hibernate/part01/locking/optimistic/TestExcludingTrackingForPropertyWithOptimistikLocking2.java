@@ -25,10 +25,7 @@ public class TestExcludingTrackingForPropertyWithOptimistikLocking2 extends Base
 	public static void main(String[] args) {
 
 		doInJPA(entityManager -> {
-			
-			int isolationLevel = entityManager.unwrap(Session.class).doReturningWork(Connection::getTransactionIsolation);
-			System.out.println("Isolation level is [" + isolationLevel + "]");
-			
+
 			Query query = entityManager.createQuery("Delete from Phone24");
 			query.executeUpdate();
 			
@@ -38,18 +35,34 @@ public class TestExcludingTrackingForPropertyWithOptimistikLocking2 extends Base
 			phone.setCallCount(0);
 			
 			entityManager.persist(phone);
-			entityManager.flush();
-			entityManager.clear();
 			
-			Phone24 phone2 = entityManager.find( Phone24.class, 1L );
-			phone2.setNumber( "+123-456-0000" );
+		});
+		
+		doInJPA(entityManager -> {
+			
+			int isolationLevel = entityManager.unwrap(Session.class).doReturningWork(Connection::getTransactionIsolation);
+			System.out.println("Isolation level is [" + isolationLevel + "]");
+			
+			Phone24 phone = entityManager.find(Phone24.class, 1L);
+			phone.setNumber("+123-456-0000");
 
 			doInJPA(entityManager2 -> {
-				Phone24 _phone = entityManager2.find( Phone24.class, 1L );
+				Phone24 _phone = entityManager2.find(Phone24.class, 1L);
 				_phone.incrementCallCount();
+				//_phone.setNumber("+7098765443"); // Caused by: org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [by.pva.hibernate.part01.locking.optimistic.Phone24#1]
 				System.out.println("Bob changes the Phone call count");
 			});
 			
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			// Call count was incremented by Bob, but when alice's changes will be applied 
+			// the "lost update" will happen.
+			// See the database.
+
 			System.out.println("Alice changes the Phone number");
 			
 		});
@@ -101,4 +114,3 @@ class Phone24 {
 		this.callCount++;
 	}
 }
-
