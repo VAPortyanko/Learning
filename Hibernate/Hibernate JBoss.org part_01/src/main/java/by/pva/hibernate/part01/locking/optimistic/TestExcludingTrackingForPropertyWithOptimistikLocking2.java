@@ -24,6 +24,8 @@ public class TestExcludingTrackingForPropertyWithOptimistikLocking2 extends Base
 
 	public static void main(String[] args) {
 
+		// Clearing the database and creating a new record moved into an isolated transaction. 
+		// https://www.sql.ru/forum/1335949/hibernate-blokirovki-kak-rabotaet-primer
 		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("Delete from Phone24");
