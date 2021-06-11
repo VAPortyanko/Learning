@@ -23,6 +23,8 @@ import by.pva.hibernate.part01._myUtils.BaseTest;
 // entityManager.unwrap(Session.class)
 //              .setJdbcBatchSize(10);
 
+
+// ! Uncomment the Log4j dependency in the pom.xml to see the log.
 public class TestBatching extends BaseTest{
 
 	public static void main(String[] args) {
