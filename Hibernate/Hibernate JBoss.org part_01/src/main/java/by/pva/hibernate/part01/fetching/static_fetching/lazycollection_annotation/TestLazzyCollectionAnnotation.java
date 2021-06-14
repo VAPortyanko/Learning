@@ -79,7 +79,9 @@ class Department {
 	private Long id;
 	@OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
 	@OrderColumn(name = "order_id")
-	@LazyCollection(LazyCollectionOption.EXTRA) // Using EXTRA Lazy Collections with Hibernate is a bad idea since it can lead to N+1 query issues and cause performance problems!
+	@LazyCollection(LazyCollectionOption.EXTRA) 
+	// Using EXTRA Lazy Collections with Hibernate is a bad idea
+	// since it can lead to N+1 query issues and cause performance problems!
 	private List<Employee> employees = new ArrayList<>();
 
 	public Long getId() {

@@ -52,7 +52,7 @@ public class TestDynamicFetchingViaProfiles extends BaseTest{
 			entityManager.clear();
 			
 			Session session = entityManager.unwrap(Session.class);
-			session.enableFetchProfile("employee.projects"); // Comment this line and see result.
+			session.enableFetchProfile("employee.projects"); // Comment this line and look at the result.
 
 			Employee employee2 = session.bySimpleNaturalId( Employee.class ).load("user");
 

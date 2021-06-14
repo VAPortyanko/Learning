@@ -117,7 +117,7 @@ class Department {
 @Entity(name = "Employee5")
 @Table(name = "Employees5")
 @NamedEntityGraph(name = "employee.projects", 
-                         attributeNodes = @NamedAttributeNode("projects")
+                  attributeNodes = @NamedAttributeNode("projects")
 )
 class Employee {
 
