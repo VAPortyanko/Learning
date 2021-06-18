@@ -1,5 +1,6 @@
 package by.pva.JDBCLearning.statements;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,7 +10,7 @@ import java.sql.Statement;
 
 public class Statement_ex {
 
-	private final static String DATABASE_NAME = "javastudy"; 
+	private final static String DATABASE_NAME = "jdbc"; 
 	private final static String TIMEZONE = "Europe/Minsk";
 	private final static String CONNECTION_URL = "jdbc:mysql://localhost:3306/" + DATABASE_NAME + "?useLegacyDatetimeCode=false&serverTimezone=" + TIMEZONE;
 	private final static String USER_NAME = "root";
@@ -17,11 +18,13 @@ public class Statement_ex {
 
 	public static void main(String... args) {
 
+		DriverManager.setLogWriter(new PrintWriter(System.out, true));
+		
 		try (Connection con = DriverManager.getConnection(CONNECTION_URL, USER_NAME, PASSWORD);
 			Statement stmt = con.createStatement();) {
 
 			ResultSet rs = stmt.executeQuery("SELECT * FROM contact order by id");
-            
+			
 			while (rs.next()) {
 
 				int id = rs.getInt("id");
