@@ -40,7 +40,6 @@
             <url-pattern>/docs/downloads/headFirst</url-pattern>
          </servlet-mapping>
 
-
          <servlet>
             <servlet-name>NewsReader</servlet-name>
             <servlet-class>com.example.web.NewsReader</servlet-class>
@@ -68,7 +67,6 @@
             <url-pattern>/showConatact</url-pattern>
          </servlet-mapping>
 
-
          <servlet>
             <servlet-name>CompanyContact</servlet-name>
             <servlet-class>com.example.web.ServletParameterFromServletContext</servlet-class>
@@ -80,7 +78,7 @@
 
          <servlet>
             <servlet-name>ServletContextListenerTest</servlet-name>
-            <servlet-class>com.example.web.servletcontextlistener.ListenerTester</servlet-class>
+            <servlet-class>com.example.web.testscl.ListenerTester</servlet-class>
          </servlet>
          <servlet-mapping>
             <servlet-name>ServletContextListenerTest</servlet-name>
@@ -90,16 +88,15 @@
          <context-param>
             <param-name>company_email</param-name>
             <param-value>SomeCompanyEmail@mail.com</param-value>
-
-            <param-name>breed</param-name>
-            <param-value>Great Dane</param-value>
-
          </context-param>
 
-         <listener>
-            <listener-class>
-               com.example.web.servletcontextlistener.MyServletContextListener
-            </listener-class>
+         <context-param>
+            <param-name>breed</param-name>
+            <param-value>Great Dane</param-value>
+         </context-param>
+
+	 <listener>
+            <listener-class>com.example.web.testscl.MyServletContextListener</listener-class>
          </listener>
 
 </web-app>
