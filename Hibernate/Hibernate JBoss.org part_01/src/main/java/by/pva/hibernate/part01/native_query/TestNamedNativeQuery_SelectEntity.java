@@ -1,4 +1,4 @@
-package _by.pva.hibernate.part01.hql_jpql.domain_model;
+package by.pva.hibernate.part01.native_query;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,6 +21,7 @@ import javax.persistence.ColumnResult;
 
 import org.hibernate.Session;
 
+import _by.pva.hibernate.part01.hql_jpql.domain_model.Person;
 import by.pva.hibernate.part01._myUtils.BaseTest;
 import by.pva.hibernate.part01._myUtils.HqlJpqlDBUtils;
 
@@ -64,8 +65,6 @@ public class TestNamedNativeQuery_SelectEntity extends BaseTest {
 
 			tuples1.forEach(e -> System.out.println(e[0] + ", " + e[1]));
 			tuples2.forEach(e -> System.out.println(e[0] + ", " + e[1]));
-
-
 			
 		});
 
@@ -73,8 +72,6 @@ public class TestNamedNativeQuery_SelectEntity extends BaseTest {
 	}
 	
 }
-
-
 
 @Embeddable
 class Dimensions {

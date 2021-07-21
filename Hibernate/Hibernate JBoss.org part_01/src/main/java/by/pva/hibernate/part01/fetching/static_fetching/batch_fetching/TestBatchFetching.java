@@ -1,7 +1,9 @@
 package by.pva.hibernate.part01.fetching.static_fetching.batch_fetching;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,6 +26,9 @@ public class TestBatchFetching extends BaseTest{
 	
 	public static void main(String[] args) {
 
+		Map<String, String> properties = Collections.singletonMap("hibernate.format_sql", "true");
+		buildEntityManagerFactory(properties);
+		
 		doInJPA(entityManager -> {
 
 			Query query = entityManager.createQuery("delete from Employee8");

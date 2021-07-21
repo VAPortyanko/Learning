@@ -108,7 +108,6 @@ class Department {
 	@OneToMany(mappedBy = "department", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT) // Lead to 3 addition selects.
 	// @Fetch(FetchMode.SUBSELECT) // Lead to 1 addition select.
-	
 	private List<Employee> employees = new ArrayList<>();
 
 	public Long getId() {
