@@ -1,0 +1,17 @@
+﻿<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+	<servlet>
+	   <servlet-name>SelectBeer</servlet-name>
+	   <servlet-class>com.example.web.BeerSelect</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+	   <servlet-name>SelectBeer</servlet-name>
+	   <url-pattern>/SelectBeer</url-pattern>
+	</servlet-mapping>
+
+</web-app>
