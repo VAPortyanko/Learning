@@ -85,6 +85,24 @@
             <url-pattern>/testServletContextListener</url-pattern>
          </servlet-mapping>
 
+         <servlet>
+            <servlet-name>ServletSessionTest</servlet-name>
+            <servlet-class>com.example.web.session.TestSession</servlet-class>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>ServletSessionTest</servlet-name>
+            <url-pattern>/testSession</url-pattern>
+         </servlet-mapping>
+
+         <servlet>
+            <servlet-name>ServletSessionInvalidator</servlet-name>
+            <servlet-class>com.example.web.session.SessionInvalidator</servlet-class>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>ServletSessionInvalidator</servlet-name>
+            <url-pattern>/invalidateSession</url-pattern>
+         </servlet-mapping>
+
          <context-param>
             <param-name>company_email</param-name>
             <param-value>SomeCompanyEmail@mail.com</param-value>
