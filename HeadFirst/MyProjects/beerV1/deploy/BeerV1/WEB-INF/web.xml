@@ -103,6 +103,33 @@
             <url-pattern>/invalidateSession</url-pattern>
          </servlet-mapping>
 
+         <servlet>
+            <servlet-name>ServletSessionUrlRewriting</servlet-name>
+            <servlet-class>com.example.web.session.ServletSessionUrlRewriting</servlet-class>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>ServletSessionUrlRewriting</servlet-name>
+            <url-pattern>/testSessionURLRewriting</url-pattern>
+         </servlet-mapping>
+
+         <servlet>
+            <servlet-name>ServletSessionNextPage</servlet-name>
+            <servlet-class>com.example.web.session.SessionNextPage</servlet-class>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>ServletSessionNextPage</servlet-name>
+            <url-pattern>/sessionNextPage</url-pattern>
+         </servlet-mapping>
+
+         <servlet>
+            <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
+            <servlet-class>com.example.web.session.SessionNextPageUrlEncoded</servlet-class>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
+            <url-pattern>/sessionNextPageUrlEncoded</url-pattern>
+         </servlet-mapping>
+
          <context-param>
             <param-name>company_email</param-name>
             <param-value>SomeCompanyEmail@mail.com</param-value>
