@@ -18,7 +18,6 @@
 			out.println("The jsp init parameter: " + jspInitParam1);
 			out.println("<br>");
 			out.println("The app parameter in jsp: " + application.getAttribute("JspAppParameter"));
-			
 		%>
 	</body>
 </html>
