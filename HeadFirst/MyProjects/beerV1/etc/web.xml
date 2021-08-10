@@ -53,14 +53,14 @@
             <servlet-name>Contact</servlet-name>
             <servlet-class>com.example.web.ServletParameterFromServletConfig</servlet-class>
 
-	    <init-param>
-               <param-name>email</param-name>
-               <param-value>somemail@gmail.com</param-value>
-	    </init-param>
-	    <init-param>
-               <param-name>phone</param-name>
-               <param-value>+375 (29) 77-77-777</param-value>
-	    </init-param>
+		    <init-param>
+	               <param-name>email</param-name>
+	               <param-value>somemail@gmail.com</param-value>
+		    </init-param>
+		    <init-param>
+	               <param-name>phone</param-name>
+	               <param-value>+375 (29) 77-77-777</param-value>
+		    </init-param>
          </servlet>
          <servlet-mapping>
             <servlet-name>Contact</servlet-name>
@@ -130,6 +130,19 @@
             <url-pattern>/sessionNextPageUrlEncoded</url-pattern>
          </servlet-mapping>
 
+         <servlet>
+            <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>
+            <jsp-file>/JspInitParametersAndJspinitMethodOverriding.jsp</jsp-file>
+		    <init-param>
+	               <param-name>jspParam1</param-name>
+	               <param-value>jspParam1Value</param-value>
+		    </init-param>
+         </servlet>
+         <servlet-mapping>
+            <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>
+            <url-pattern>/JspInitParametersAndJspinitMethodOverriding</url-pattern>
+         </servlet-mapping>
+
          <context-param>
             <param-name>company_email</param-name>
             <param-value>SomeCompanyEmail@mail.com</param-value>
@@ -140,8 +153,8 @@
             <param-value>Great Dane</param-value>
          </context-param>
 
-	 <listener>
+	 	<listener>
             <listener-class>com.example.web.testscl.MyServletContextListener</listener-class>
-         </listener>
+        </listener>
 
 </web-app>
