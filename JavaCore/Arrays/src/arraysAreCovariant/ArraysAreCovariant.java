@@ -3,6 +3,7 @@ package arraysAreCovariant;
 import java.util.Arrays;
 
 public class ArraysAreCovariant {
+	
 	public static void main(String[] args) {
 		
 		Object[] objectArray = new String[3];
@@ -24,4 +25,5 @@ public class ArraysAreCovariant {
 			System.out.println(e);
 		}
 	}
+	
 }

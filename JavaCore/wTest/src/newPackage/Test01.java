@@ -2,4 +2,10 @@ package newPackage;
 
 public class Test01 {
 
+	public static void main(String[] args) {
+		
+		int[] array = {1, 2, 3};
+
+	}
+	
 }

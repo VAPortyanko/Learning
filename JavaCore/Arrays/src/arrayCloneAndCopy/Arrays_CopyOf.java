@@ -3,6 +3,7 @@ package arrayCloneAndCopy;
 import java.util.Arrays;
 
 public class Arrays_CopyOf {
+	
 	public static void main(String[] args) {
 		
 		int[][] array1 = {{1, 2, 3}, {4, 5, 6}};
@@ -21,5 +22,7 @@ public class Arrays_CopyOf {
 		System.out.println(array1);
 		System.out.println(array2);
 	}
+	
 }
-/* The Array.copyOf is a shallow copy of the array. */
+
+/* The Array.copyOf() is a shallow copy of the array. */

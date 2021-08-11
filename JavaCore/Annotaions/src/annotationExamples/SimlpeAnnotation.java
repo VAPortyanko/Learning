@@ -18,6 +18,7 @@ public class SimlpeAnnotation {
 	}
 	
 	public static void main(String[] args) throws NoSuchMethodException, SecurityException {
+
 		SimlpeAnnotation a = new SimlpeAnnotation();
 
 		SimpleAnno ann1 = a.getClass().getAnnotation(SimpleAnno.class); // Receive an instance of SimpleAnno annotation for the class.
@@ -30,8 +31,10 @@ public class SimlpeAnnotation {
 		System.out.println();
 		System.out.println("List of method's annotations:");
 		Annotation[] arrayOfAnn2 = a.getClass().getMethod("say").getAnnotations();
+		
 		for(Annotation arr2: arrayOfAnn2)
 			System.out.println(arr2);
+		
 	}
 }
 

@@ -3,7 +3,9 @@ package arrayCloneAndCopy;
 import java.util.Arrays;
 
 public class SystemArray_Copy {
+	
 	public static void main(String[] args) {
+		
 		int[][] array1 = {{1, 2, 3}, {4, 5, 6}};
 		int[][] array2 = new int[2][3];
 		
@@ -16,4 +18,5 @@ public class SystemArray_Copy {
 
 	}
 }
+
 /* The System.arrayCopy is a shallow copy of the array. */
