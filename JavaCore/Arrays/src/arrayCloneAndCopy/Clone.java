@@ -16,6 +16,8 @@ public class Clone {
 		array3 = array1.clone();
 		System.out.println(array3.toString() + " -  " + Arrays.toString(array3));
 		
+		
+		
 		int[][] array4 = {{1,2,3,4,5},{6,7,8,9,0}};
 		int[][] array5 = array4.clone();
 		
@@ -25,8 +27,6 @@ public class Clone {
 		System.out.println(array5.toString());
 		System.out.println(array4[0].toString());
 		System.out.println(array5[0].toString());
-			
-		// int[] ar = array4[0];
 		
 		System.out.println();
 		System.out.println("Clone with reference type elements doesn't work too!");

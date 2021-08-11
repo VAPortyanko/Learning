@@ -1,8 +1,0 @@
-Here is a list of the core Buffer implementations in Java NIO:
-   1) ${impl1}
-   2) ${impl2}
-   3) ${impl3}
-   4) ${impl4}
-   5) ${impl5}
-   6) ${impl6}
-   7) ${impl7}

@@ -1,1 +1,0 @@
-This text was create in FileA.txt file. (Copied from FileA.txt)
