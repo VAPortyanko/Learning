@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 public class TryWithResourses {
 
 	public static void main(String[] args) throws Exception {
+		
 		int i = readFirstLineFromFile();
 		System.out.println(i);
 	}
@@ -15,7 +16,7 @@ public class TryWithResourses {
 		try (ByteArrayInputStream bais = new ByteArrayInputStream(buf)) {
 			System.out.println("After next command stream will be closed automaticaly!");
 			return bais.read();
-		}// After that, the stream will be closed automatically.
+		} // After that, the stream will be closed automatically.
 	}
 }
 /* Try with resources supports Suppressed exceptions. */

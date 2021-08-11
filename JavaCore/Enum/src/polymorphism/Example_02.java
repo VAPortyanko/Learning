@@ -1,7 +1,9 @@
 package polymorphism;
 
 public class Example_02 {
+	
 	enum Direction { 
+		
 		   UP, DOWN; 
 		 
 		   public Direction opposite() { return this == UP ? DOWN : UP; } 
@@ -9,6 +11,7 @@ public class Example_02 {
 	
 	// The same, but with polymorphism:
 	enum Direction2 { 
+		
 		   UP { 
 		        public Direction2 opposite() { return DOWN; } 
 		   }, 
@@ -20,6 +23,7 @@ public class Example_02 {
 		} 
 	
 	public static void main(String[] args) {
+		
 		Direction d = Direction.UP;
 		System.out.println(d);
 		System.out.println(d.opposite());

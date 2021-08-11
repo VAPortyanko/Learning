@@ -8,6 +8,7 @@
 package suppressedExceptions;
 
 public class SuppressedExceptions {
+	
 	public static void main(String[] args) throws Exception {
 		try {
 			callTryFinallyBlock();

@@ -3,6 +3,7 @@ package userDefinedExeption;
 import java.util.Random;
 
 public class UserDefinedExeption {
+	
 	public static void main(String[] args){
 		
 		Random rnd = new Random();

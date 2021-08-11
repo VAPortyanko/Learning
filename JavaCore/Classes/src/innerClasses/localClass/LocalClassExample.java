@@ -1,6 +1,7 @@
 package innerClasses.localClass;
 
 public class LocalClassExample {
+	
 	private int a=200;
 	public int b;
 	protected int c;
@@ -39,13 +40,14 @@ public class LocalClassExample {
 			 
 			int methodLA(){
 				System.out.println(la+lb+lc+ld+lf);
+				System.out.println(LocalClassExample.this.methodA());
 				return d;
 			}
 		}
 		
 		LocalClass local1 = new LocalClass();
 		System.out.println(local1.methodLA());
-		System.out.println(LocalClassExample.this.methodA());
-		return local1; // Returns a link to the local class in the main method.
+		
+		return local1; // Returns a r to the local class in the main method.
 	}
 }

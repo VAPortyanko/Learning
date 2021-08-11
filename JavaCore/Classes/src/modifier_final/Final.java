@@ -1,6 +1,7 @@
 package modifier_final;
 
 final public class Final{
+	
 	public final static double PI = 3.14;
 	
 	final void printPI() {  // The method can't be overridden.

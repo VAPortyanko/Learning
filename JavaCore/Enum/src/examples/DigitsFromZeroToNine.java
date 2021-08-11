@@ -1,6 +1,7 @@
 package examples;
 
 public class DigitsFromZeroToNine {
+	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		
@@ -21,6 +22,7 @@ public class DigitsFromZeroToNine {
 	}
 
 	enum Digits {
+		
 		ONE,
 		TWO,
 		THREE,
@@ -39,7 +41,7 @@ public class DigitsFromZeroToNine {
 		}
 
 		public Digits next() {
-			return DIGITS[(this.ordinal()+1)%10];
+			return DIGITS[(this.ordinal() + 1) % 10];
 		}
 	}
 }

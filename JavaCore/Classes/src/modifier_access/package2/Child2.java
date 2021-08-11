@@ -3,6 +3,7 @@ package modifier_access.package2;
 import modifier_access.package1.Parent;
 
 public class Child2 extends Parent{
+	
 	public static void main(String[] args) {
 		
 		Child2 child2 = new Child2();

@@ -5,11 +5,14 @@ public class AnonimClassExample {
 	static public void main(String[] args){
 		
 		SomeClass annonimClass = new SomeClass(){
-			int a = 2020;
+			
+			int field = 2020;
+			
 			@Override
 			public String toString(){
-				return "Hello World! " + a + " " + super.field + "!";
+				return "Anonim class! " + field + " " + super.field + "!";
 			}
+			
 		};
 		
 		System.out.println(annonimClass);
@@ -18,9 +21,12 @@ public class AnonimClassExample {
 }
 
 class SomeClass{
+	
 	String field = "year";
+	
 	@Override
 	public String toString() {
 		return "MyClass[field=" + field + "]";
 	}
+	
 }
