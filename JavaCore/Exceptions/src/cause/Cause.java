@@ -1,6 +1,7 @@
 package cause;
 
 public class Cause {
+	
 	public static void main(String[] args) {
 		
 		ArithmeticException ex1 = new ArithmeticException(); // Create a new exception.

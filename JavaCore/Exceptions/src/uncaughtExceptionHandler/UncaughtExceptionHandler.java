@@ -1,6 +1,7 @@
 package uncaughtExceptionHandler;
 
 public class UncaughtExceptionHandler {
+	
 	public static void main(String[] args) {
 		
 		Thread.UncaughtExceptionHandler handler = new MyExceptionHandler(); 
@@ -16,6 +17,7 @@ public class UncaughtExceptionHandler {
 	}
 	
 	public static class MyExceptionHandler implements Thread.UncaughtExceptionHandler{
+		
 		@Override
 		public void uncaughtException(Thread t, Throwable e) {
 			System.out.println("Second exception was not catched! It processed by the method uncaughtExeption of the MyException class!");

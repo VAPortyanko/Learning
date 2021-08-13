@@ -1,6 +1,7 @@
 package tryInTry;
 
 public class TryInTry2 {
+	
 	public static void main(String[] args) {
 		try{
 			say();

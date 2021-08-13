@@ -1,6 +1,7 @@
 package overloadingAndOverriding;
 
 public class MethodOverLoading {
+	
     public static void main(String args[]) {
     	 
         Overload2 ob = new Overload2();
@@ -19,6 +20,7 @@ public class MethodOverLoading {
     }
     
     static class Overload2 {
+    	
         void f(int x) {
             System.out.println("Inside f(int): " + x);
         }

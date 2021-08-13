@@ -3,11 +3,13 @@ package varArgs;
 public class VarArgs {
 
 	public static void main(String[] args) {
+		
 		VarArgs classA = new VarArgs();
-		// classA.vargs(); !error
+		// classA.printVargs(); ! The compilation error
 		classA.printVargs(10, 45, 34);
 		classA.printVargs(true, false);
 		classA.printVargs("Hello");
+		
 	}
 
 	public VarArgs(int... mmm) {

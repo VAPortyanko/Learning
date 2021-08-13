@@ -5,6 +5,7 @@ public class InnerClassExample {
 	private int a1 = 3;
 	
 	public static void main(String[] args){
+		
 		InnerClassExample classMain = new InnerClassExample();
 		
 		InnerClass innerclass = classMain.new InnerClass();
@@ -15,7 +16,7 @@ public class InnerClassExample {
 		
 	}
 	
-	//  Directly create an inner class can only be non-static methods of the enclosing class.
+	//  Directly create an inner class can only in a non-static method of the enclosing class.
 	public void createInnerClass(){
 		@SuppressWarnings("unused")
 		InnerClass class3 = new InnerClass();

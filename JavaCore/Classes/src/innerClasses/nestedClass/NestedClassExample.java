@@ -1,6 +1,7 @@
 package innerClasses.nestedClass;
 
 public class NestedClassExample {
+	
 	static private final int CONSTANT1 = 10;
 	final int CONSTANT3 = 33;
 	

@@ -3,6 +3,7 @@ package polymorphism;
 public class Example_01 {
 
 	public static void main(String[] args) {
+		
 		Enimals pet = Enimals.Dog;
 		pet.voice();
 		pet = Enimals.Cat;
