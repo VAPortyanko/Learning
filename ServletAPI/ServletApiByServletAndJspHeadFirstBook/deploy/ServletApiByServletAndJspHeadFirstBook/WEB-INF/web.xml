@@ -22,15 +22,22 @@
          version="4.0"
          metadata-complete="true">
 
-         <servlet>
-            <servlet-name>BeerSelector</servlet-name>
-            <servlet-class>com.example.web.BeerSelect</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>BeerSelector</servlet-name>
-            <url-pattern>/selectBeer</url-pattern>
-         </servlet-mapping>
+	<!-- Start page of the application -->
+	 <welcome-file-list>  
+		 <welcome-file>Web-content/index.html</welcome-file>  
+	 </welcome-file-list>  
 
+	 <!-- An example of sending a request from a form -->
+     <servlet>
+         <servlet-name>FormRequest</servlet-name>
+         <servlet-class>by.pva.servletapi.requests.FormRequest</servlet-class>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>FormRequest</servlet-name>
+         <url-pattern>/sendRequestFromTheForm</url-pattern>
+     </servlet-mapping>
+
+<!-- 
          <servlet>
             <servlet-name>BookDownloader</servlet-name>
             <servlet-class>com.example.web.BookDownload</servlet-class>
@@ -156,5 +163,5 @@
 	 	<listener>
             <listener-class>com.example.web.testscl.MyServletContextListener</listener-class>
         </listener>
-
+-->
 </web-app>

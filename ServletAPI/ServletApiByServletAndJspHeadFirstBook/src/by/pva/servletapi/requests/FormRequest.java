@@ -1,4 +1,4 @@
-package com.example.web;
+package by.pva.servletapi.requests;
 
 
 import jakarta.servlet.*;
@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import java.io.*;
 
 @SuppressWarnings("serial")
-public class BeerSelect extends HttpServlet {
+public class FormRequest extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
