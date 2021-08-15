@@ -9,78 +9,97 @@
          .chapter {color: white;
                    background: #01579b; /* Цвет фона */
                    border: 1px solid black; /* Параметры рамки */
-                   border-radius: 8px;
-                   margin-bottom:10px;
+                   border-radius: 10px;
+                   margin-bottom:20px;
                    width: 50%;
          }
          .example {color: black;
                    background:     #abefc6; /* Цвет фона */
                    border: 1px solid black; /* Параметры рамки */
                    border-radius: 8px;
-                   margin-left:5px;
-                   margin-right:5px;
-                   margin-bottom:5px;
+                   margin-left:8px;
+                   margin-right:8px;
+                   margin-bottom:8px;
+                   padding:5px;
+         }
+         h3 {text-align: center; 
          }
    </style>
    </head>
 	
    <body>
       
-      <div class="chapter">
-         <p>Requests x</p>
+	  <div class="chapter">
+         <h3>Requests</h3>
          <div class="example">
-            <p>Form request</p>
-            Some text
+            <p>An example of sending a request from a form</p>
+            <a href="Requests/FormRequest/FormRequest.html">Form page</a>
          </div>
-         <div class="example">
-            <p>Example 2.0</p>
-            Some text
-         </div>
-      </div>  		
+      </div>    		
 	
 	  <div class="chapter">
-         <p>Requests x</p>
+         <h3>Responses</h3>
          <div class="example">
-            <p>Form request</p>
-            Some text
+            <p>Books (Download a file)</p>
+            <a href="docs/downloads/headFirst">Download the "Head First Servlets and JSP 2nd Edition" book</a>
          </div>
          <div class="example">
-            <p>Example 2.0</p>
-            Some text
+            <p>Read news (Simple redirect to another site)</p>
+            Redirect to a page <a href="readNews">Some page</a>
          </div>
       </div>  
 	
-      <h3>An example of sending a request from a form</H3>
-	  <a href="Requests/FormRequest/FormRequest.html">Form page</a> 
+	  <div class="chapter">
+         <h3>Servlet config</h3>
+         <div class="example">
+            <p>Contact me (Read parameters from the ServletConfig (from the Deployment descriptor))</p>
+            <a href="showConatact">Admin contact page</a>
+         </div>
+      </div> 
+
+	  <div class="chapter">
+         <h3>Servlet context</h3>
+         <div class="example">
+            <p>Contact my company (Read parameters from the ServletContext (from the Deployment descriptor))</p>
+       		<a href="showCompanyConatact">Company contact page</a>     
+         </div>
+      </div> 
 	
-	  <h3>Books (Download a file)</h3>
-	  Head First Servlets and JSP 2nd Edition <a href="docs/downloads/headFirst"> (download)</a>
-	
-	  <h3>Read news (Simple redirect to another site)</h3>
-	  Redirect to a page <a href="readNews">Some page</a>
-	
-	   <h3>Contact me (Read parameters from the ServletConfig (from the Deployment descriptor))</h3>
-	   <a href="showConatact">Admin contact page</a>
-	
-	   <h3>Contact my company (Read parameters from the ServletContext (from the Deployment descriptor))</h3>
-	   <a href="showCompanyConatact">Company contact page</a>
-	
-	   <h3>The app entry point (test ServletContextListener)</h3>
-	   <a href="testServletContextListener">test</a>
+	  <div class="chapter">
+         <h3>Servlet context listener</h3>
+         <div class="example">
+            <p>The app entry point (test ServletContextListener)</p>
+       		<a href="testServletContextListener">test</a>     
+         </div>
+      </div>   
 		
-	   <h3>The session page (test session that use cookie)</h3>
-	   <a href="testSession">Session page</a>
-	   
-	   <h3>The session page (test session that use URL Rewriting)</h3>
-	   <b>Disable cookie in your browser for this examle!</b><br>
-	   <a href="testSessionURLRewriting">Session page</a>
+	  <div class="chapter">
+         <h3>Sessions</h3>
+         <div class="example">
+            <p>The session page (test session that use cookie)</p>
+       		<a href="testSession">Session page</a>     
+         </div>
+         <div class="example">
+            <p>The session page (test session that use URL Rewriting). Disable cookie in your browser for this examle!</p>
+            <a href="testSessionURLRewriting">Session page</a>     
+         </div>
+      </div> 
 		
-		<h3>JSP examples (test jsp Pages)</h3>
-	    <a href="RequestPageCounterPage.jsp">The JSP example that use external classes</a>
-	    <br>
-	    <a href="InstantVariablesAndMethodsInJSP.jsp">The JSP example that use the instance variable and the instance method</a>
-	    <br>
-	    <a href="JspInitParametersAndJspinitMethodOverriding">The JSP init parameters and overriding the jspinit() method</a>
+	  <div class="chapter">
+         <h3>JSP</h3>
+         <div class="example">
+            <p>JSP examples (test jsp Pages)</p>
+       	    <a href="RequestPageCounterPage.jsp">The JSP example that use external classes</a>	     
+         </div>
+         <div class="example">
+            <p>2</p>
+			<a href="InstantVariablesAndMethodsInJSP.jsp">The JSP example that use the instance variable and the instance method</a>             
+         </div>
+         <div class="example">
+            <p>3</p>
+			<a href="JspInitParametersAndJspinitMethodOverriding">The JSP init parameters and overriding the jspinit() method</a>             
+         </div>
+      </div> 
 	    
 	</body>
 </html>
