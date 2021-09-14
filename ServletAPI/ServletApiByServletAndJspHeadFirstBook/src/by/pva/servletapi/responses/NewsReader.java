@@ -1,4 +1,4 @@
-package com.example.web;
+package by.pva.servletapi.responses;
 
 
 import jakarta.servlet.*;
@@ -11,7 +11,7 @@ public class NewsReader extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.sendRedirect("SimpleRedirectPage.html");
+		response.sendRedirect("Web-content/Responses/SimpleRedirectPage.html");
 		
 	}
 	

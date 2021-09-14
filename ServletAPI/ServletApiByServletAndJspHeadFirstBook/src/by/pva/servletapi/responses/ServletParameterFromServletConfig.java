@@ -1,4 +1,4 @@
-package com.example.web;
+package by.pva.servletapi.responses;
 
 
 import jakarta.servlet.*;

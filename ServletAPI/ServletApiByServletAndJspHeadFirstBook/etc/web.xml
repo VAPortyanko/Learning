@@ -22,7 +22,7 @@
          version="4.0"
          metadata-complete="true">
 
-	 <!-- The start page of the application -->
+	<!-- Start page of the application -->
 	 <welcome-file-list>  
 		 <welcome-file>Web-content/index.html</welcome-file>  
 	 </welcome-file-list>  
@@ -34,13 +34,13 @@
      </servlet>
      <servlet-mapping>
          <servlet-name>FormRequest</servlet-name>
-         <url-pattern>/sendRequestFromTheForm</url-pattern>
+         <url-pattern>/Web-content/Requests/FormRequest/sendRequestFromTheForm</url-pattern>
      </servlet-mapping>
 
-<!-- 
+
          <servlet>
             <servlet-name>BookDownloader</servlet-name>
-            <servlet-class>com.example.web.BookDownload</servlet-class>
+            <servlet-class>by.pva.servletapi.responses.BookDownloader</servlet-class>
          </servlet>
          <servlet-mapping>
             <servlet-name>BookDownloader</servlet-name>
@@ -49,13 +49,13 @@
 
          <servlet>
             <servlet-name>NewsReader</servlet-name>
-            <servlet-class>com.example.web.NewsReader</servlet-class>
+            <servlet-class>by.pva.servletapi.responses.NewsReader</servlet-class>
          </servlet>
          <servlet-mapping>
             <servlet-name>NewsReader</servlet-name>
             <url-pattern>/readNews</url-pattern>
          </servlet-mapping>
-
+<!-- 
          <servlet>
             <servlet-name>Contact</servlet-name>
             <servlet-class>com.example.web.ServletParameterFromServletConfig</servlet-class>

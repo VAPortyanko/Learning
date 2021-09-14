@@ -18,7 +18,8 @@ public class FormRequest extends HttpServlet {
 		out.println("Beer Selection Advice<br>");
 		out.println("<br>Got beer color " + c);
 		out.println("<br>");
-		out.println("<a href=\"index.html\">Beer Advisor</a>");
 
+		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
+		
 	}
 }
