@@ -48,12 +48,12 @@
          </servlet-mapping>
 
          <servlet>
-            <servlet-name>NewsReader</servlet-name>
-            <servlet-class>by.pva.servletapi.responses.NewsReader</servlet-class>
+            <servlet-name>Redirecter</servlet-name>
+            <servlet-class>by.pva.servletapi.responses.Redirecter</servlet-class>
          </servlet>
          <servlet-mapping>
-            <servlet-name>NewsReader</servlet-name>
-            <url-pattern>/readNews</url-pattern>
+            <servlet-name>Redirecter</servlet-name>
+            <url-pattern>/redirect</url-pattern>
          </servlet-mapping>
 <!-- 
          <servlet>

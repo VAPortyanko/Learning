@@ -1,4 +1,4 @@
-package by.pva.servletapi.responses;
+package by.pva.servletapi.servletconfig;
 
 
 import jakarta.servlet.*;
@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import java.io.*;
 
 @SuppressWarnings("serial")
-public class ServletParameterFromServletContext extends HttpServlet {
+public class ServletParameterFromServletConfig extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -14,7 +14,9 @@ public class ServletParameterFromServletContext extends HttpServlet {
 		response.setContentType("text/html");
 		
 		PrintWriter out = response.getWriter();
-		out.println("Company email: " + getServletContext().getInitParameter("company_email"));
+		out.println("email :" + getServletConfig().getInitParameter("email"));
+		out.println("<br>");
+		out.println("phone :" + getServletConfig().getInitParameter("phone"));
 		out.println("<br>");
 		out.println("<a href=\"index.html\">Beer Advisor</a>");
 		

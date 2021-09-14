@@ -15,7 +15,7 @@ public class BookDownloader extends HttpServlet {
 		response.setHeader("Content-disposition", "attachment; filename=Servlets_and_JSP.pdf");
 		ServletContext ctx = getServletContext();
 		
-		InputStream is = ctx.getResourceAsStream("Servlets_and_JSP.pdf");
+		InputStream is = ctx.getResourceAsStream("WEB-INF/files/Servlets_and_JSP.pdf");
 		
 		int read = 0;
 		byte[] bytes = new byte[1024];
