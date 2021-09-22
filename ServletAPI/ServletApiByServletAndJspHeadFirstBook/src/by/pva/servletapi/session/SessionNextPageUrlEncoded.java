@@ -1,4 +1,4 @@
-package com.example.web.session;
+package by.pva.servletapi.session;
 
 import java.io.IOException;
 import java.io.PrintWriter;

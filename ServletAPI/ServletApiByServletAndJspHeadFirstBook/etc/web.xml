@@ -114,25 +114,27 @@
         <listener-class>by.pva.servletapi.servletcontextlistener.MyServletContextListener</listener-class>
     </listener>
 
+
+	<!-- An example of session that use cookie -->
+    <servlet>
+        <servlet-name>ServletSessionTest</servlet-name>
+        <servlet-class>by.pva.servletapi.session.SessionTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionTest</servlet-name>
+        <url-pattern>/testSessionCookie</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletSessionInvalidator</servlet-name>
+        <servlet-class>by.pva.servletapi.session.SessionInvalidator</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionInvalidator</servlet-name>
+        <url-pattern>/invalidateSession</url-pattern>
+    </servlet-mapping>
+
 <!--
-
-         <servlet>
-            <servlet-name>ServletSessionTest</servlet-name>
-            <servlet-class>com.example.web.session.TestSession</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionTest</servlet-name>
-            <url-pattern>/testSession</url-pattern>
-         </servlet-mapping>
-
-         <servlet>
-            <servlet-name>ServletSessionInvalidator</servlet-name>
-            <servlet-class>com.example.web.session.SessionInvalidator</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionInvalidator</servlet-name>
-            <url-pattern>/invalidateSession</url-pattern>
-         </servlet-mapping>
 
          <servlet>
             <servlet-name>ServletSessionUrlRewriting</servlet-name>
@@ -160,6 +162,13 @@
             <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
             <url-pattern>/sessionNextPageUrlEncoded</url-pattern>
          </servlet-mapping>
+
+
+
+
+
+
+
 
          <servlet>
             <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>

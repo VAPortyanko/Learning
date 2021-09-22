@@ -1,4 +1,4 @@
-package com.example.web.session;
+package by.pva.servletapi.session;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,24 +10,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-public class TestSession extends HttpServlet{
-	
+public class SessionInvalidator extends HttpServlet {
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession();
+		session.invalidate();
 		
 		PrintWriter out = response.getWriter();
-		out.println("Session status: ");
-		out.println(session.isNew()?"new":"old");
+		out.println("Session are successfully invalidated!");
 		out.println("<br>");
-		out.println("<br>");
-		out.println("<a href=\"invalidateSession\">Invalidate session</a>");
-		out.println("<br>");
-		out.println("<br>");
-		out.println("<a href=\"index.html\">Beer Advisor</a>");
+		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
 		
 	}
 	

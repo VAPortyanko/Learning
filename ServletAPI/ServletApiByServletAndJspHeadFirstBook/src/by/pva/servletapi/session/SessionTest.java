@@ -1,4 +1,4 @@
-package com.example.web.session;
+package by.pva.servletapi.session;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-public class ServletSessionUrlRewriting extends HttpServlet{
+public class SessionTest extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,13 +24,13 @@ public class ServletSessionUrlRewriting extends HttpServlet{
 		out.println(session.isNew()?"new":"old");
 		out.println("<br>");
 		out.println("<br>");
-		out.println("<a href=\"sessionNextPage\">Go to next page</a>");
+		
+		out.println("<a href=\"invalidateSession\">Invalidate session</a>");
 		out.println("<br>");
-		out.println("<a href=\"" + response.encodeURL("sessionNextPageUrlEncoded") + "\">Go to next page (URL encoded)</a>");
 		out.println("<br>");
-		out.println("<br>");
-		out.println("<a href=\"index.html\">Beer Advisor</a>");
+		
+		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
 		
 	}
-
+	
 }

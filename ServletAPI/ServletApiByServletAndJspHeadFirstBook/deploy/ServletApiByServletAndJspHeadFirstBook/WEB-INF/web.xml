@@ -27,6 +27,7 @@
 		 <welcome-file>Web-content/index.html</welcome-file>  
 	 </welcome-file-list>  
 
+
 	 <!-- An example of sending a request from a form -->
      <servlet>
          <servlet-name>FormRequest</servlet-name>
@@ -38,77 +39,102 @@
      </servlet-mapping>
 
 
-         <servlet>
-            <servlet-name>BookDownloader</servlet-name>
-            <servlet-class>by.pva.servletapi.responses.BookDownloader</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>BookDownloader</servlet-name>
-            <url-pattern>/docs/downloads/headFirst</url-pattern>
-         </servlet-mapping>
+ 	<!-- An example of getting a file -->
+     <servlet>
+         <servlet-name>BookDownloader</servlet-name>
+         <servlet-class>by.pva.servletapi.responses.BookDownloader</servlet-class>
+     </servlet>
+     <servlet-mapping>
+         <servlet-name>BookDownloader</servlet-name>
+         <url-pattern>/docs/downloads/headFirst</url-pattern>
+     </servlet-mapping>
 
-         <servlet>
-            <servlet-name>Redirecter</servlet-name>
-            <servlet-class>by.pva.servletapi.responses.Redirecter</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>Redirecter</servlet-name>
-            <url-pattern>/redirect</url-pattern>
-         </servlet-mapping>
-<!-- 
-         <servlet>
-            <servlet-name>Contact</servlet-name>
-            <servlet-class>com.example.web.ServletParameterFromServletConfig</servlet-class>
+ 	<!-- A page redirect example -->
+    <servlet>
+         <servlet-name>Redirecter</servlet-name>
+         <servlet-class>by.pva.servletapi.responses.Redirecter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+         <servlet-name>Redirecter</servlet-name>
+         <url-pattern>/redirect</url-pattern>
+    </servlet-mapping>
+    
+    
+    <!-- An example of reading servlet specific parameters from a servlet config -->
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>by.pva.servletapi.servletconfig.ParameterReaderFromServletConfig</servlet-class>
+	    	<init-param>
+		    	<param-name>email</param-name>
+	    		<param-value>somemail@gmail.com</param-value>
+			</init-param>
+			<init-param>
+		    	<param-name>phone</param-name>
+	    		<param-value>+375 (29) 77-77-777</param-value>
+			</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/showConatact</url-pattern>
+    </servlet-mapping>
 
-		    <init-param>
-	               <param-name>email</param-name>
-	               <param-value>somemail@gmail.com</param-value>
-		    </init-param>
-		    <init-param>
-	               <param-name>phone</param-name>
-	               <param-value>+375 (29) 77-77-777</param-value>
-		    </init-param>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>Contact</servlet-name>
-            <url-pattern>/showConatact</url-pattern>
-         </servlet-mapping>
 
-         <servlet>
-            <servlet-name>CompanyContact</servlet-name>
-            <servlet-class>com.example.web.ServletParameterFromServletContext</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>CompanyContact</servlet-name>
-            <url-pattern>/showCompanyConatact</url-pattern>
-         </servlet-mapping>
+	<!-- An example of reading web app specific parameters from a servlet context -->
+    <servlet>
+    	<servlet-name>CompanyContact</servlet-name>
+        <servlet-class>by.pva.servletapi.servletcontext.ParameterReaderFromServletContext</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompanyContact</servlet-name>
+        <url-pattern>/showCompanyConatact</url-pattern>
+    </servlet-mapping>
 
-         <servlet>
-            <servlet-name>ServletContextListenerTest</servlet-name>
-            <servlet-class>com.example.web.testscl.ListenerTester</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletContextListenerTest</servlet-name>
-            <url-pattern>/testServletContextListener</url-pattern>
-         </servlet-mapping>
+	<context-param>
+        <param-name>company_email</param-name>
+        <param-value>SomeCompanyEmail@mail.com</param-value>
+    </context-param>
 
-         <servlet>
-            <servlet-name>ServletSessionTest</servlet-name>
-            <servlet-class>com.example.web.session.TestSession</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionTest</servlet-name>
-            <url-pattern>/testSession</url-pattern>
-         </servlet-mapping>
 
-         <servlet>
-            <servlet-name>ServletSessionInvalidator</servlet-name>
-            <servlet-class>com.example.web.session.SessionInvalidator</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionInvalidator</servlet-name>
-            <url-pattern>/invalidateSession</url-pattern>
-         </servlet-mapping>
+	<!-- A servelt context listener example -->
+    <servlet>
+    	<servlet-name>ServletContextListener</servlet-name>
+        <servlet-class>by.pva.servletapi.servletcontextlistener.ServletContextListenerExample</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletContextListener</servlet-name>
+        <url-pattern>/testServletContextListener</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+    	<param-name>breed</param-name>
+        <param-value>Great Dane</param-value>
+    </context-param>
+
+	<listener>
+        <listener-class>by.pva.servletapi.servletcontextlistener.MyServletContextListener</listener-class>
+    </listener>
+
+
+	<!-- An example of session that use cookie -->
+    <servlet>
+        <servlet-name>ServletSessionTest</servlet-name>
+        <servlet-class>by.pva.servletapi.session.SessionTest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionTest</servlet-name>
+        <url-pattern>/testSessionCookie</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletSessionInvalidator</servlet-name>
+        <servlet-class>by.pva.servletapi.session.SessionInvalidator</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionInvalidator</servlet-name>
+        <url-pattern>/invalidateSession</url-pattern>
+    </servlet-mapping>
+
+<!--
 
          <servlet>
             <servlet-name>ServletSessionUrlRewriting</servlet-name>
@@ -150,18 +176,6 @@
             <url-pattern>/JspInitParametersAndJspinitMethodOverriding</url-pattern>
          </servlet-mapping>
 
-         <context-param>
-            <param-name>company_email</param-name>
-            <param-value>SomeCompanyEmail@mail.com</param-value>
-         </context-param>
 
-         <context-param>
-            <param-name>breed</param-name>
-            <param-value>Great Dane</param-value>
-         </context-param>
-
-	 	<listener>
-            <listener-class>com.example.web.testscl.MyServletContextListener</listener-class>
-        </listener>
 -->
 </web-app>
