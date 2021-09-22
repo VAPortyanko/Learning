@@ -1,4 +1,4 @@
-package com.example.web.testscl;
+package by.pva.servletapi.servletcontextlistener;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;

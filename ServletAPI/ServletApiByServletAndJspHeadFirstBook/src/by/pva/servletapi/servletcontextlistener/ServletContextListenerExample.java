@@ -1,4 +1,4 @@
-package com.example.web.testscl;
+package by.pva.servletapi.servletcontextlistener;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class ListenerTester extends HttpServlet {
+public class ServletContextListenerExample extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		
@@ -22,6 +22,7 @@ public class ListenerTester extends HttpServlet {
 		Dog dog = (Dog) getServletContext().getAttribute("dog");
 		
 		out.println("Dog’s breed is: " + dog.getBreed());
+		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
 	}
 
 }

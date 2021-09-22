@@ -1,4 +1,4 @@
-package com.example.web.testscl;
+package by.pva.servletapi.servletcontextlistener;
 
 public class Dog {
 	
