@@ -24,10 +24,15 @@
 	<br>
 	Refresh the page (F5)!
 	
+	<br>
+	<br>
+	<% out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>"); %>
+	
 </body>
 </html>
 
-<!-- 
+<!-- The jsp above will be translated into something like this:
+
 public class basicCounter_jsp extends SomeSpecialHttpServlet {
 	
 	int incrementCount() {
@@ -39,15 +44,15 @@ public class basicCounter_jsp extends SomeSpecialHttpServlet {
 
 	public void _jspService(HttpServletRequest request, HttpServletResponse response)throws java.io.IOException {
 		PrintWriter out = response.getWriter();
-		response.setContentType(â€œtext/htmlâ€);
-		out.write(â€œ<html><body>â€);
-		out.write(â€œThe page count is now:â€);
+		response.setContentType("€œtext/html");
+		out.write("<html><body>");
+		out.write("€œThe page count is now:€");
 		out.print(incrementCount());
 		int count = 10;
 		count++;
 		out.write("Local variable \"count\": " + count);
-		out.write(â€œ"Instance variable \"count\": " + this.countâ€);
-		out.write(â€œ</body></html>â€);
+		out.write(€œ"Instance variable \"count\": " + this.count€);
+		out.write("€œ</body></html>"€);
 	}
 	
 }

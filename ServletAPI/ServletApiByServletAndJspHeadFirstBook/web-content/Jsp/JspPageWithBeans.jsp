@@ -11,5 +11,8 @@ The page count is:
 <br>
 <br>
 Refresh the page (F5)!
+<br>
+<br>
+<% out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>"); %>
 </body>
 </html>

@@ -164,25 +164,18 @@
     </servlet-mapping>
 
 
+	<!-- An example of jsp init parameters manipulations and method overriding -->
+    <servlet>
+    	<servlet-name>JspClassInitParameterManipualtionAndMethodOverriding</servlet-name>
+        <jsp-file>/Web-content/Jsp/JspClassInitParameterManipualtionAndMethodOverriding.jsp</jsp-file>
+		<init-param>
+	    	<param-name>jspParam1</param-name>
+	        <param-value>jspParam1Value</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JspClassInitParameterManipualtionAndMethodOverriding</servlet-name>
+        <url-pattern>/JspClassInitParameterManipualtionAndMethodOverriding</url-pattern>
+    </servlet-mapping>
 
-
-
-<!--
-
-
-         <servlet>
-            <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>
-            <jsp-file>/JspInitParametersAndJspinitMethodOverriding.jsp</jsp-file>
-		    <init-param>
-	               <param-name>jspParam1</param-name>
-	               <param-value>jspParam1Value</param-value>
-		    </init-param>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>
-            <url-pattern>/JspInitParametersAndJspinitMethodOverriding</url-pattern>
-         </servlet-mapping>
-
-
--->
 </web-app>
