@@ -118,7 +118,7 @@
 	<!-- An example of session that use cookie -->
     <servlet>
         <servlet-name>ServletSessionTest</servlet-name>
-        <servlet-class>by.pva.servletapi.session.SessionTest</servlet-class>
+        <servlet-class>by.pva.servletapi.session.cookie.SessionTest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletSessionTest</servlet-name>
@@ -127,41 +127,48 @@
 
     <servlet>
         <servlet-name>ServletSessionInvalidator</servlet-name>
-        <servlet-class>by.pva.servletapi.session.SessionInvalidator</servlet-class>
+        <servlet-class>by.pva.servletapi.session.cookie.SessionInvalidator</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletSessionInvalidator</servlet-name>
         <url-pattern>/invalidateSession</url-pattern>
     </servlet-mapping>
 
+
+	<!-- An example of session that use URL Rewriting -->
+    <servlet>
+        <servlet-name>ServletSessionUrlRewriting</servlet-name>
+        <servlet-class>by.pva.servletapi.session.urlrewriting.ServletSessionUrlRewritingExample</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionUrlRewriting</servlet-name>
+    	<url-pattern>/testSessionURLRewriting</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+    	<servlet-name>ServletSessionNextPage</servlet-name>
+        <servlet-class>by.pva.servletapi.session.urlrewriting.SessionNextPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionNextPage</servlet-name>
+        <url-pattern>/sessionNextPage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
+        <servlet-class>by.pva.servletapi.session.urlrewriting.SessionNextPageUrlEncoded</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
+        <url-pattern>/sessionNextPageUrlEncoded</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
 <!--
 
-         <servlet>
-            <servlet-name>ServletSessionUrlRewriting</servlet-name>
-            <servlet-class>com.example.web.session.ServletSessionUrlRewriting</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionUrlRewriting</servlet-name>
-            <url-pattern>/testSessionURLRewriting</url-pattern>
-         </servlet-mapping>
-
-         <servlet>
-            <servlet-name>ServletSessionNextPage</servlet-name>
-            <servlet-class>com.example.web.session.SessionNextPage</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionNextPage</servlet-name>
-            <url-pattern>/sessionNextPage</url-pattern>
-         </servlet-mapping>
-
-         <servlet>
-            <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
-            <servlet-class>com.example.web.session.SessionNextPageUrlEncoded</servlet-class>
-         </servlet>
-         <servlet-mapping>
-            <servlet-name>ServletSessionNextPageUrlEncoded</servlet-name>
-            <url-pattern>/sessionNextPageUrlEncoded</url-pattern>
-         </servlet-mapping>
 
          <servlet>
             <servlet-name>JspInitParametersAndJspinitMethodOverriding</servlet-name>

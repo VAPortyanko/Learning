@@ -1,4 +1,4 @@
-package by.pva.servletapi.session;
+package by.pva.servletapi.session.urlrewriting;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +22,7 @@ public class SessionNextPageUrlEncoded extends HttpServlet{
 		PrintWriter out = response.getWriter();
 		out.println("Session status: ");
 		out.println(session.isNew()?"new":"old");
+		
 		out.println("<br>");
 		out.println("<br>");
 		out.println("<a href=\"" + response.encodeURL("testSessionURLRewriting") +"\">The session page (test session that use URL Rewriting)</a>");

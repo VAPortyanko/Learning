@@ -24,7 +24,7 @@ public class ServletContextListenerExample extends HttpServlet {
 		out.println("Dog’s breed is: " + dog.getBreed());
 		out.println("<br>");
 		
-		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
+		out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>");
 	}
 	
 }

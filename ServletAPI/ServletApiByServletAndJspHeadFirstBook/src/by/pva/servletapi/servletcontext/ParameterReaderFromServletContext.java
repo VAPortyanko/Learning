@@ -16,7 +16,7 @@ public class ParameterReaderFromServletContext extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("Company email: " + getServletContext().getInitParameter("company_email"));
 		out.println("<br>");
-		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
+		out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>");
 		
 	}
 	

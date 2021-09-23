@@ -1,4 +1,4 @@
-package by.pva.servletapi.session;
+package by.pva.servletapi.session.cookie;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +23,7 @@ public class SessionInvalidator extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("Session are successfully invalidated!");
 		out.println("<br>");
-		out.println("<a href=\"" + request.getContextPath() + "\">Beer Advisor</a>");
+		out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>");
 		
 	}
 	

@@ -1,4 +1,4 @@
-package com.example.web.jsp;
+package by.pva.servletapi.jsp;
 
 public class Counter {
 	
