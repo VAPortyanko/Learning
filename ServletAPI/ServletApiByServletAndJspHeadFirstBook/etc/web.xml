@@ -177,5 +177,15 @@
         <servlet-name>JspClassInitParameterManipualtionAndMethodOverriding</servlet-name>
         <url-pattern>/JspClassInitParameterManipualtionAndMethodOverriding</url-pattern>
     </servlet-mapping>
+    
+    <!-- JSP standart action example (jsp:useBean) -->
+    <servlet>
+    	<servlet-name>JspUseBeanStandartActionExample</servlet-name>
+        <servlet-class>by.pva.servletapi.jsp.standartactions.JspUseBeanStandartActionExample</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JspUseBeanStandartActionExample</servlet-name>
+        <url-pattern>/JspUseBeanStandartAction</url-pattern>
+    </servlet-mapping>
 
 </web-app>
