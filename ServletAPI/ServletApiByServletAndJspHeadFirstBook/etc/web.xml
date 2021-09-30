@@ -187,5 +187,15 @@
         <servlet-name>JspUseBeanStandartActionExample</servlet-name>
         <url-pattern>/JspUseBeanStandartAction</url-pattern>
     </servlet-mapping>
+    
+    <!-- Using EL in JSP -->
+    <servlet>
+    	<servlet-name>UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-name>
+        <servlet-class>by.pva.servletapi.jsp.standartactions.el.UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-name>
+        <url-pattern>/UseElExpressionToDisplayNonPrimitiveProperties</url-pattern>
+    </servlet-mapping>
 
 </web-app>

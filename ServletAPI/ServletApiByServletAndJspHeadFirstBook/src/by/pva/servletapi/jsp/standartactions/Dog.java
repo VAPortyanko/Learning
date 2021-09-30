@@ -2,14 +2,14 @@ package by.pva.servletapi.jsp.standartactions;
 
 public class Dog extends Animal{
 
-	private String Breed;
+	private String breed;
 
 	public String getBreed() {
-		return Breed;
+		return breed;
 	}
 
-	public void setBreed(String voice) {
-		this.Breed = voice;
+	public void setBreed(String breed) {
+		this.breed = breed;
 	}
 	
 }
