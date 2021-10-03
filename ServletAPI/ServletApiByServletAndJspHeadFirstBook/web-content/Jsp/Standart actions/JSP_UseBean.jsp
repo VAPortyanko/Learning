@@ -54,7 +54,7 @@
 		</div>
 		
 		<br>
-		<% out.println("<a href=\"" + request.getContextPath() + "\">Home page</a>"); %>
+		<a href="${pageContext.request.contextPath}/">Home page</a>
 		
 	</body>
 </html>

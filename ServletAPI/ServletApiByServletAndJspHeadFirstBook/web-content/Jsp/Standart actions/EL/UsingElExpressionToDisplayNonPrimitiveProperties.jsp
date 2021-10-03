@@ -37,6 +37,9 @@
 		<br>
 		Host name from the "header" implicit object: ${header["host"]}
 							
+		<br><br>						
+		<a href="${pageContext.request.contextPath}/">Home page</a>					
+							
 	</body>
 
 </html>

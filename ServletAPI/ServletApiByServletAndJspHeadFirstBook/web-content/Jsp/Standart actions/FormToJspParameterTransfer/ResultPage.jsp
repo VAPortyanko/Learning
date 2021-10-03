@@ -30,6 +30,8 @@
 		
 		<div>Person is: <jsp:getProperty name = "person" property = "name"  /></div>
 		<div>ID is:     <jsp:getProperty name = "person" property = "empId" /></div>
+		
+		<a href="${pageContext.request.contextPath}/">Home page</a>
 
 	</body>
 
