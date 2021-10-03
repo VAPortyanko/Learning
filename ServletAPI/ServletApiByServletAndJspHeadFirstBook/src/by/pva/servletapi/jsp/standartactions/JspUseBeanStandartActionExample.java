@@ -26,8 +26,6 @@ public class JspUseBeanStandartActionExample extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher("Web-content/Jsp/Standart actions/JSP_UseBean.jsp");
 		view.forward(request, response);
 		
-		
-		
 	}
 	
 }
