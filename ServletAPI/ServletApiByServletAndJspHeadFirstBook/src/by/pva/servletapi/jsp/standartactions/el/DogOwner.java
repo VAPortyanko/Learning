@@ -18,5 +18,4 @@ public class DogOwner {
 		this.dog = dog;
 	}
 	
-	
 }
