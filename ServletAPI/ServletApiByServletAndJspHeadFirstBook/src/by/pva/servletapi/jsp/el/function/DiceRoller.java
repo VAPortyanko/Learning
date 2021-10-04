@@ -1,4 +1,4 @@
-package by.pva.servletapi.jsp.customtags;
+package by.pva.servletapi.jsp.el.function;
 
 public class DiceRoller {
 	public static int rollDice() {

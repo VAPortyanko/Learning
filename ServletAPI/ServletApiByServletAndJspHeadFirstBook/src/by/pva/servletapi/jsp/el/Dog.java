@@ -1,4 +1,4 @@
-package by.pva.servletapi.jsp.standartactions.el;
+package by.pva.servletapi.jsp.el;
 
 import java.util.Map;
 

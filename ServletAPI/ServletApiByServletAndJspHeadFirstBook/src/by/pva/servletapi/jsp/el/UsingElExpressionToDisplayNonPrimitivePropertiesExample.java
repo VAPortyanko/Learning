@@ -1,4 +1,4 @@
-package by.pva.servletapi.jsp.standartactions.el;
+package by.pva.servletapi.jsp.el;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -47,7 +47,7 @@ public class UsingElExpressionToDisplayNonPrimitivePropertiesExample extends Htt
 		request.setAttribute("dogArray", dogArray);
 		request.setAttribute("dogList", dogList);
 		
-		RequestDispatcher view = request.getRequestDispatcher("Web-content/Jsp/Standart actions/EL/UsingElExpressionToDisplayNonPrimitiveProperties.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("Web-content/Jsp/EL/UsingElExpressionToDisplayNonPrimitiveProperties.jsp");
 		view.forward(request, response);
 		
 	}

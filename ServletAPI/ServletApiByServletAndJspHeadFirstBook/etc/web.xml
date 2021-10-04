@@ -191,7 +191,7 @@
     <!-- Using EL in JSP -->
     <servlet>
     	<servlet-name>UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-name>
-        <servlet-class>by.pva.servletapi.jsp.standartactions.el.UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-class>
+        <servlet-class>by.pva.servletapi.jsp.el.UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-name>
