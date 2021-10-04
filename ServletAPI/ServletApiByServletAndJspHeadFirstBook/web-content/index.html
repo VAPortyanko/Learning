@@ -139,21 +139,26 @@
          
          <div class="example">
             <p>The jsp:forward standart action</p>
-			<a href="Web-content/Jsp/Forward/GreetingPage.jsp">Page</a> (<b>Don't use jsp:forward in jsp! Follow the MVC pattern!</b>)
+            <a href="Web-content/Jsp/Forward/GreetingPage.jsp">Page</a> (<b>Don't use jsp:forward in jsp! Follow the MVC pattern!</b>)
          </div>
          
          <h4>JSTL</h4>
          
          <div class="example">
             <p>JSTL example</p>
-			<a href="Web-content/Jsp/JSTL/JSTL example.jsp">Page</a>
+	    <a href="Web-content/Jsp/JSTL/JSTL example.jsp">Page</a>
          </div>
          
          <h4>Error page</h4>
          
          <div class="example">
-            <p>Page with eror</p>
-			<a href="Web-content/Jsp/Error/BadPage.jsp">Page</a>
+            <p>Page with error (Directive @page with attribute errorPage="ErrorPage.jsp" are specified)</p>
+	        <a href="Web-content/Jsp/Error/BadPage.jsp">Page</a>
+         </div>
+         
+         <div class="example">
+            <p>This is a non-existent page (It will be redirect to the page, that are specified in the web.xml as error page for 404 error code)</p>
+	        <a href="Web-content/NonExistentPage.jsp">Page</a>
          </div>
          
       </div> 

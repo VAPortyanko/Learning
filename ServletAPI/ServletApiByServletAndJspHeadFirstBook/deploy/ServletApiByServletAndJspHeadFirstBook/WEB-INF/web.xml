@@ -197,5 +197,11 @@
         <servlet-name>UsingElExpressionToDisplayNonPrimitivePropertiesExample</servlet-name>
         <url-pattern>/UseElExpressionToDisplayNonPrimitiveProperties</url-pattern>
     </servlet-mapping>
+    
+    <!-- Error pages -->
+    <error-page>
+    	<error-code>404</error-code>
+    	<location>/Web-content/Deployment descriptor/Error404.jsp</location>
+	</error-page>
 
 </web-app>
