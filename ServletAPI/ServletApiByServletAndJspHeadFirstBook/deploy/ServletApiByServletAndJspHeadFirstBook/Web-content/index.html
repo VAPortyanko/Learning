@@ -161,7 +161,29 @@
 	        <a href="Web-content/NonExistentPage.jsp">Page</a>
          </div>
          
-      </div> 
+      </div>   
+         
+         <div class="chapter">
+         <h3>Security</h3>
+	         <div class="example">
+	            <p>Basic authentication with Tomcat. Add next roles and users in the tomcatdir/conf/tomcat-users.xml:</p>
+  				
+  				<samp>
+					&ltrole rolename="Admin" /&gt <br>
+					&ltrole rolename="Member" /&gt <br>
+					&ltrole rolename="Guest" /&gt <br>
+					&ltuser username="admin"  password="admin"  roles="Admin" /&gt <br>
+					&ltuser username="member" password="member" roles="Member" /&gt <br>
+					&ltuser username="guest"  password="guest"  roles="Guest" /&gt <br>
+  	            </samp>
+  	            
+  	            <p>The page below is available only for a user with the "Admin" role:</p>
+	            
+	            <a href="Web-content/Security/Top Secret.jsp">Page</a>
+	            
+	            <p>Read more about Tomcat basic authentication <a href="https://tomcat.apache.org/tomcat-7.0-doc/realm-howto.html">here</a>. 
+	         </div>
+         </div> 
 	    
 	</body>
 </html>

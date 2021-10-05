@@ -201,7 +201,34 @@
     <!-- Error pages -->
     <error-page>
     	<error-code>404</error-code>
-    	<location>/Web-content/Deployment descriptor/Error404.jsp</location>
+    	<location>/Deployment descriptor/Error404.jsp</location>
 	</error-page>
+	
+	<!-- Basic authentication with Tomcat -->
+	<security-role>
+	   <role-name>Admin</role-name>
+	</security-role>
+	<security-role>
+	   <role-name>Member</role-name>
+	</security-role>
+	<security-role>
+	   <role-name>Guest</role-name>
+	</security-role>
+	
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>SecretPage</web-resource-name>
+			<url-pattern>/Web-content/Security/Top Secret.jsp</url-pattern>
+		</web-resource-collection>
+		
+		<auth-constraint>
+			<role-name>Admin</role-name>
+		</auth-constraint>
+		
+	</security-constraint>
 
 </web-app>
