@@ -201,34 +201,61 @@
     <!-- Error pages -->
     <error-page>
     	<error-code>404</error-code>
-    	<location>/Deployment descriptor/Error404.jsp</location>
-	</error-page>
+    	<location>/Web-content/Deployment descriptor/Error404.jsp</location>
+    </error-page>
 	
-	<!-- Basic authentication with Tomcat -->
-	<security-role>
-	   <role-name>Admin</role-name>
-	</security-role>
-	<security-role>
-	   <role-name>Member</role-name>
-	</security-role>
-	<security-role>
-	   <role-name>Guest</role-name>
-	</security-role>
+    <!-- Basic authentication with Tomcat -->
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+	<role-name>Member</role-name>
+    </security-role>
+    <security-role>
+	<role-name>Guest</role-name>
+    </security-role>
 	
-	<login-config>
-		<auth-method>BASIC</auth-method>
-	</login-config>
+    <login-config>
+	<auth-method>BASIC</auth-method>
+    </login-config>
 
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>SecretPage</web-resource-name>
-			<url-pattern>/Web-content/Security/Top Secret.jsp</url-pattern>
-		</web-resource-collection>
+    <security-constraint>
+	<web-resource-collection>
+	    <web-resource-name>SecretPage</web-resource-name>
+	    <url-pattern>/Web-content/Security/Top Secret.jsp</url-pattern>
+	</web-resource-collection>
 		
-		<auth-constraint>
-			<role-name>Admin</role-name>
-		</auth-constraint>
-		
-	</security-constraint>
+	<auth-constraint>
+	    <role-name>Admin</role-name>
+	</auth-constraint>
+    </security-constraint>
+
+    <!-- Filters -->
+    <servlet>
+    	<servlet-name>Filters</servlet-name>
+        <servlet-class>by.pva.servletapi.filters.SomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Filters</servlet-name>
+        <url-pattern>/Filters</url-pattern>
+    </servlet-mapping>
+    
+    <filter>
+        <filter-name>filter1</filter-name>
+        <filter-class>by.pva.servletapi.filters.Filter1</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filter1</filter-name>
+        <url-pattern>/Filters</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>filter2</filter-name>
+        <filter-class>by.pva.servletapi.filters.Filter2</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>filter2</filter-name>
+        <url-pattern>/Filters</url-pattern>
+    </filter-mapping>
 
 </web-app>
