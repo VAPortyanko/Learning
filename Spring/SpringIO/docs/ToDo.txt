@@ -1,4 +1,3 @@
-https://www.javaguides.net/2019/01/spring-mvc-project-structure.html
-https://www.javaguides.net/2019/01/standard-project-structure-for-spring-boot-projects.html
-https://mkyong.com/spring-boot/spring-boot-non-web-application-example/
-https://www.baeldung.com/spring-with-maven
+
+
+
