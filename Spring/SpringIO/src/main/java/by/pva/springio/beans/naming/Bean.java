@@ -1,6 +1,6 @@
-package by.pva.springio.applicationcontext;
+package by.pva.springio.beans.naming;
 
-public class TestBean {
+public class Bean {
 	@Override
 	public String toString() {
 		return "Test bean!";

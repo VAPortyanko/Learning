@@ -4,7 +4,8 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="bean" class="by.pva.springio.applicationcontext.Bean"></bean>
+    <bean id="bean" name="beanAlias1, beanAlias2" class="by.pva.springio.beans.naming.Bean">  
+    </bean>
 
 </beans>
 
