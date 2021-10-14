@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Instantiation with a Constructor -->
+	<bean id    = "bean"
+	      class = "by.pva.springio.beans.instantiating.Bean" />
+
+	
+	
+	<!-- Instantiation with a Static Factory Method -->	
+	<bean id             = "clientService"
+		  class          = "by.pva.springio.beans.instantiating.ClientService"
+		  factory-method = "createInstance" />
+
+	
+	
+	<!-- Instantiation by Using an Instance Factory Method -->
+	<bean id    = "serviceLocator"
+	      class = "by.pva.springio.beans.instantiating.DefaultServiceLocator">
+	</bean>
+
+	<bean id             = "paymentService"
+	      factory-bean   = "serviceLocator"
+		  factory-method = "createPaymentServiceInstance" />
+
+	<bean id             = "accountService"
+	      factory-bean   = "serviceLocator"
+		  factory-method = "createAccountServiceInstance" />
+
+</beans>
+
