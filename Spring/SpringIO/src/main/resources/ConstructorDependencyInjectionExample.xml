@@ -10,12 +10,15 @@
         <constructor-arg ref="dependency2"/>
     </bean>
 
+	<!--  the container can use type matching with simple types 
+	      if you explicitly specify the type of the constructor argument by using the type attribute -->
 	<bean id= "dependency1"
 	      class="by.pva.springio.beans.dependencies.injection.constructor.Dependency1">
 	    <constructor-arg type="java.lang.String" value="Tom"/>
     	<constructor-arg type="int" value="35"/>
 	</bean>      
 	      
+	<!-- You can use the index attribute to specify explicitly the index of constructor arguments -->      
 	<bean id= "dependency2"
 	      class="by.pva.springio.beans.dependencies.injection.constructor.Dependency2">
 	    <constructor-arg index="0" value="Ivan"/>
@@ -24,3 +27,8 @@
 	
 </beans>
 
+<!-- Constructor argument resolution matching occurs by using the argument’s type. 
+     If no potential ambiguity exists in the constructor arguments of a bean definition, 
+     the order in which the constructor arguments are defined in a bean definition is the order
+     in which those arguments are supplied to the appropriate constructor when the bean is being instantiated. 
+-->

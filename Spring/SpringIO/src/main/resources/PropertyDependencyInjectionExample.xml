@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id = "mainBean"
+	      class = "by.pva.springio.beans.dependencies.injection.property.MainBean">
+	    
+	    <!-- setter injection using the nested ref element -->
+	    <property name="dependency1">
+	        <ref bean ="dependency1"/>
+	    </property>
+	
+	    <!-- setter injection using the neater ref attribute -->
+	    <property name="dependency2" ref="dependency2"/>
+	    <property name="i" value="1"/>
+	    
+	    <!-- typed as a java.util.Properties -->
+	    <property name="properties">
+	        <value>
+	            jdbc.driver.className=com.mysql.jdbc.Driver
+	            jdbc.url=jdbc:mysql://localhost:3306/mydb
+	        </value>
+	    </property>
+	    
+    </bean>
+
+	<bean id= "dependency1"
+	      class="by.pva.springio.beans.dependencies.injection.property.Dependency1">
+	</bean>      
+	      
+	<bean id= "dependency2"
+	      class="by.pva.springio.beans.dependencies.injection.property.Dependency2">
+	</bean>
+	
+</beans>
+
+<!-- Constructor argument resolution matching occurs by using the argument’s type. 
+     If no potential ambiguity exists in the constructor arguments of a bean definition, 
+     the order in which the constructor arguments are defined in a bean definition is the order
+     in which those arguments are supplied to the appropriate constructor when the bean is being instantiated. 
+-->
