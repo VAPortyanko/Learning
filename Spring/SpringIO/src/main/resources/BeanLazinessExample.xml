@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
+
         https://www.springframework.org/schema/beans/spring-beans.xsd" 
     
     default-lazy-init="default"> <!-- Default laziness for all beans -->
@@ -15,5 +16,5 @@
 	<bean id    = "prototypeScopedBean"
 	      class = "by.pva.springio.beans.instantiating.laziness.PrototypeScopedBean"
 	      scope = "prototype" />
-	      
+
 </beans>
