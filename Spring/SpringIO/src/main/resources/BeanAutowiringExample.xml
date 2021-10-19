@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id    = "bean4"
+	      class = "by.pva.springio.beans.dependencies.injection.autowiring.Bean4">
+
+	      <constructor-arg value="Bena4_name" />
+	      
+	</bean>      
+
+	<bean id="bean2"
+	      class="by.pva.springio.beans.dependencies.injection.autowiring.Bean2"
+	      autowire="byType">
+	
+		<property name="name" value="Bean2_name" />
+	
+	</bean>	  
+	
+	<bean id    = "bean3"
+	      class = "by.pva.springio.beans.dependencies.injection.autowiring.Bean3">
+
+	      <constructor-arg value="Bena3_name" />
+	      
+	</bean>
+	
+	<bean id="bean1"
+	      class="by.pva.springio.beans.dependencies.injection.autowiring.Bean1"
+	      autowire="byName">
+	
+		<property name="name" value="Bean1_name" />
+	
+	</bean>	        
+	
+	<bean id="mainBean"
+	      class="by.pva.springio.beans.dependencies.injection.autowiring.MainBean"
+	      autowire="constructor">
+	
+		<constructor-arg value="MainBean_name" />
+	
+	</bean>
+
+</beans>
