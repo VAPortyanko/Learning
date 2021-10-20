@@ -14,6 +14,10 @@ public class BeanCallbacksExample {
 		System.out.println("Receive the second silgetonBean:");
 		context.getBean("singletonBean");
 		
+		System.out.println("Receive the first singletonBeanImpClosable:");
+		context.getBean("singletonBeanImpClosable");
+		System.out.println("Receive the second singletonBeanImpClosable:");
+		context.getBean("singletonBeanImpClosable");
 		
 		System.out.println("\nReceive the first prototypeBean:");
 		context.getBean("prototypeBean");

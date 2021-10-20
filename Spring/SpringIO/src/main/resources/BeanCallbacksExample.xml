@@ -11,6 +11,13 @@
           scope="singleton">
     </bean>
     
+    <!-- https://stackoverflow.com/questions/44756872/spring-core-default-bean-destroy-method -->
+    <bean id="singletonBeanImpClosable" 
+          class="by.pva.springio.beans.lifecycle.callbacks.SingletonBeanImpClosable"
+          init-method="init"
+          scope="singleton">
+    </bean>
+    
     <bean id="prototypeBean" 
           class="by.pva.springio.beans.lifecycle.callbacks.PrototypeBean"
           init-method="init"
