@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+ 	<context:annotation-config/>
+ 	<!--
+ 	    Activates various annotations to be detected in bean classes: Spring's @Required and 
+	 @Autowired, as well as JSR 250's @PostConstruct, @PreDestroy and @Resource (if available), 
+	 JAX-WS's @WebServiceRef (if available), EJB 3's @EJB (if available), and JPA's 
+	 @PersistenceContext and @PersistenceUnit (if available). Alternatively, you may choose to 
+	 activate the individual BeanPostProcessors for those annotations. Note: This tag does not 
+	 activate processing of Spring's @Transactional or EJB 3's @TransactionAttribute annotation. 
+	 Consider the use of the <tx:annotation-driven> tag for that purpose. See javadoc for 
+	 org.springframework.context.annotation.AnnotationConfigApplicationContext for information on 
+	 code-based alternatives to bootstrapping annotation-driven support. 
+	 -->
+ 	
+	<bean id="mainBean" class="by.pva.springio.annotationbasedconfiguration.autowired.MainBean"/>
+	<bean id="dependencyBean" class="by.pva.springio.annotationbasedconfiguration.autowired.DependencyBean"/>
+	
+	
+</beans>

@@ -43,7 +43,7 @@
 		</property>
 
 		<!-- results in a setSomeSet(java.util.Set) call -->
-		<property name="someSet">
+		<property name="someSet">                                                         <!-- Read this: https://mkyong.com/spring/spring-setfactorybean-example/ -->
 			<set>
 				<value>just some string</value>
 				<ref bean="person" />
