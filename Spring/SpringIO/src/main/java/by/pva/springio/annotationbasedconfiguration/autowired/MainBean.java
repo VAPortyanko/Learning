@@ -11,7 +11,8 @@ public class MainBean {
 	// if several constructors are available and there is no primary/default constructor,
 	// at least one of the constructors must be annotated with @Autowired in order to
 	// instruct the container which one to use.
-	@Autowired
+	
+	@Autowired // We can omit this annotation if only one constructor is suitable.
 	public MainBean(DependencyBean dependency1) {
 		this.dependency1 = dependency1;
 	}
