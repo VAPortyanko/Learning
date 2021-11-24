@@ -10,5 +10,7 @@
  	<context:annotation-config/>
  	
 	<bean id="mainBean" class="by.pva.springio.annotationbasedconfiguration.autowired.optionalautowiring.MainBean"/>
-	
+    
+    <!-- There are no bean definitions of Dependency1, Dependency2 and Dependency3 classes!-->    
+    	
 </beans>
