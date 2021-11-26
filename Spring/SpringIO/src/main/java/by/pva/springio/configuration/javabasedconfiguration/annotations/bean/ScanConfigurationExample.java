@@ -56,3 +56,4 @@ public class ScanConfigurationExample {
 }
 
 // https://www.logicbig.com/tutorials/spring-framework/spring-core/bean-definition-in-components.html
+// https://www.logicbig.com/tutorials/spring-framework/spring-core/java-config.html#cgilib-config
