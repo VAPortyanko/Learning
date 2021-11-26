@@ -20,8 +20,8 @@
 	 code-based alternatives to bootstrapping annotation-driven support. 
 	 -->
  	
-	<bean id="mainBean" class="by.pva.springio.annotationbasedconfiguration.autowired.MainBean"/>
-	<bean id="dependencyBean" class="by.pva.springio.annotationbasedconfiguration.autowired.DependencyBean"/>
+	<bean id="mainBean" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.MainBean"/>
+	<bean id="dependencyBean" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.DependencyBean"/>
 	
 	
 </beans>

@@ -1,4 +1,4 @@
-package by.pva.springio.annotationbasedconfiguration.autowired.optionalautowiring;
+package by.pva.springio.configuration.annotationbasedconfiguration.autowired.optionalautowiring;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

@@ -1,4 +1,4 @@
-package by.pva.springio.annotationbasedconfiguration.autowired;
+package by.pva.springio.configuration.annotationbasedconfiguration.autowired;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

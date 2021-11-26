@@ -9,9 +9,9 @@
 
  	<context:annotation-config/>
  	
-	<bean id="mainBean" class="by.pva.springio.annotationbasedconfiguration.autowired.arraysandcollections.MainBean"/>
-	<bean id="dependency1" class="by.pva.springio.annotationbasedconfiguration.autowired.arraysandcollections.Dependency1"/>
-	<bean id="dependency2" class="by.pva.springio.annotationbasedconfiguration.autowired.arraysandcollections.Dependency2"/>
-	<bean id="dependency3" class="by.pva.springio.annotationbasedconfiguration.autowired.arraysandcollections.Dependency3"/>
+	<bean id="mainBean" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.arraysandcollections.MainBean"/>
+	<bean id="dependency1" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.arraysandcollections.Dependency1"/>
+	<bean id="dependency2" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.arraysandcollections.Dependency2"/>
+	<bean id="dependency3" class="by.pva.springio.configuration.annotationbasedconfiguration.autowired.arraysandcollections.Dependency3"/>
 	
 </beans>

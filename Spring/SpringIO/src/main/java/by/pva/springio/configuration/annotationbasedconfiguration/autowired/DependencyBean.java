@@ -1,4 +1,4 @@
-package by.pva.springio.annotationbasedconfiguration.autowired;
+package by.pva.springio.configuration.annotationbasedconfiguration.autowired;
 
 public class DependencyBean {
 	

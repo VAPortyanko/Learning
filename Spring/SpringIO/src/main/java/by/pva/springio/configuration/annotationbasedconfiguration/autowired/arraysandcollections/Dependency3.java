@@ -1,4 +1,4 @@
-package by.pva.springio.annotationbasedconfiguration.autowired.arraysandcollections;
+package by.pva.springio.configuration.annotationbasedconfiguration.autowired.arraysandcollections;
 
 import org.springframework.core.annotation.Order;
 

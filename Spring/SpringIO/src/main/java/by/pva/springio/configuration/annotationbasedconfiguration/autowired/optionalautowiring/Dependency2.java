@@ -1,8 +1,8 @@
-package by.pva.springio.annotationbasedconfiguration.autowired.optionalautowiring;
+package by.pva.springio.configuration.annotationbasedconfiguration.autowired.optionalautowiring;
 
-public class Dependency3{
+public class Dependency2{
 	
-	private String name = "Dependency3";
+	private String name = "Dependency2";
 
 	public String getName() {
 		return name;
